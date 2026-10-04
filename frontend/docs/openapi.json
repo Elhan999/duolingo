@@ -1180,6 +1180,52 @@
         }
       }
     },
+    "/users/me/avatar": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Upload Avatar",
+        "operationId": "upload_avatar_users_me_avatar_patch",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_avatar_users_me_avatar_patch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/friends/request": {
       "post": {
         "tags": [
@@ -2299,7 +2345,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -2569,6 +2620,54 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/StreakResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gamification/hearts/{user_id}": {
+      "get": {
+        "tags": [
+          "Gamification"
+        ],
+        "summary": "Get Hearts",
+        "operationId": "get_hearts_gamification_hearts__user_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HeartsResponse"
                 }
               }
             }
@@ -4133,6 +4232,53 @@
         }
       }
     },
+    "/learning-path/{language_id}/start": {
+      "post": {
+        "tags": [
+          "Learning path"
+        ],
+        "summary": "Start Learning",
+        "operationId": "start_learning_learning_path__language_id__start_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "language_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Language Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPathResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/learning-path/{language_id}": {
       "get": {
         "tags": [
@@ -4337,6 +4483,20 @@
           "is_active"
         ],
         "title": "ActiveUpdateSchema"
+      },
+      "Body_upload_avatar_users_me_avatar_patch": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_avatar_users_me_avatar_patch"
       },
       "ChallengeCreate": {
         "properties": {
@@ -4765,12 +4925,17 @@
           "score": {
             "type": "integer",
             "title": "Score"
+          },
+          "hearts_left": {
+            "type": "integer",
+            "title": "Hearts Left"
           }
         },
         "type": "object",
         "required": [
           "correct",
-          "score"
+          "score",
+          "hearts_left"
         ],
         "title": "ExerciseResult"
       },
@@ -4929,6 +5094,29 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "HeartsResponse": {
+        "properties": {
+          "hearts": {
+            "type": "integer",
+            "title": "Hearts"
+          },
+          "max_hearts": {
+            "type": "integer",
+            "title": "Max Hearts"
+          },
+          "seconds_to_next_heart": {
+            "type": "integer",
+            "title": "Seconds To Next Heart"
+          }
+        },
+        "type": "object",
+        "required": [
+          "hearts",
+          "max_hearts",
+          "seconds_to_next_heart"
+        ],
+        "title": "HeartsResponse"
       },
       "LanguageCreate": {
         "properties": {
@@ -5303,8 +5491,8 @@
           },
           "passing_score": {
             "type": "integer",
-            "maximum": 100,
-            "minimum": 1,
+            "maximum": 100.0,
+            "minimum": 1.0,
             "title": "Passing Score",
             "default": 70
           },
@@ -5391,7 +5579,7 @@
           },
           "order": {
             "type": "integer",
-            "minimum": 1,
+            "minimum": 1.0,
             "title": "Order",
             "default": 1
           }
@@ -5508,7 +5696,7 @@
             "anyOf": [
               {
                 "type": "integer",
-                "minimum": 1
+                "minimum": 1.0
               },
               {
                 "type": "null"
@@ -5683,8 +5871,8 @@
             "anyOf": [
               {
                 "type": "integer",
-                "maximum": 100,
-                "minimum": 1
+                "maximum": 100.0,
+                "minimum": 1.0
               },
               {
                 "type": "null"
@@ -6090,6 +6278,17 @@
             "type": "string",
             "format": "date-time",
             "title": "Created At"
+          },
+          "avatar": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar"
           }
         },
         "type": "object",

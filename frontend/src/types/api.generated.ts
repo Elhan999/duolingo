@@ -317,6 +317,23 @@ export interface paths {
     patch: operations['set_active_users__user_id__active_patch'];
     trace?: never;
   };
+  '/users/me/avatar': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Upload Avatar */
+    patch: operations['upload_avatar_users_me_avatar_patch'];
+    trace?: never;
+  };
   '/friends/request': {
     parameters: {
       query?: never;
@@ -661,6 +678,23 @@ export interface paths {
     };
     /** Get Streak */
     get: operations['get_streak_gamification_streak__user_id__get'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/gamification/hearts/{user_id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Get Hearts */
+    get: operations['get_hearts_gamification_hearts__user_id__get'];
     put?: never;
     post?: never;
     delete?: never;
@@ -1038,6 +1072,23 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/learning-path/{language_id}/start': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Start Learning */
+    post: operations['start_learning_learning_path__language_id__start_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/learning-path/{language_id}': {
     parameters: {
       query?: never;
@@ -1124,6 +1175,11 @@ export interface components {
     ActiveUpdateSchema: {
       /** Is Active */
       is_active: boolean;
+    };
+    /** Body_upload_avatar_users_me_avatar_patch */
+    Body_upload_avatar_users_me_avatar_patch: {
+      /** File */
+      file: string;
     };
     /** ChallengeCreate */
     ChallengeCreate: {
@@ -1292,6 +1348,8 @@ export interface components {
       correct: boolean;
       /** Score */
       score: number;
+      /** Hearts Left */
+      hearts_left: number;
     };
     /** ExerciseSubmit */
     ExerciseSubmit: {
@@ -1353,6 +1411,15 @@ export interface components {
     HTTPValidationError: {
       /** Detail */
       detail?: components['schemas']['ValidationError'][];
+    };
+    /** HeartsResponse */
+    HeartsResponse: {
+      /** Hearts */
+      hearts: number;
+      /** Max Hearts */
+      max_hearts: number;
+      /** Seconds To Next Heart */
+      seconds_to_next_heart: number;
     };
     /** LanguageCreate */
     LanguageCreate: {
@@ -1822,6 +1889,8 @@ export interface components {
        * Format: date-time
        */
       created_at: string;
+      /** Avatar */
+      avatar?: string | null;
     };
     /**
      * UserRole
@@ -2623,6 +2692,39 @@ export interface operations {
     requestBody: {
       content: {
         'application/json': components['schemas']['ActiveUpdateSchema'];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserResponseSchema'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  upload_avatar_users_me_avatar_patch: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'multipart/form-data': components['schemas']['Body_upload_avatar_users_me_avatar_patch'];
       };
     };
     responses: {
@@ -3589,6 +3691,37 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['StreakResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  get_hearts_gamification_hearts__user_id__get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        user_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HeartsResponse'];
         };
       };
       /** @description Validation Error */
@@ -4593,6 +4726,37 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['LevelTestResultResponse'];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HTTPValidationError'];
+        };
+      };
+    };
+  };
+  start_learning_learning_path__language_id__start_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        language_id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['LearningPathResponse'];
         };
       };
       /** @description Validation Error */

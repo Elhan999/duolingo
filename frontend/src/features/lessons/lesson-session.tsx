@@ -14,6 +14,7 @@ import { useProgress } from '@/features/learning/queries';
 import { progressByLesson } from '@/features/progress/model';
 import { LearningError } from '@/features/learning/data-state';
 import { useLessonAttempt } from './use-lesson-attempt';
+import { noHeartsWait } from './api';
 import { practiceFeedback, practiceCopy } from './practice-feedback';
 import { LessonQuestion } from './lesson-question';
 import { ExerciseInput } from './exercise-input';
@@ -59,6 +60,7 @@ export function LessonSession({
     void progress.refetch();
   });
   const feedback = item ? practiceFeedback(item) : null;
+  const heartsWait = noHeartsWait(mutation.error);
   const copy = practiceCopy[locale];
   return (
     <main id="main-content" className={styles.workspace}>
@@ -162,7 +164,9 @@ export function LessonSession({
               />
               {mutation.isError && (
                 <p role="alert" className={styles.error}>
-                  {t.submitError}
+                  {heartsWait === null
+                    ? t.submitError
+                    : `${t.noHearts} ${Math.max(1, Math.ceil(heartsWait / 60))} ${t.noHeartsUnit}`}
                 </p>
               )}
               {mutation.data && (

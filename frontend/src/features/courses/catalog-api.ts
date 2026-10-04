@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { publicApi } from '@/services/api/client';
+import { api, publicApi } from '@/services/api/client';
+import { sessionStore } from '@/features/auth/session';
 import type { components } from '@/types/api.generated';
 export const courseSchema = z.object({
   id: z.number().int(),
@@ -20,14 +21,20 @@ export async function getCourses(signal?: AbortSignal) {
     publicApi.get<unknown>('/courses', { signal }),
     getLanguages(signal),
   ]);
+  const courses = z.array(courseSchema).parse(response.data);
+  if (!hasSession()) return courses;
   const active = new Set(languages.map((language) => language.id));
-  return z
-    .array(courseSchema)
-    .parse(response.data)
-    .filter((course) => active.has(course.language_id));
+  return courses.filter((course) => active.has(course.language_id));
 }
+function hasSession() {
+  sessionStore.initialize();
+  const { accessToken, refreshToken } = sessionStore.getSnapshot();
+  return !!(accessToken || refreshToken);
+}
+// `/languages` requires a session; signed-out visitors get an empty list.
 export async function getLanguages(signal?: AbortSignal) {
-  const response = await publicApi.get<unknown>('/languages', { signal });
+  if (!hasSession()) return [];
+  const response = await api.get<unknown>('/languages', { signal });
   return z
     .array(languageSchema)
     .parse(response.data)

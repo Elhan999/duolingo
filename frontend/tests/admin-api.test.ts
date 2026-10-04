@@ -12,6 +12,7 @@ import {
   type Resource,
 } from '../src/features/admin/resources';
 import { getCourses } from '../src/features/courses/catalog-api';
+import { sessionStore } from '../src/features/auth/session';
 import { adminErrorMessage } from '../src/features/admin/errors';
 
 test('admin reads inactive languages through actual course references while client hides their courses', async () => {
@@ -37,6 +38,7 @@ test('admin reads inactive languages through actual course references while clie
     return { config, data, status: 200, statusText: 'OK', headers: {} };
   };
   api.defaults.adapter = publicApi.defaults.adapter = adapter;
+  sessionStore.signIn('access', 'refresh');
   try {
     assert.deepEqual(
       (await getResourceRows('languages')).map((row) => [
@@ -47,6 +49,7 @@ test('admin reads inactive languages through actual course references while clie
     );
     assert.deepEqual(await getCourses(), []);
   } finally {
+    sessionStore.clear();
     api.defaults.adapter = original;
     publicApi.defaults.adapter = originalPublic;
   }

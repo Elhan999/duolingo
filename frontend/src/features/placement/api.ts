@@ -16,6 +16,15 @@ export async function getLearningPath(language: number, signal?: AbortSignal) {
     throw new Error('Language identity mismatch');
   return result;
 }
+// Enrols the user at the beginner level without a placement test.
+export async function startLearningPath(language: number) {
+  const result = learningPathSchema.parse(
+    (await api.post('/learning-path/' + language + '/start')).data,
+  );
+  if (result.language_id !== language)
+    throw new Error('Language identity mismatch');
+  return result;
+}
 export async function startTest(language: number, level?: Level) {
   const path = level
     ? '/level-tests/completion/' + language + '/' + level + '/start'

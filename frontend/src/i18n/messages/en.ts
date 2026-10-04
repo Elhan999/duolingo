@@ -285,6 +285,8 @@ export const en: Messages = {
     submitError:
       'Your answer could not be checked. Retrying may send it again if the server already accepted the previous attempt.',
     sendAgain: 'Submit again',
+    noHearts: 'You are out of hearts. The next one comes back in about',
+    noHeartsUnit: 'min.',
     nextExercise: 'Next exercise',
     finish: 'Finish this attempt',
     lessonDone: 'Exercises completed!',

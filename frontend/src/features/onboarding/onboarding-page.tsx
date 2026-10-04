@@ -19,7 +19,7 @@ import { useI18n } from '@/providers/i18n-provider';
 import { useAuth } from '@/features/auth/auth-provider';
 import { sessionStore } from '@/features/auth/session';
 import { languagesOptions, coursesOptions } from '@/features/learning/queries';
-import { getLearningPath } from '@/features/placement/api';
+import { getLearningPath, startLearningPath } from '@/features/placement/api';
 import {
   availableLanguages,
   canContinue,
@@ -78,7 +78,12 @@ function Wizard({ userId }: { userId: string }) {
     try {
       const path = await getLearningPath(draft.language);
       if (generation !== sessionStore.getSnapshot().generation) return;
-      const lesson = firstBeginnerLesson(path.courses);
+      let lesson = firstBeginnerLesson(path.courses);
+      if (!lesson) {
+        const started = await startLearningPath(draft.language);
+        if (generation !== sessionStore.getSnapshot().generation) return;
+        lesson = firstBeginnerLesson(started.courses);
+      }
       if (!lesson) {
         setError(t.unavailable);
         return;

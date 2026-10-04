@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios';
 import { z } from 'zod';
 import { api } from '@/services/api/client';
 import { getCourse } from '@/features/courses/catalog-api';
@@ -43,4 +44,18 @@ export async function submitExercise(exerciseId: number, answer: unknown) {
     { answer },
   );
   return exerciseResultSchema.parse(data);
+}
+// Seconds until the next heart when the backend rejects an answer with
+// NO_HEARTS, otherwise null.
+export function noHeartsWait(error: unknown) {
+  if (!isAxiosError(error) || error.response?.status !== 409) return null;
+  const detail = z
+    .object({
+      detail: z.object({
+        code: z.literal('NO_HEARTS'),
+        seconds_to_next_heart: z.number(),
+      }),
+    })
+    .safeParse(error.response.data);
+  return detail.success ? detail.data.detail.seconds_to_next_heart : null;
 }

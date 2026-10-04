@@ -67,8 +67,8 @@ test('grading requires real boolean correctness and integer score', () => {
     exerciseResultSchema.safeParse({ correct: true, score: 1.5 }).success,
     false,
   );
-  assert.deepEqual(exerciseResultSchema.parse({ correct: false, score: 0 }), {
-    correct: false,
-    score: 0,
-  });
+  assert.deepEqual(
+    exerciseResultSchema.parse({ correct: false, score: 0, hearts_left: 4 }),
+    { correct: false, score: 0, hearts_left: 4 },
+  );
 });

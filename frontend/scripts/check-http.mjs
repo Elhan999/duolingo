@@ -1,5 +1,5 @@
 const frontend = process.env.CHECK_FRONTEND_URL ?? 'http://localhost:3000';
-const backend = process.env.NEXT_PUBLIC_API_URL ?? 'http://13.61.11.140';
+const backend = process.env.NEXT_PUBLIC_API_URL ?? 'http://52.90.158.240';
 const routes = [
   '/',
   '/login',

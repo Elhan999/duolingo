@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Sparkles } from 'lucide-react';
 import { useI18n } from '@/providers/i18n-provider';
 import { placementMessages } from '@/i18n/placement';
@@ -13,7 +13,9 @@ import {
 import { PageHeader, Card } from '@/components/ui/surface';
 import { Select } from '@/components/ui/field';
 import { EmptyState } from '@/components/ui/states';
+import { Button } from '@/components/ui/button';
 import { LinkButton } from '@/components/ui/link-button';
+import { startLearningPath } from './api';
 import { useLearningPath } from './queries';
 import { LearningJourney } from './journey';
 import styles from './path.module.scss';
@@ -30,6 +32,11 @@ export function PathPage() {
       0,
   );
   const path = useLearningPath(language);
+  const client = useQueryClient();
+  const start = useMutation({
+    mutationFn: () => startLearningPath(language),
+    onSuccess: () => client.invalidateQueries({ queryKey: ['learning-path'] }),
+  });
   return (
     <LearningShell active="courses">
       <div>
@@ -81,8 +88,19 @@ export function PathPage() {
                 </strong>
                 <p>{path.data.placement_completed ? t.ready : t.needed}</p>
                 <div className={styles.actions}>
+                  {!path.data.level && (
+                    <Button
+                      loading={start.isPending}
+                      onClick={() => start.mutate()}
+                    >
+                      {t.startPath}
+                    </Button>
+                  )}
                   {!path.data.placement_completed && (
-                    <LinkButton href={'/level-tests/' + language}>
+                    <LinkButton
+                      href={'/level-tests/' + language}
+                      variant={path.data.level ? undefined : 'secondary'}
+                    >
                       {t.placement}
                     </LinkButton>
                   )}

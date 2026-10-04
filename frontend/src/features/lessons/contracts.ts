@@ -17,6 +17,7 @@ export const exerciseSchema = z.object({
 export const exerciseResultSchema = z.object({
   correct: z.boolean(),
   score: z.number().int(),
+  hearts_left: z.number().int(),
 }) satisfies z.ZodType<components['schemas']['ExerciseResult']>;
 export type Lesson = z.infer<typeof lessonSchema>;
 export type Exercise = z.infer<typeof exerciseSchema>;
