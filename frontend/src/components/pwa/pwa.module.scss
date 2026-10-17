@@ -4,12 +4,16 @@
   z-index: 10000;
   display: grid;
   place-items: center;
-  background: #fff;
-  color: #0c1020;
+  background: radial-gradient(circle at 50% 40%, #e3f0ff, #fff 60%);
+  color: #0b1526;
   pointer-events: none;
   animation: disappear 180ms ease 900ms forwards;
   :global(html[data-theme='dark']) & {
-    background: #0c1020;
+    background: radial-gradient(
+      circle at 50% 40%,
+      rgb(30 130 255 / 22%),
+      #05070c 60%
+    );
     color: #fff;
   }
 }
@@ -17,13 +21,24 @@
   display: grid;
   justify-items: center;
   gap: 12px;
+  img {
+    border-radius: 28px;
+    box-shadow: 0 0 60px -10px rgb(40 150 255 / 70%);
+  }
 }
 .name {
   font-size: 42px;
   font-weight: 800;
-  letter-spacing: -2px;
+  font-family: var(--font-display);
+  letter-spacing: -1.5px;
   span {
-    color: #328ed9;
+    background: linear-gradient(120deg, #0861c4, #2aa3ff);
+    :global(html[data-theme='dark']) & {
+      background: linear-gradient(120deg, #1f8fff, #8fd3ff);
+    }
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
 }
 .community {

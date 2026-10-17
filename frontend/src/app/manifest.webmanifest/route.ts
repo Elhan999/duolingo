@@ -10,8 +10,8 @@ export function GET(request: Request) {
     start_url: '/',
     scope: '/',
     display: 'standalone',
-    background_color: dark ? '#0c1020' : '#ffffff',
-    theme_color: dark ? '#0c1020' : '#ffffff',
+    background_color: dark ? '#05070c' : '#ffffff',
+    theme_color: dark ? '#05070c' : '#ffffff',
     icons: [
       {
         src: '/pwa/icon-192.png',

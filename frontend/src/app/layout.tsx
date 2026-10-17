@@ -1,8 +1,21 @@
 import type { Metadata, Viewport } from 'next';
+import { Inter, Montserrat } from 'next/font/google';
 import { AppProviders } from '@/providers/app-providers';
 import { getLocale } from '@/i18n/server';
 import { messages } from '@/i18n/messages';
 import '@/styles/globals.scss';
+
+const body = Inter({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-body',
+  display: 'swap',
+});
+const heading = Montserrat({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['600', '700', '800'],
+  variable: '--font-heading',
+  display: 'swap',
+});
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -15,7 +28,7 @@ export const viewport: Viewport = {
     },
     {
       media: '(prefers-color-scheme: dark)',
-      color: '#0c1020',
+      color: '#05070c',
     },
   ],
 };
@@ -31,11 +44,15 @@ export const metadata: Metadata = {
 
   applicationName: 'LearM',
   manifest: '/manifest.webmanifest',
-  appleWebApp: { capable: true, title: 'LearM', statusBarStyle: 'default' },
+  appleWebApp: {
+    capable: true,
+    title: 'LearM',
+    statusBarStyle: 'black-translucent',
+  },
   icons: {
     icon: [
       { url: '/pwa/favicon-32.png', type: 'image/png', sizes: '32x32' },
-      { url: '/icon.svg?v=2', type: 'image/svg+xml' },
+      { url: '/pwa/icon-192.png', type: 'image/png', sizes: '192x192' },
     ],
     shortcut: '/pwa/favicon-32.png',
     apple: '/pwa/apple-touch-icon.png',
@@ -106,7 +123,12 @@ export default async function RootLayout({
   const locale = await getLocale();
 
   return (
-    <html lang={locale} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${body.variable} ${heading.variable}`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body>
         <a className="skip-link" href="#main-content">
           {messages[locale].common.skip}

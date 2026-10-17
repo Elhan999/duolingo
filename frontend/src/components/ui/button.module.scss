@@ -11,8 +11,10 @@
   line-height: 1.3;
   transition:
     background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
     transform var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-glow);
   text-align: center;
   &:active:not(:disabled) {
     transform: translateY(1px);
@@ -22,11 +24,17 @@
   }
 }
 .primary {
-  background: var(--color-action);
+  background: var(--gradient-action);
   color: var(--color-on-action);
-  box-shadow: 0 3px 0 color-mix(in srgb, var(--color-action), #07593e 25%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 22%),
+    var(--shadow-glow);
   &:hover:not(:disabled) {
-    background: var(--color-action-hover);
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 28%),
+      0 14px 40px -8px var(--color-glow),
+      0 0 0 1px color-mix(in srgb, var(--color-primary) 40%, transparent);
   }
 }
 .secondary {
@@ -35,7 +43,8 @@
   border-color: var(--color-border);
   &:hover:not(:disabled) {
     background: var(--color-subtle);
-    border-color: var(--color-border-strong);
+    border-color: color-mix(in srgb, var(--color-primary) 55%, transparent);
+    box-shadow: 0 0 22px -6px var(--color-glow);
   }
 }
 .ghost {

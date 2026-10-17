@@ -11,8 +11,8 @@
         display: grid;
         place-items: center;
         text-align: center;
-        background: #fff;
-        color: #0c1020;
+        background: radial-gradient(circle at 50% 30%, #e3f0ff, #fff 60%);
+        color: #0b1526;
         font: 18px system-ui;
       }
       main {
@@ -23,11 +23,12 @@
         font-size: 42px;
       }
       span {
-        color: #328ed9;
+        color: #0b6fd8;
       }
       button {
-        background: #52e0b5;
-        color: #0c1020;
+        background: linear-gradient(135deg, #0b63d6, #1f97ff);
+        color: #fff;
+        box-shadow: 0 10px 34px -8px rgb(30 140 255 / 65%);
         border: 0;
         border-radius: 16px;
         padding: 16px 24px;
@@ -35,18 +36,22 @@
         cursor: pointer;
       }
       html[data-theme='dark'] body {
-        background: #0c1020;
-        color: #fff;
+        background: radial-gradient(
+          circle at 50% 30%,
+          rgb(30 130 255 / 20%),
+          #05070c 60%
+        );
+        color: #eef5ff;
+      }
+      html[data-theme='dark'] span {
+        color: #42adff;
       }
     </style>
     <script>
       try {
         var t = localStorage.getItem('lingua-theme');
         document.documentElement.dataset.theme =
-          t === 'dark' ||
-          (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)
-            ? 'dark'
-            : 'light';
+          t !== 'light' ? 'dark' : 'light';
       } catch {}
     </script>
   </head>

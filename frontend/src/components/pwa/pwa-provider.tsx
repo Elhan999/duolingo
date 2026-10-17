@@ -77,7 +77,7 @@ export function PwaProvider({ children }: { children: ReactNode }) {
     document
       .querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
       .forEach((meta) => {
-        meta.content = dark ? '#0c1020' : '#ffffff';
+        meta.content = dark ? '#05070c' : '#ffffff';
       });
   }, [resolvedTheme]);
   const install = prompt
@@ -97,12 +97,11 @@ export function PwaProvider({ children }: { children: ReactNode }) {
         <div className={styles.splash} aria-hidden="true">
           <div className={styles.brand}>
             <Image
-              src="/icon.svg"
+              src="/learm-owl.png"
               alt=""
               width={112}
               height={112}
               priority
-              unoptimized
             />
             <div className={styles.name}>
               Lear<span>M</span>

@@ -28,6 +28,7 @@ body {
   line-height: 1.6;
 
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 
   transition:
     background 240ms ease,
@@ -81,8 +82,14 @@ p {
 h1,
 h2,
 h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.03em;
+}
+
+h1 {
+  font-weight: 800;
 }
 
 :focus-visible {
@@ -93,6 +100,27 @@ h3 {
 ::selection {
   background: var(--color-primary);
   color: var(--color-on-primary);
+}
+
+/* Мягкое неоновое свечение за контентом, как на логотипе */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      color-mix(in srgb, var(--color-primary) 4%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-primary) 4%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
 }
 
 .skip-link {
@@ -144,7 +172,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
+  background: linear-gradient(180deg, var(--color-primary), #0b63d6);
   border-radius: 999px;
 }
 

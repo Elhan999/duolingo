@@ -10,8 +10,15 @@
   inset: 0 auto 0 0;
   width: var(--current-sidebar);
   padding: 2rem 1.15rem 1.25rem;
-  background: var(--color-surface);
+  background:
+    radial-gradient(
+      120% 40% at 0% 0%,
+      color-mix(in srgb, var(--color-primary) 10%, transparent),
+      transparent 70%
+    ),
+    var(--color-surface);
   border-right: 1px solid var(--color-border);
+  box-shadow: 1px 0 0 color-mix(in srgb, var(--color-primary) 6%, transparent);
   display: flex;
   flex-direction: column;
   z-index: var(--z-nav);
@@ -28,32 +35,46 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.15rem;
+  gap: 0.6rem;
 
   flex-shrink: 0;
   text-decoration: none;
 }
 
+.logoMark {
+  border-radius: 0.9rem;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-primary) 30%, transparent),
+    0 6px 22px -6px var(--color-glow);
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-glow);
+}
+
+.logo:hover .logoMark {
+  transform: rotate(-4deg) scale(1.05);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-primary) 55%, transparent),
+    0 8px 30px -4px var(--color-glow);
+}
+
 .logoText {
   color: var(--color-text);
 
-  font-size: 2.5rem;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
   font-weight: 800;
   line-height: 1;
 
-  letter-spacing: -0.06em;
+  letter-spacing: -0.04em;
 }
 
 .logoM {
-  stroke: #0f6b55;
-}
-
-:global(html[data-theme='dark']) .logoM {
-  stroke: #0f172a;
-}
-
-:global(html[data-theme='dark']) .logoText {
-  color: #ffffff;
+  background: var(--gradient-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 10px var(--color-glow));
 }
 .navigation {
   display: grid;
@@ -65,7 +86,7 @@
 }
 .groupLabel {
   color: var(--color-muted);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.24em;
   font-size: 0.65rem;
   font-weight: 650;
   padding-left: 0.85rem;
@@ -89,6 +110,7 @@
     color: var(--color-text);
   }
   i {
+    box-shadow: 0 0 8px var(--color-primary);
     width: 5px;
     height: 5px;
     margin-left: auto;
@@ -98,9 +120,15 @@
 }
 .navActive {
   color: var(--color-primary);
-  background: var(--color-primary-soft);
+  background: linear-gradient(
+    90deg,
+    var(--color-primary-soft),
+    color-mix(in srgb, var(--color-primary-soft) 30%, transparent)
+  );
   font-weight: 600;
-  box-shadow: inset 3px 0 0 var(--color-primary);
+  box-shadow:
+    inset 3px 0 0 var(--color-primary),
+    inset 0 0 0 1px color-mix(in srgb, var(--color-primary) 18%, transparent);
 }
 
 /* Цветная плитка с иконкой, как .benefitIcon на лендинге */
@@ -111,8 +139,9 @@
   height: 38px;
   flex-shrink: 0;
   border-radius: 0.75rem;
-  background: var(--color-primary);
+  background: var(--gradient-action);
   color: #fff;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 20%);
   transition: transform var(--transition-fast);
   svg {
     filter: drop-shadow(0 1px 2px rgb(0 0 0 / 18%));
@@ -203,7 +232,8 @@
   justify-content: space-between;
   padding-inline: clamp(1.25rem, 3.5vw, 3rem);
   border-bottom: 1px solid var(--color-border);
-  background: var(--color-surface);
+  background: var(--color-header-bg);
+  backdrop-filter: blur(16px) saturate(140%);
   gap: 0.75rem;
 }
 .breadcrumb {
@@ -313,7 +343,8 @@
     inset-inline: 0;
     padding: 0.45rem 0.4rem calc(0.45rem + env(safe-area-inset-bottom));
     border-top: 1px solid var(--color-border);
-    background: var(--color-surface);
+    background: var(--color-header-bg);
+    backdrop-filter: blur(18px) saturate(140%);
     z-index: var(--z-nav);
   }
   .bottomLink {
@@ -336,7 +367,7 @@
     width: 36px;
     height: 36px;
     border-radius: 0.7rem;
-    background: var(--color-primary);
+    background: var(--gradient-action);
     color: #fff;
     transition: transform var(--transition-fast);
     svg {

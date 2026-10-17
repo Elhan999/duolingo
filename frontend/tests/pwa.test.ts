@@ -14,7 +14,7 @@ test('PWA keeps a stable identity and supplies valid icons in both themes', asyn
     assert.equal(manifest.display, 'standalone');
     assert.equal(
       manifest.background_color,
-      theme === 'dark' ? '#0c1020' : '#ffffff',
+      theme === 'dark' ? '#05070c' : '#ffffff',
     );
     for (const icon of manifest.icons)
       assert.ok(existsSync(`public${icon.src}`));

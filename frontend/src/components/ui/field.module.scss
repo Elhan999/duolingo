@@ -26,7 +26,9 @@
   overflow: hidden;
   &:focus-within {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--color-primary-soft);
+    box-shadow:
+      0 0 0 3px var(--color-primary-soft),
+      0 0 24px -6px var(--color-glow);
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
@@ -48,6 +50,11 @@
   display: flex;
   margin-left: 0.875rem;
   color: var(--color-muted);
+}
+.textarea:focus,
+.select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
 }
 .textarea,
 .select {
