@@ -31,7 +31,7 @@ export function DashboardPage() {
     <LearningShell active="dashboard">
       <PageHeader
         eyebrow={t.eyebrow}
-        title={t.welcome + (user ? ', ' + user.username : '') + '!'}
+        title={t.welcome + (user ? ', ' + user.email : '') + '!'}
         description={t.dashboardHint}
         action={
           <LinkButton href="/learning-path" variant="secondary">

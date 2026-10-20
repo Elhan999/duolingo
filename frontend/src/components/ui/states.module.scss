@@ -5,8 +5,10 @@
   justify-content: center;
   text-align: center;
   padding: 1.5rem 0.5rem;
+  h1,
+  h2,
   h3 {
-    font-size: 1rem;
+    font-size: var(--text-md);
     margin: 1.1rem 0 0.5rem;
   }
   p {

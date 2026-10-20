@@ -400,7 +400,15 @@ export const en: Messages = {
     languagesTitle: 'What language will your next story be in?',
     languagesDescription:
       'Choose from the languages available on the platform.',
-    languagesEmpty: 'New languages will appear here soon.',
+    languagesEmpty:
+      'We are preparing new directions. Meanwhile, take a look at the course catalog.',
+    languagesLabel: 'Languages',
+    languagesEmptyTitle: 'Languages are on their way',
+    languagesEmptyAction: 'Browse courses',
+    factPlacement: 'Placement test before you start',
+    factLocales: 'Interface in RU, KY and EN',
+    factPwa: 'Installs like an app',
+    factThemes: 'Light and dark theme',
     howLabel: 'YOUR NEXT STEP',
     howTitle: 'A simple path to new possibilities.',
     stepOne: 'Choose a direction',

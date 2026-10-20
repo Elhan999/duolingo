@@ -19,7 +19,7 @@
   align-items: center;
   padding: 0.25rem 0.65rem;
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   line-height: 1.5;
 }
@@ -60,12 +60,12 @@
 .sm {
   width: 32px;
   height: 32px;
-  font-size: 0.7rem;
+  font-size: var(--text-2xs);
 }
 .md {
   width: 42px;
   height: 42px;
-  font-size: 0.8rem;
+  font-size: var(--text-caption);
 }
 .lg {
   width: 64px;
@@ -80,7 +80,11 @@
   span {
     display: block;
     height: 100%;
-    background: linear-gradient(90deg, #0b63d6, var(--color-primary));
+    background: linear-gradient(
+      90deg,
+      var(--color-action),
+      var(--color-primary)
+    );
     box-shadow: 0 0 12px var(--color-glow);
     border-radius: inherit;
     transition: width 400ms ease;
@@ -128,7 +132,7 @@
     text-transform: uppercase;
     color: var(--color-primary);
     letter-spacing: 0.28em;
-    font-size: 0.65rem;
+    font-size: var(--text-3xs);
     font-weight: 700;
     margin-bottom: 0.8rem;
   }

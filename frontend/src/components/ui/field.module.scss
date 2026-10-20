@@ -75,7 +75,7 @@
   .control input,
   .textarea,
   .select {
-    font-size: 1rem;
+    font-size: var(--text-md);
   }
 }
 .error {

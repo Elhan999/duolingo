@@ -6,3 +6,11 @@
     text-align: center;
   }
 }
+.code {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--color-primary);
+}

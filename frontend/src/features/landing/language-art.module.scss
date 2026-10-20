@@ -48,21 +48,21 @@
   background: rgb(240 247 255 / 92%);
   color: #0b1526;
   font-weight: 750;
-  font-size: 1rem;
+  font-size: var(--text-md);
   box-shadow:
     0 8px 25px rgb(3 16 39 / 25%),
     0 0 24px -6px rgb(40 150 255 / 55%);
   backdrop-filter: blur(6px);
   transform: rotate(-8deg);
   small {
-    font-size: 0.6rem;
+    font-size: var(--text-3xs);
     font-weight: 500;
     opacity: 0.75;
   }
 }
 .greetingOne {
-  left: 8%;
-  top: 13%;
+  left: 3%;
+  top: 3%;
 }
 .greetingTwo {
   right: 8%;
@@ -71,8 +71,8 @@
   transform: rotate(8deg);
 }
 .greetingThree {
-  right: 16%;
-  top: 4%;
+  right: 5%;
+  top: 3%;
   background: #cfe3ff;
   transform: rotate(6deg);
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { ArrowUpRight, BookOpen } from 'lucide-react';
+import { ArrowUpRight, BookOpen, Globe2 } from 'lucide-react';
 import { LanguageFlag } from '@/components/ui/language-flag';
 import { useI18n } from '@/providers/i18n-provider';
 import { getCourses, getLanguages } from '@/features/courses/catalog-api';
@@ -35,7 +35,7 @@ export function CatalogPreview() {
     <>
       <section className={styles.languages} aria-labelledby="languages-heading">
         <div>
-          <p className={styles.eyebrow}>LearM</p>
+          <p className={styles.eyebrow}>{t.languagesLabel}</p>
 
           <h2 id="languages-heading">{t.languagesTitle}</h2>
 
@@ -70,7 +70,16 @@ export function CatalogPreview() {
               </a>
             ))
           ) : (
-            <p>{t.languagesEmpty}</p>
+            <EmptyState
+              icon={<Globe2 size={24} />}
+              title={t.languagesEmptyTitle}
+              description={t.languagesEmpty}
+              action={
+                <LinkButton href="#courses" variant="secondary">
+                  {t.languagesEmptyAction}
+                </LinkButton>
+              }
+            />
           )}
         </div>
       </section>

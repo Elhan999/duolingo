@@ -11,7 +11,7 @@
   }
   p:not(.eyebrow) {
     color: var(--color-muted);
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
   }
 }
 .languageList {
@@ -19,6 +19,10 @@
   /* Слегка увеличили минимальную ширину карточки до 160px, чтобы большой флаг смотрелся пропорционально */
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 1.25rem;
+
+  > :only-child:not(a) {
+    grid-column: 1 / -1;
+  }
 
   > a {
     display: flex;
@@ -88,7 +92,9 @@
 
 .languageName {
   color: var(--color-text);
-  font-size: 1rem; /* Немного увеличили размер шрифта для лучшей читаемости */
+  font-size: var(
+    --text-md
+  ); /* Немного увеличили размер шрифта для лучшей читаемости */
   font-weight: 650;
   margin-bottom: 0.25rem;
 }
@@ -100,7 +106,7 @@
 
 // .languageCode {
 //   color: var(--color-muted);
-//   font-size: 0.68rem;
+//   font-size: var(--text-2xs);
 //   font-weight: 700;
 //   text-transform: uppercase;
 //   opacity: 0.65;
@@ -195,7 +201,7 @@
   }
   > p {
     color: var(--color-muted);
-    font-size: 0.82rem;
+    font-size: var(--text-caption);
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
@@ -250,7 +256,7 @@
 .eyebrow {
   color: var(--color-primary);
   text-transform: uppercase;
-  font-size: 0.7rem;
+  font-size: var(--text-2xs);
   font-weight: 700;
   letter-spacing: 0.13em;
   line-height: 1.6;

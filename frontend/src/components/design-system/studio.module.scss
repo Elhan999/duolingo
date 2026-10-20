@@ -23,7 +23,7 @@
   > p:not(.kicker) {
     color: var(--color-muted);
     max-width: 25rem;
-    font-size: 0.82rem;
+    font-size: var(--text-caption);
     line-height: 1.8;
   }
 }
@@ -44,7 +44,7 @@
   gap: 0.3rem;
   margin-top: 1.5rem;
   button {
-    font-size: 0.7rem;
+    font-size: var(--text-2xs);
   }
 }
 .art {
@@ -100,7 +100,7 @@
   border-radius: 1rem 1rem 1rem 0.2rem;
   background: var(--color-surface);
   box-shadow: var(--shadow-float);
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
   font-weight: 650;
   letter-spacing: -0.035em;
 }
@@ -155,7 +155,7 @@
   align-items: center;
   gap: 0.45rem;
   margin: 0.85rem 0 2.5rem;
-  font-size: 0.6rem;
+  font-size: var(--text-3xs);
   color: var(--color-muted);
   span {
     width: 5px;
@@ -182,11 +182,11 @@
     width: 30px;
     height: 30px;
     border-radius: 10px;
-    font-size: 0.6rem;
+    font-size: var(--text-3xs);
     flex-shrink: 0;
   }
   h2 {
-    font-size: 1.12rem;
+    font-size: var(--text-lg);
     margin: 0.1rem 0 0.4rem;
   }
   p {
@@ -201,7 +201,7 @@
   gap: 1.25rem;
   align-items: stretch;
   h3 {
-    font-size: 1rem;
+    font-size: var(--text-md);
     margin-bottom: 1rem;
   }
 }
@@ -230,19 +230,19 @@
   }
   strong {
     display: block;
-    font-size: 0.6rem;
+    font-size: var(--text-3xs);
     font-weight: 600;
     overflow-wrap: anywhere;
   }
   small {
     color: var(--color-muted);
-    font-size: 0.6rem;
+    font-size: var(--text-3xs);
   }
 }
 .typeCard {
   .smallLabel {
     color: var(--color-muted);
-    font-size: 0.65rem;
+    font-size: var(--text-3xs);
     margin-bottom: 0.4rem;
   }
   > strong {
@@ -258,12 +258,12 @@
     }
   }
   h3 {
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
     margin: 1rem 0 0.4rem;
   }
   > p:last-child {
     color: var(--color-muted);
-    font-size: 0.65rem;
+    font-size: var(--text-3xs);
     margin: 0;
   }
 }
@@ -276,7 +276,7 @@
   }
 }
 .muted {
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   color: var(--color-muted);
 }
 .buttonGrid {
@@ -310,7 +310,7 @@
   justify-content: space-between;
   gap: 1rem;
   margin: 2rem 0 0.75rem;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   span {
     color: var(--color-primary);
   }
@@ -318,7 +318,7 @@
 .rangeLabel {
   display: grid;
   gap: 0.5rem;
-  font-size: 0.6rem;
+  font-size: var(--text-3xs);
   color: var(--color-muted);
   margin-top: 0.75rem;
   input {
@@ -362,7 +362,7 @@
   gap: 0.75rem;
   color: var(--color-success);
   padding-top: 1.25rem;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   p {
     margin: 0;
   }
@@ -370,7 +370,7 @@
 .tabBody {
   min-height: 4rem;
   color: var(--color-muted);
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
 }
 .preferenceGrid {
   display: grid;
@@ -382,7 +382,7 @@
   border: 1px dashed var(--color-border-strong);
   border-radius: var(--radius-md);
   color: var(--color-muted);
-  font-size: 0.65rem;
+  font-size: var(--text-3xs);
 }
 @media (hover: hover) {
   .swatch > span {

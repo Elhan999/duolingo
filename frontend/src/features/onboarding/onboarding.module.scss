@@ -29,7 +29,7 @@
   margin-bottom: 2rem;
   > span {
     color: var(--color-muted);
-    font-size: 0.8rem;
+    font-size: var(--text-caption);
   }
 }
 .icon {
@@ -44,7 +44,7 @@
 }
 .eyebrow {
   color: var(--color-primary);
-  font-size: 0.7rem;
+  font-size: var(--text-2xs);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -92,11 +92,11 @@
     border-color: var(--color-primary);
   }
   strong {
-    font-size: 0.95rem;
+    font-size: var(--text-md);
   }
 }
 .code {
-  font-size: 0.8rem;
+  font-size: var(--text-caption);
   font-weight: 700;
   min-width: 2rem;
   color: var(--color-primary);
@@ -141,7 +141,7 @@
   span,
   p {
     color: var(--color-muted);
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
   }
 }
 .finish {
@@ -171,6 +171,6 @@
     border-radius: 1.5rem;
   }
   .minutes .option strong {
-    font-size: 0.8rem;
+    font-size: var(--text-caption);
   }
 }

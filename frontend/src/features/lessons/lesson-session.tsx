@@ -2,7 +2,8 @@
 import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
-import { ArrowRight, CheckCircle2, RotateCcw, X } from 'lucide-react';
+import { ArrowRight, RotateCcw, X } from 'lucide-react';
+import { Mascot } from '@/components/ui/mascot';
 import { useI18n } from '@/providers/i18n-provider';
 import { Button, IconButton } from '@/components/ui/button';
 import { LinkButton } from '@/components/ui/link-button';
@@ -92,7 +93,9 @@ export function LessonSession({
       </header>
       {finished ? (
         <Card className={styles.complete}>
-          <CheckCircle2 size={48} />
+          <div className={styles.celebration} aria-hidden="true">
+            <Mascot mood="happy" size={88} />
+          </div>
           <h1>{copy.done}</h1>
           <p>{copy.doneHint}</p>
           {progress.isError ? (
@@ -172,6 +175,7 @@ export function LessonSession({
               {mutation.data && (
                 <div
                   role="status"
+                  data-result={correct ? 'correct' : 'wrong'}
                   className={correct ? styles.correct : styles.error}
                 >
                   <strong>{correct ? t.correct : t.incorrect}</strong>

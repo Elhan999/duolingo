@@ -23,7 +23,7 @@
   min-width: 0;
   h2 {
     margin: 0;
-    font-size: 1.15rem;
+    font-size: var(--text-lg);
     overflow-wrap: anywhere;
   }
   p {
@@ -34,7 +34,7 @@
   }
   time {
     color: var(--color-muted);
-    font-size: 0.8rem;
+    font-size: var(--text-caption);
   }
   &[data-earned='true'] {
     border-color: var(--color-primary);
@@ -111,7 +111,7 @@
     min-width: 0;
     overflow-wrap: anywhere;
     margin: 0;
-    font-size: 1rem;
+    font-size: var(--text-md);
   }
   &[data-self='true'] {
     border-color: var(--color-primary);
@@ -132,7 +132,7 @@
     padding: 1rem;
     gap: 0.65rem;
     h2 {
-      font-size: 0.875rem;
+      font-size: var(--text-sm);
     }
   }
   .position {
@@ -145,6 +145,6 @@
     display: none;
   }
   .rankSummary {
-    font-size: 1rem;
+    font-size: var(--text-md);
   }
 }

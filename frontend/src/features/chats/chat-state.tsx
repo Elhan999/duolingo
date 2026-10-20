@@ -9,8 +9,14 @@ export function ChatLoading() {
   } = useI18n();
   return (
     <div className={styles.loading} role="status" aria-label={t.loading}>
-      {[0, 1, 2].map((id) => (
-        <Skeleton key={id} />
+      {[0, 1, 2, 3].map((id) => (
+        <div key={id} className={styles.loadingRow}>
+          <Skeleton className={styles.loadingAvatar} />
+          <span>
+            <Skeleton />
+            <Skeleton />
+          </span>
+        </div>
       ))}
     </div>
   );

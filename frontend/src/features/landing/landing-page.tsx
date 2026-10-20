@@ -4,8 +4,12 @@ import {
   ArrowUpRight,
   BookOpen,
   Compass,
+  Languages,
   MessageCircle,
+  MoonStar,
+  Smartphone,
   Sparkles,
+  Target,
   UsersRound,
 } from 'lucide-react';
 import { useI18n } from '@/providers/i18n-provider';
@@ -32,6 +36,12 @@ export function LandingPage() {
     { Icon: Compass, title: t.benefitOne, body: t.benefitOneBody },
     { Icon: BookOpen, title: t.benefitTwo, body: t.benefitTwoBody },
     { Icon: UsersRound, title: t.benefitThree, body: t.benefitThreeBody },
+  ];
+  const facts = [
+    { Icon: Target, label: t.factPlacement },
+    { Icon: Languages, label: t.factLocales },
+    { Icon: Smartphone, label: t.factPwa },
+    { Icon: MoonStar, label: t.factThemes },
   ];
   const steps = [
     { title: t.stepOne, body: t.stepOneBody },
@@ -72,31 +82,16 @@ export function LandingPage() {
                 <Sparkles size={15} />
                 {t.heroNote}
               </p>
-              <div className={styles.heroFeatures}>
-                {benefits.map(({ Icon, title }) => (
-                  <div key={title}>
-                    <Icon size={20} />
-                    <span>{title}</span>
-                  </div>
-                ))}
-              </div>
             </div>
           </section>
-          <div className={styles.promiseStrip}>
-            <span>
-              <BookOpen size={20} />
-              {t.benefitTwo}
-            </span>
-            <span>
-              <Compass size={20} />
-              {t.benefitOne}
-            </span>
-            <span>
-              <UsersRound size={20} />
-              {t.benefitThree}
-            </span>
-            <p>{t.journeyLabel}</p>
-          </div>
+          <ul className={styles.promiseStrip}>
+            {facts.map(({ Icon, label }) => (
+              <li key={label}>
+                <Icon size={20} aria-hidden />
+                {label}
+              </li>
+            ))}
+          </ul>
           <WaveDivider />
         </div>
         <section id="features" className={styles.section}>

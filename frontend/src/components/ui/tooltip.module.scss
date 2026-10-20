@@ -3,25 +3,31 @@
   position: relative;
   &:hover .tip:not([data-dismissed='true']),
   &:focus-within .tip:not([data-dismissed='true']) {
+    display: block;
     opacity: 1;
-    visibility: visible;
+    @starting-style {
+      opacity: 0;
+    }
   }
 }
 .tip {
   position: absolute;
   bottom: calc(100% + 0.5rem);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(calc(-50% + var(--tip-shift, 0px)));
   width: max-content;
-  max-width: 12rem;
+  max-width: min(12rem, calc(100vw - 1rem));
   background: var(--color-text);
   color: var(--color-bg);
   border-radius: var(--radius-sm);
   padding: 0.45rem 0.65rem;
   font-size: var(--text-xs);
   z-index: var(--z-dropdown);
-  visibility: hidden;
+  // Hidden tips stay out of layout so they cannot widen the page.
+  display: none;
   opacity: 0;
-  transition: opacity var(--transition-fast);
+  transition:
+    opacity var(--transition-fast),
+    display var(--transition-fast) allow-discrete;
   text-align: center;
 }

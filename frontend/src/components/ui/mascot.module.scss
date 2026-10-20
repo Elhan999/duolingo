@@ -1,0 +1,65 @@
+.mascot {
+  display: inline-grid;
+  place-items: center;
+  margin-inline: auto;
+  img {
+    display: block;
+    border-radius: 28%;
+    box-shadow:
+      0 0 0 4px var(--color-surface),
+      0 0 0 7px var(--color-primary-soft),
+      var(--shadow-glow);
+  }
+  &[data-mood='idle'] img {
+    animation: mascotFloat 3.2s ease-in-out infinite;
+  }
+  &[data-mood='happy'] img {
+    box-shadow:
+      0 0 0 4px var(--color-surface),
+      0 0 0 7px var(--color-success),
+      var(--shadow-glow);
+    animation: mascotHop 900ms cubic-bezier(0.3, 1.6, 0.5, 1) 1 both;
+  }
+  &[data-mood='sad'] img {
+    filter: saturate(0.6);
+    box-shadow:
+      0 0 0 4px var(--color-surface),
+      0 0 0 7px var(--color-danger-soft),
+      var(--shadow-card);
+    animation: mascotTilt 1.4s ease-in-out 1 both;
+  }
+}
+@keyframes mascotFloat {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes mascotHop {
+  0% {
+    transform: scale(0.6) translateY(12px);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05) translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes mascotTilt {
+  0% {
+    transform: rotate(0);
+  }
+  40% {
+    transform: rotate(-8deg);
+  }
+  100% {
+    transform: rotate(-5deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mascot img {
+    animation: none !important;
+  }
+}
