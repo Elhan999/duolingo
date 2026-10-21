@@ -43,6 +43,7 @@ export function CommunityPage() {
         </div>
       </div>
       <SearchInput
+        className={styles.search}
         label={t.search}
         placeholder={t.searchHint}
         value={search}

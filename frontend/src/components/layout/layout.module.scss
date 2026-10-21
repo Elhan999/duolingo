@@ -22,6 +22,7 @@
   display: flex;
   flex-direction: column;
   z-index: var(--z-nav);
+  overflow-x: hidden;
   overflow-y: auto;
 }
 .brand {
@@ -74,7 +75,6 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 10px var(--color-glow));
 }
 .navigation {
   display: grid;
@@ -110,7 +110,6 @@
     color: var(--color-text);
   }
   i {
-    box-shadow: 0 0 8px var(--color-primary);
     width: 5px;
     height: 5px;
     margin-left: auto;
@@ -126,9 +125,7 @@
     color-mix(in srgb, var(--color-primary-soft) 30%, transparent)
   );
   font-weight: 600;
-  box-shadow:
-    inset 3px 0 0 var(--color-primary),
-    inset 0 0 0 1px color-mix(in srgb, var(--color-primary) 18%, transparent);
+  box-shadow: inset 3px 0 0 var(--color-primary);
 }
 
 /* Цветная плитка с иконкой, как .benefitIcon на лендинге */
@@ -153,23 +150,6 @@
 .navLink[data-tone='2'] .navIcon {
   background: var(--color-warning);
 }
-.navActive .navIcon {
-  box-shadow: 0 8px 18px -6px
-    color-mix(in srgb, var(--color-primary) 60%, transparent);
-}
-.navActive[data-tone='1'] .navIcon {
-  box-shadow: 0 8px 18px -6px
-    color-mix(in srgb, var(--color-info) 60%, transparent);
-}
-.navActive[data-tone='2'] .navIcon {
-  box-shadow: 0 8px 18px -6px
-    color-mix(in srgb, var(--color-warning) 60%, transparent);
-}
-@media (hover: hover) {
-  .navLink:hover .navIcon {
-    transform: scale(1.08) rotate(-3deg);
-  }
-}
 
 .sidebarBottom {
   margin-top: auto;
@@ -190,11 +170,11 @@
   padding-top: 1.25rem;
   strong {
     display: block;
-    font-size: var(--text-2xs);
+    font-size: var(--text-sm);
   }
   div > span {
     display: block;
-    font-size: var(--text-3xs);
+    font-size: var(--text-xs);
     color: var(--color-muted);
   }
 }
@@ -254,16 +234,29 @@
   width: min(100%, var(--content-width));
   margin-inline: auto;
   padding: clamp(1.5rem, 3.5vw, 3rem);
+  // Sibling blocks never touch; vertical margins collapse, so blocks that
+  // already define larger spacing keep it. Dialogs live in the top layer.
+  > :not(dialog, script, style, template)
+    + :not(dialog, script, style, template) {
+    margin-block-start: var(--space-6);
+  }
 }
 .footer {
   width: min(100%, var(--content-width));
   margin: 0 auto;
   padding: 0 clamp(1.5rem, 3.5vw, 3rem) 2rem;
   color: var(--color-muted);
-  font-size: var(--text-3xs);
+  font-size: var(--text-xs);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1rem;
+  // Standalone link: keep a 24px target (WCAG 2.5.8).
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+  }
 }
 .preferenceContent {
   display: grid;
@@ -297,9 +290,18 @@
   .main {
     padding: 1.75rem;
   }
+  // The narrower sidebar leaves ~190px for the brand row: shrink the
+  // wordmark instead of squeezing the collapse button below 40px.
+  .brand {
+    gap: 0.5rem;
+    padding-left: 0;
+  }
+  .logoText {
+    font-size: 1.5rem;
+  }
   .brand > button {
-    width: 34px;
-    padding: 0.4rem;
+    width: 40px;
+    padding: 0.55rem;
   }
 }
 @media (max-width: 48rem) {
@@ -357,8 +359,12 @@
     color: var(--color-muted);
     border-radius: var(--radius-md);
     span {
-      font-size: clamp(0.49rem, 2vw, 0.65rem);
+      // Was ~7.8px on phones; keep labels readable and single-line.
+      font-size: clamp(var(--text-3xs), 2.9vw, var(--text-2xs));
       max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
   .bottomIcon {

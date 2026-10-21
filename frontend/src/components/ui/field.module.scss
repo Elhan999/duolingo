@@ -24,13 +24,13 @@
   align-items: center;
   min-height: 46px;
   overflow: hidden;
+  &:hover {
+    border-color: var(--color-muted);
+  }
   &:focus-within {
     border-color: var(--color-primary);
-    box-shadow:
-      0 0 0 3px var(--color-primary-soft),
-      0 0 24px -6px var(--color-glow);
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+    box-shadow: 0 0 0 3px
+      color-mix(in srgb, var(--color-primary) 22%, transparent);
   }
   &:has(input:disabled) {
     opacity: 0.5;
@@ -51,10 +51,21 @@
   margin-left: 0.875rem;
   color: var(--color-muted);
 }
+.textarea:hover,
+.select:hover {
+  border-color: var(--color-muted);
+}
+// Fields draw their own focus ring, so the global outline is not doubled.
 .textarea:focus,
 .select:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-soft);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--color-primary) 22%, transparent);
+  outline: none;
+}
+.select option {
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 .textarea,
 .select {

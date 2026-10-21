@@ -126,7 +126,22 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 2rem;
+  // Same column as the exercise card below.
+  width: min(100%, 44rem);
+  margin: 0 auto 2rem;
+  // Theme and language controls sit together on the right.
+  > :nth-child(4) {
+    margin-left: auto;
+  }
+  // The select stays labelled for assistive tech but matches the row height.
+  label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 .note {
   padding: 1rem;

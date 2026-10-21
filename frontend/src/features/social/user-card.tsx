@@ -15,7 +15,7 @@ export function UserCard({ user }: { user: Friend }) {
       <Link className={styles.identity} href={'/users/' + user.id}>
         <Avatar name={user.username} size="lg" />
         <div>
-          <h2>@{user.username}</h2>
+          <h2 title={'@' + user.username}>@{user.username}</h2>
           <span>
             {t.viewProfile} <ArrowUpRight size={14} />
           </span>

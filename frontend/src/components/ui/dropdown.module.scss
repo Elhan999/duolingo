@@ -6,6 +6,8 @@
   position: absolute;
   inset-inline-end: 0;
   top: calc(100% + 0.5rem);
+  // Size to the longest item instead of the narrow trigger button.
+  width: max-content;
   min-width: 12rem;
   max-width: calc(100vw - 3rem);
   background: var(--color-surface-raised);

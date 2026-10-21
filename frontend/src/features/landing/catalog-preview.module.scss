@@ -52,14 +52,9 @@
     }
 
     &:hover {
-      transform: translateY(-4px);
+      transform: translateY(-2px);
       border-color: var(--card-glow, var(--color-primary));
-      box-shadow: 0 20px 45px -22px
-        color-mix(
-          in srgb,
-          var(--card-glow, var(--color-primary)) 55%,
-          transparent
-        );
+      box-shadow: var(--shadow-card);
     }
   }
 
@@ -217,13 +212,8 @@
 }
 @media (hover: hover) {
   .course:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 50px -22px
-      color-mix(
-        in srgb,
-        var(--card-glow, var(--color-primary)) 60%,
-        transparent
-      );
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
   }
 }
 .courseTop {
