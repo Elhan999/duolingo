@@ -1,5 +1,5 @@
 'use client';
-import { Menu, Palette } from 'lucide-react';
+import { CircleHelp, Menu, Palette } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useI18n } from '@/providers/i18n-provider';
 import { IconButton } from '@/components/ui/button';
@@ -9,12 +9,14 @@ import styles from './layout.module.scss';
 export function Header({
   onMenu,
   onPreferences,
+  onGuide,
   title,
   badge,
   action,
 }: {
   onMenu: () => void;
   onPreferences: () => void;
+  onGuide: () => void;
   title?: string;
   badge?: string | null;
   action?: ReactNode;
@@ -34,6 +36,9 @@ export function Header({
           <Badge tone="primary">{badge ?? studio.status}</Badge>
         )}
         {action}
+        <IconButton label={nav.guideOpen} onClick={onGuide}>
+          <CircleHelp size={20} />
+        </IconButton>
         <IconButton label={ui.appearance} onClick={onPreferences}>
           <Palette size={20} />
         </IconButton>

@@ -485,6 +485,23 @@ export const en: Messages = {
     guestHint: 'Your space to grow',
     preview: 'Navigation preview',
     soon: 'Navigation in this showcase is a demonstration. Open the home page to access the application.',
+    guideOpen: 'How to use LearM',
+    guideTitle: 'Welcome to LearM',
+    guideIntro:
+      'A quick map of the platform: what each section holds and how to get there. Reopen it any time with the “?” button in the header.',
+    guideHere: 'You are here',
+    guideGo: 'Open',
+    guideDone: 'Got it',
+    guideDashboard:
+      'Your day: continue a lesson and keep an eye on your streak and XP.',
+    guideCourses:
+      'The catalog and your courses. Pick a course and open a lesson.',
+    guideProgress: 'Lessons completed and how your XP grows.',
+    guideFriends: 'Your friends and friend requests.',
+    guideCommunity: 'Find other learners and add them as friends.',
+    guideChats: 'Private and group conversations.',
+    guideProfile: 'Your profile: name and account details.',
+    guideSettings: 'Theme, interface language, password and notifications.',
   },
   ui: {
     close: 'Close',

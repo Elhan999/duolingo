@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { ArrowRight, RotateCcw, X } from 'lucide-react';
@@ -20,6 +20,7 @@ import { practiceFeedback, practiceCopy } from './practice-feedback';
 import { LessonQuestion } from './lesson-question';
 import { ExerciseInput } from './exercise-input';
 import type { Exercise, Lesson } from './contracts';
+import { useLessonHotkeys } from './use-lesson-hotkeys';
 import styles from './lesson.module.scss';
 export function LessonSession({
   lesson,
@@ -36,6 +37,8 @@ export function LessonSession({
 
   const progress = useProgress();
   const [exit, setExit] = useState(false);
+  const form = useRef<HTMLFormElement>(null);
+  useLessonHotkeys(form);
   const {
     item,
     items,
@@ -152,6 +155,7 @@ export function LessonSession({
           <LessonQuestion item={item} />
           {supported ? (
             <form
+              ref={form}
               onSubmit={(event) => {
                 event.preventDefault();
                 if (canAdvance) advance();

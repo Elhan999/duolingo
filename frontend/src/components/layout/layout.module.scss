@@ -136,19 +136,20 @@
   height: 38px;
   flex-shrink: 0;
   border-radius: 0.75rem;
-  background: var(--gradient-action);
+  // Monochrome icons keep the menu calm; only the active item carries colour.
+  background: var(--color-subtle);
+  color: var(--color-muted);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+.navLink:hover .navIcon {
+  color: var(--color-text);
+}
+.navActive .navIcon,
+.navActive:hover .navIcon {
+  background: var(--color-action);
   color: var(--color-on-action);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 20%);
-  transition: transform var(--transition-fast);
-  svg {
-    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 18%));
-  }
-}
-.navLink[data-tone='1'] .navIcon {
-  background: var(--color-info);
-}
-.navLink[data-tone='2'] .navIcon {
-  background: var(--color-warning);
 }
 
 .sidebarBottom {
@@ -373,25 +374,18 @@
     width: 36px;
     height: 36px;
     border-radius: 0.7rem;
-    background: var(--gradient-action);
-    color: var(--color-on-action);
-    transition: transform var(--transition-fast);
-    svg {
-      filter: drop-shadow(0 1px 2px rgb(0 0 0 / 18%));
-    }
-  }
-  .bottomLink[data-tone='1'] .bottomIcon {
-    background: var(--color-info);
-  }
-  .bottomLink[data-tone='2'] .bottomIcon {
-    background: var(--color-warning);
+    color: var(--color-muted);
+    transition:
+      background var(--transition-fast),
+      color var(--transition-fast);
   }
   .bottomActive {
     background: transparent;
     color: var(--color-text);
     font-weight: 600;
     .bottomIcon {
-      transform: scale(1.08) rotate(-3deg);
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
     }
   }
 }

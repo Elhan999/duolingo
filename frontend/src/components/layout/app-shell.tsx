@@ -1,5 +1,5 @@
 'use client';
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { useI18n } from '@/providers/i18n-provider';
 import { cn } from '@/lib/cn';
@@ -8,10 +8,13 @@ import { LanguageSwitcher, ThemeSwitcher } from '@/components/ui/preferences';
 import { Sidebar } from './sidebar';
 import { MobileBottomNav } from './mobile-bottom-nav';
 import { Header } from './header';
+import { SiteGuide } from './site-guide';
 import { useSidebarCollapsed } from '@/hooks/use-sidebar-collapsed';
 import { communityCopy } from '@/features/landing/community-copy';
 import { navigation, type NavigationKey } from './navigation';
 import styles from './layout.module.scss';
+
+const GUIDE_SEEN = 'learm:guide-seen';
 export function AppShell({
   children,
   active = 'dashboard',
@@ -32,6 +35,18 @@ export function AppShell({
   const [collapsed, setCollapsed] = useSidebarCollapsed();
   const [menu, setMenu] = useState(false);
   const [preferences, setPreferences] = useState(false);
+  const [guide, setGuide] = useState(false);
+  // Show the section map once, on the first visit to the app.
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(GUIDE_SEEN)) return;
+      localStorage.setItem(GUIDE_SEEN, '1');
+    } catch {
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reads browser storage after hydration
+    setGuide(true);
+  }, []);
   const {
     locale,
     messages: { nav, ui, studio },
@@ -49,6 +64,7 @@ export function AppShell({
         <Header
           onMenu={() => setMenu(true)}
           onPreferences={() => setPreferences(true)}
+          onGuide={() => setGuide(true)}
           title={title}
           badge={badge}
           action={action}
@@ -64,6 +80,7 @@ export function AppShell({
         </footer>
       </div>
       <MobileBottomNav active={active} onNavigate={onNavigate} />
+      <SiteGuide open={guide} onClose={() => setGuide(false)} active={active} />
       <Modal open={menu} onClose={() => setMenu(false)} title={nav.navigation}>
         <nav className={styles.mobileMenu}>
           {navigation.map(({ key, href, icon: Icon }) => (

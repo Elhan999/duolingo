@@ -26,6 +26,7 @@ export function ChoiceExercise({
             value={option.id}
             checked={value === option.id}
             onChange={() => onChange(option.id)}
+            aria-keyshortcuts={index < 9 ? String(index + 1) : undefined}
           />
           <span className={styles.number}>{index + 1}</span>
           <span>{option.text}</span>

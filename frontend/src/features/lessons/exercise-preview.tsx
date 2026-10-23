@@ -1,6 +1,6 @@
 'use client';
 import { messages as copy } from '@/i18n/exercise-preview';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowRight, CheckCircle2, RotateCcw } from 'lucide-react';
 import { useI18n } from '@/providers/i18n-provider';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,7 @@ import { Badge, Card, ProgressBar } from '@/components/ui/surface';
 import { ThemeSwitcher, LanguageSwitcher } from '@/components/ui/preferences';
 import { TextExercise } from './text-exercise';
 import { ChoiceExercise, MatchExercise } from './visual-exercises';
+import { useLessonHotkeys } from './use-lesson-hotkeys';
 import styles from './lesson.module.scss';
 import visual from './visual-exercises.module.scss';
 const types = ['choice', 'match', 'translate', 'fill_gap'] as const;
@@ -23,6 +24,8 @@ export function ExercisePreview() {
   const [selected, setSelected] = useState('');
   const [pairs, setPairs] = useState<Record<string, string>>({});
   const [result, setResult] = useState<boolean | null>(null);
+  const form = useRef<HTMLFormElement>(null);
+  useLessonHotkeys(form);
   const reset = (next: number) => {
     setStep(next);
     setAnswer('');
@@ -96,6 +99,7 @@ export function ExercisePreview() {
           <section aria-labelledby="preview-question">
             <h1 id="preview-question">{question}</h1>
             <form
+              ref={form}
               onSubmit={(event) => {
                 event.preventDefault();
                 if (result === true) reset(step + 1);

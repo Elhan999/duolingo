@@ -1,0 +1,95 @@
+dialog.guide {
+  width: min(40rem, calc(100% - 2rem));
+}
+.group {
+  margin-top: var(--space-5);
+  h3 {
+    margin-bottom: var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-3xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--color-muted);
+  }
+  ul {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    &[data-active='true'] {
+      background: var(--color-primary-soft);
+      .icon {
+        background: var(--color-action);
+        color: var(--color-on-action);
+      }
+    }
+    > div {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+  strong {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+  }
+  p {
+    margin: 0.15rem 0 0;
+    font-size: var(--text-caption);
+    color: var(--color-muted);
+    line-height: 1.45;
+  }
+}
+.icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 0.7rem;
+  background: var(--color-subtle);
+  color: var(--color-muted);
+}
+.go {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 36px;
+  padding-inline: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast);
+  &:hover {
+    background: var(--color-subtle);
+    border-color: var(--color-border-strong);
+  }
+}
+@media (max-width: 30rem) {
+  // Icon on the left, text and the action stacked on the right.
+  .group li {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    align-items: start;
+  }
+  .go {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
