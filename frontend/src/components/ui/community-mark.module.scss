@@ -1,0 +1,14 @@
+// The box is the logo's own size; the canvas spills past it so scattered
+// grains have room to fly without shifting the layout.
+.mark {
+  position: relative;
+  display: inline-block;
+  width: 11.5rem;
+  height: 30px;
+  vertical-align: middle;
+}
+
+.canvas {
+  position: absolute;
+  pointer-events: none;
+}

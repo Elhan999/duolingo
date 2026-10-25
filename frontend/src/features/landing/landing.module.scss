@@ -429,31 +429,51 @@
     max-width: 30rem;
   }
 }
+// Quiet footer: one row of brand and links, one hairline, one row of fine print.
+// Edge to edge like the header: the band spans the screen and its content
+// lines up with the header's 84rem column.
 .footer {
-  width: min(calc(100% - 4rem), 72rem);
-  margin: 0 auto;
-  padding: 3rem 0 2rem;
-
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 2rem 4rem;
-
+  width: 100%;
+  margin: 2rem 0 0;
+  padding: 2.5rem max(2rem, calc((100% - 84rem) / 2)) 2.5rem;
+  // Scattered logo grains may fly past the edges; never let them add scroll.
+  overflow: clip;
+  background: var(--color-header-bg);
   border-top: 1px solid var(--color-border);
+}
+
+.footerMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .footerBrand {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  gap: 1.25rem;
+
+  // A smaller logo: the footer signs off, it does not announce.
+  > a img {
+    width: 34px;
+    height: 34px;
+  }
+  > a span {
+    font-size: 1.3rem;
+  }
 
   p {
-    max-width: 22rem;
-    margin: 0.9rem 0 0;
+    margin: 0;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--color-border);
 
     color: var(--color-muted);
     font-size: var(--text-xs);
-    line-height: 1.7;
+    line-height: 1.5;
   }
 }
 
@@ -508,37 +528,29 @@
 }
 
 .footerBottom {
-  grid-column: 1 / -1;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-
   gap: 1rem;
 
   padding-top: 1.5rem;
 
-  border-top: 1px solid var(--color-border);
+  // Room for the floating scroll-to-top button, which sits over this corner.
+  padding-right: 4.5rem;
 
   color: var(--color-muted);
-  font-size: var(--text-2xs);
+  font-size: var(--text-xs);
+}
 
-  span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-  }
+.footerCredit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--color-muted);
 
-  a {
-    color: var(--color-primary);
-    font-weight: 600;
-
-    transition: opacity var(--transition-fast);
-
-    &:hover {
-      opacity: 0.75;
-    }
+  &:focus-visible {
+    border-radius: var(--radius-sm);
   }
 }
 @media (max-width: 75rem) {
@@ -638,10 +650,23 @@
     border-radius: 1.5rem;
   }
   .footer {
-    width: calc(100% - 2.5rem);
-    gap: 1.5rem;
+    padding-inline: 1.25rem;
+  }
+  .footerMain {
+    flex-direction: column;
+    align-items: flex-start;
     > nav {
-      gap: 0.5rem 1.25rem;
+      justify-content: flex-start;
+      gap: 0 1.25rem;
+    }
+  }
+  .footerBrand {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    p {
+      padding-left: 0;
+      border-left: 0;
     }
   }
 }
