@@ -77,11 +77,15 @@ export function LanguageArt({ compact = false }: { compact?: boolean }) {
             {letter}
           </span>
         ))}
-        {HEARTS.map((heart) => (
-          <svg key={heart} className={styles.heart} viewBox="0 0 24 22">
-            <path d="M12 21S2 14.5 2 7.5A5 5 0 0 1 12 5a5 5 0 0 1 10 2.5C22 14.5 12 21 12 21Z" />
-          </svg>
-        ))}
+        {/* Own layer: the hearts' nth-of-type rules must not count the
+            butterflies, which are svgs too. */}
+        <div className={styles.hearts}>
+          {HEARTS.map((heart) => (
+            <svg key={heart} className={styles.heart} viewBox="0 0 24 22">
+              <path d="M12 21S2 14.5 2 7.5A5 5 0 0 1 12 5a5 5 0 0 1 10 2.5C22 14.5 12 21 12 21Z" />
+            </svg>
+          ))}
+        </div>
       </div>
       {!compact && (
         <div className={styles.frontLayer}>

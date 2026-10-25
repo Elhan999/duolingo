@@ -35,7 +35,8 @@ export function LivingScene({
       aria-hidden="true"
     >
       <div className={styles.image} />
-      <span className={styles.sweep} />
+      {/* A div, so it never shifts the nth-of-type order of the spans below. */}
+      <div className={styles.sweep} />
       {CLOUDS.map((cloud) => (
         <b key={cloud} className={styles.cloud} />
       ))}
@@ -50,9 +51,13 @@ export function LivingScene({
               <path d="M7 20.5C9 14 10.5 9 12 3" />
             </svg>
           ))}
-          {FIREFLIES.map((firefly) => (
-            <i key={firefly} className={styles.firefly} />
-          ))}
+          {/* Each group lives in its own layer so its nth-of-type rules
+              count only its own items. */}
+          <div className={styles.layer}>
+            {FIREFLIES.map((firefly) => (
+              <i key={firefly} className={styles.firefly} />
+            ))}
+          </div>
         </>
       )}
       {mood === 'messages' && (
@@ -64,16 +69,20 @@ export function LivingScene({
               <i />
             </span>
           ))}
-          {WORDS.map((word) => (
-            <span key={word} className={styles.word}>
-              {word}
-            </span>
-          ))}
-          {HEARTS.map((heart) => (
-            <svg key={heart} className={styles.heart} viewBox="0 0 24 22">
-              <path d="M12 21S2 14.5 2 7.5A5 5 0 0 1 12 5a5 5 0 0 1 10 2.5C22 14.5 12 21 12 21Z" />
-            </svg>
-          ))}
+          <div className={styles.layer}>
+            {WORDS.map((word) => (
+              <span key={word} className={styles.word}>
+                {word}
+              </span>
+            ))}
+          </div>
+          <div className={styles.layer}>
+            {HEARTS.map((heart) => (
+              <svg key={heart} className={styles.heart} viewBox="0 0 24 22">
+                <path d="M12 21S2 14.5 2 7.5A5 5 0 0 1 12 5a5 5 0 0 1 10 2.5C22 14.5 12 21 12 21Z" />
+              </svg>
+            ))}
+          </div>
         </>
       )}
       {mood === 'sky' && (

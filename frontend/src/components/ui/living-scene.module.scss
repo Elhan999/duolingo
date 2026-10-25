@@ -389,6 +389,14 @@
   }
 }
 
+// A full-size layer that groups one kind of living detail.
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* ---- Shared: a soft band of light glides over the picture ---- */
 .sweep {
   position: absolute;
