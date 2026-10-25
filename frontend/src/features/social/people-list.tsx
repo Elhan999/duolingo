@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { SearchInput } from '@/components/ui/field';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/ui/states';
+import { Card } from '@/components/ui/surface';
 import {
   FriendsIllustration,
   SearchIllustration,
@@ -32,7 +33,8 @@ export function PeopleList({
   const current = Math.min(page, pages);
   return (
     <section className={styles.list}>
-      {!hideSearch && (
+      {/* Nothing to filter in an empty list, so no search field either. */}
+      {!hideSearch && users.length > 0 && (
         <SearchInput
           label={t.search}
           placeholder={t.searchHint}
@@ -44,11 +46,13 @@ export function PeopleList({
         />
       )}
       {!users.length ? (
-        <EmptyState
-          illustration={<FriendsIllustration />}
-          title={emptyTitle}
-          description={emptyBody}
-        />
+        <Card>
+          <EmptyState
+            illustration={<FriendsIllustration />}
+            title={emptyTitle}
+            description={emptyBody}
+          />
+        </Card>
       ) : !filtered.length ? (
         <EmptyState
           illustration={<SearchIllustration />}

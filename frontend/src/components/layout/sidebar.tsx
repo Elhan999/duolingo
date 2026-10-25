@@ -121,7 +121,10 @@ export function Sidebar({
           <Avatar name={identity?.name ?? 'LearM'} />
           <div>
             <strong>{identity?.name ?? nav.guest}</strong>
-            <span>{identity?.description ?? nav.guestHint}</span>
+            {/* Usernames are often the e-mail itself: say it once. */}
+            {identity?.description !== identity?.name && (
+              <span>{identity?.description ?? nav.guestHint}</span>
+            )}
           </div>
         </div>
       </div>

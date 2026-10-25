@@ -6,7 +6,10 @@ import { useI18n } from '@/providers/i18n-provider';
 import { Badge, Card, PageHeader, ProgressBar } from '@/components/ui/surface';
 import { LinkButton } from '@/components/ui/link-button';
 import { EmptyState } from '@/components/ui/states';
-import { BookIllustration } from '@/components/ui/illustrations';
+import {
+  BookIllustration,
+  LockIllustration,
+} from '@/components/ui/illustrations';
 import { placementMessages } from '@/i18n/placement';
 import { useLearningPath } from '@/features/placement/queries';
 import { LearningShell } from '@/features/learning/learning-shell';
@@ -37,6 +40,9 @@ export function CourseDetails({ id }: { id: number }) {
   const progress = useProgress();
   const path = useLearningPath(course.data?.language_id ?? 0);
   const access = path.data?.courses.find((item) => item.id === id);
+  const languageName = languages.data?.find(
+    (language) => language.id === course.data?.language_id,
+  )?.name;
   const indexed = progressByLesson(progress.data ?? []);
   const stats =
     lessons.data && progress.data
@@ -59,37 +65,48 @@ export function CourseDetails({ id }: { id: number }) {
       ) : (
         <>
           <PageHeader
-            eyebrow={
-              languages.data?.find(
-                (language) => language.id === course.data.language_id,
-              )?.name
-            }
             title={course.data.title}
             description={course.data.description}
-            action={<Badge tone="primary">{course.data.level}</Badge>}
           />
+          {/* Course facts on one quiet line under the title. */}
+          <div className={styles.courseMeta}>
+            <Badge tone="primary">{course.data.level}</Badge>
+            {languageName && <span>{languageName}</span>}
+            {/* A locked course reports no lessons yet; "0" would mislead. */}
+            {!!lessons.data?.length && (
+              <span>
+                {t.lessons}: {lessons.data.length}
+              </span>
+            )}
+          </div>
           <div className={styles.detailGrid}>
             <section className={styles.lessonList}>
               <h2>{t.lessons}</h2>
               {path.isSuccess && !access?.is_unlocked && (
-                <div className={styles.notice}>
-                  <p>
-                    {path.data.placement_completed
-                      ? placementMessages[locale].completionHint
-                      : placementMessages[locale].needed}
-                  </p>
-                  <LinkButton
-                    href={
+                <Card>
+                  <EmptyState
+                    illustration={<LockIllustration />}
+                    title={placementMessages[locale].locked}
+                    description={
                       path.data.placement_completed
-                        ? '/level-tests'
-                        : '/level-tests/' + course.data.language_id
+                        ? placementMessages[locale].completionHint
+                        : placementMessages[locale].needed
                     }
-                  >
-                    {path.data.placement_completed
-                      ? placementMessages[locale].tests
-                      : placementMessages[locale].placement}
-                  </LinkButton>
-                </div>
+                    action={
+                      <LinkButton
+                        href={
+                          path.data.placement_completed
+                            ? '/level-tests'
+                            : '/level-tests/' + course.data.language_id
+                        }
+                      >
+                        {path.data.placement_completed
+                          ? placementMessages[locale].tests
+                          : placementMessages[locale].placement}
+                      </LinkButton>
+                    }
+                  />
+                </Card>
               )}
               {lessons.isPending ? (
                 <LearningSkeleton />
@@ -103,56 +120,58 @@ export function CourseDetails({ id }: { id: number }) {
                   description={t.noLessonsHint}
                 />
               ) : (
-                lessons.data.map((lesson, index) => {
-                  const complete = indexed.get(lesson.id)?.completed;
-                  const content = (
-                    <>
-                      <span
-                        className={styles.lessonIcon}
-                        data-completed={complete}
-                      >
-                        {lesson.is_locked ? (
-                          <LockKeyhole size={19} />
-                        ) : complete ? (
-                          <Check size={20} />
-                        ) : (
-                          <Play size={17} />
-                        )}
-                      </span>
-                      <div>
-                        <small>
-                          {t.lesson} {index + 1}
-                        </small>
-                        <h3>{lesson.title}</h3>
-                        <span>
-                          {lesson.is_locked
-                            ? t.locked
-                            : complete
-                              ? t.completed
-                              : t.available}
+                <div className={styles.lessonRows}>
+                  {lessons.data.map((lesson, index) => {
+                    const complete = indexed.get(lesson.id)?.completed;
+                    const content = (
+                      <>
+                        <span
+                          className={styles.lessonIcon}
+                          data-completed={complete}
+                        >
+                          {lesson.is_locked ? (
+                            <LockKeyhole size={19} />
+                          ) : complete ? (
+                            <Check size={20} />
+                          ) : (
+                            <Play size={17} />
+                          )}
                         </span>
+                        <div>
+                          <small>
+                            {t.lesson} {index + 1}
+                          </small>
+                          <h3>{lesson.title}</h3>
+                          <span>
+                            {lesson.is_locked
+                              ? t.locked
+                              : complete
+                                ? t.completed
+                                : t.available}
+                          </span>
+                        </div>
+                        {!lesson.is_locked && <ArrowRight size={18} />}
+                      </>
+                    );
+                    return lesson.is_locked ? (
+                      <div
+                        className={styles.lessonRow}
+                        aria-disabled="true"
+                        key={lesson.id}
+                      >
+                        {content}
                       </div>
-                      {!lesson.is_locked && <ArrowRight size={18} />}
-                    </>
-                  );
-                  return lesson.is_locked ? (
-                    <div
-                      className={styles.lessonRow}
-                      aria-disabled="true"
-                      key={lesson.id}
-                    >
-                      {content}
-                    </div>
-                  ) : (
-                    <Link
-                      className={styles.lessonRow}
-                      href={'/lessons/' + lesson.id}
-                      key={lesson.id}
-                    >
-                      {content}
-                    </Link>
-                  );
-                })
+                    ) : (
+                      <Link
+                        className={styles.lessonRow}
+                        href={'/lessons/' + lesson.id}
+                        key={lesson.id}
+                      >
+                        {content}
+                      </Link>
+                    );
+                  })}
+                </div>
               )}
             </section>
             <aside className={styles.summary}>
@@ -194,7 +213,7 @@ export function CourseDetails({ id }: { id: number }) {
                       : t.allLocked}
                   </p>
                 ) : null}
-                <LinkButton variant="ghost" href="/progress">
+                <LinkButton variant="secondary" href="/progress">
                   {t.viewProgress}
                 </LinkButton>
                 <LinkButton variant="secondary" href="/learning-path">

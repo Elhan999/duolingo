@@ -9,7 +9,7 @@ import { friendshipError } from './errors';
 import { Button } from '@/components/ui/button';
 import { Avatar, Badge, Card } from '@/components/ui/surface';
 import { EmptyState } from '@/components/ui/states';
-import { FriendsIllustration } from '@/components/ui/illustrations';
+import { BellIllustration } from '@/components/ui/illustrations';
 import { requestsForUser, type FriendRequest } from './contracts';
 import {
   requestsOptions,
@@ -116,11 +116,14 @@ export function RequestsPanel() {
       ) : query.isError ? (
         <SocialError retry={() => void query.refetch()} />
       ) : requests.length === 0 ? (
-        <EmptyState
-          illustration={<FriendsIllustration />}
-          title={t.noRequests}
-          description={t.noRequestsBody}
-        />
+        // A different picture from the empty friends list just above it.
+        <Card>
+          <EmptyState
+            illustration={<BellIllustration />}
+            title={t.noRequests}
+            description={t.noRequestsBody}
+          />
+        </Card>
       ) : (
         requests
           .slice(0, visible)

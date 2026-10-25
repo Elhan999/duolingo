@@ -95,9 +95,11 @@ export function PathPage() {
               <Card className={styles.summary}>
                 <Sparkles size={28} />
                 <h2>{t.current}</h2>
-                <strong className={styles.level}>
-                  {path.data.level ?? '—'}
-                </strong>
+                {/* No level yet: the hint below says what to do; a giant
+                    dash only looked like a stray line. */}
+                {path.data.level && (
+                  <strong className={styles.level}>{path.data.level}</strong>
+                )}
                 <p>{path.data.placement_completed ? t.ready : t.needed}</p>
                 <div className={styles.actions}>
                   {!path.data.level && (

@@ -8,10 +8,18 @@ import { EmptyState, ErrorState } from '@/components/ui/states';
 import { TrophyIllustration } from '@/components/ui/illustrations';
 import { LearningSkeleton } from '@/features/learning/data-state';
 import { Button } from '@/components/ui/button';
+import { LinkButton } from '@/components/ui/link-button';
 import { Select } from '@/components/ui/field';
 import { ConfirmDialog } from '@/components/ui/modal';
 import { labels } from '@/i18n/management';
 import styles from './rewards.module.scss';
+
+// The service reports learners without a place yet as a huge sentinel rank.
+const UNRANKED = 999999;
+function place(rank: number | null | undefined) {
+  return rank == null || rank >= UNRANKED ? '—' : String(rank);
+}
+
 export function RewardsPage({ section }: { section: RewardsSection }) {
   const {
     locale,
@@ -38,22 +46,7 @@ export function RewardsPage({ section }: { section: RewardsSection }) {
   return (
     <LearningShell active="progress">
       <div className={styles.page}>
-        <PageHeader
-          eyebrow={t.overview}
-          title={t[section]}
-          description={learning.progressHint}
-          action={
-            <span className={styles.heroIcon}>
-              {section === 'leaderboard' ? (
-                <Trophy />
-              ) : section === 'challenges' ? (
-                <Flame />
-              ) : (
-                <Medal />
-              )}
-            </span>
-          }
-        />
+        <PageHeader title={t[section]} description={learning.progressHint} />
         {section === 'challenges' && (
           <Card className={styles.spotlight}>
             <span className={styles.medallion}>
@@ -88,7 +81,7 @@ export function RewardsPage({ section }: { section: RewardsSection }) {
                   ? t.loading
                   : rank.isError
                     ? t.error
-                    : (rank.data?.rank ?? '—')}{' '}
+                    : place(rank.data?.rank)}{' '}
                 · {rank.data?.xp ?? '—'} XP
               </p>
             </Card>
@@ -133,7 +126,7 @@ export function RewardsPage({ section }: { section: RewardsSection }) {
           </Select>
         )}
         {catalog.isPending ? (
-          <p role="status">{t.loading}</p>
+          <LearningSkeleton />
         ) : catalog.isError ? (
           <ErrorState
             title={t.error}
@@ -142,11 +135,17 @@ export function RewardsPage({ section }: { section: RewardsSection }) {
             onRetry={() => void catalog.refetch()}
           />
         ) : !catalog.data.length ? (
-          <EmptyState
-            illustration={<TrophyIllustration />}
-            title={t.empty}
-            description={t[section]}
-          />
+          // Says what earns the first entry instead of repeating the title.
+          <Card>
+            <EmptyState
+              illustration={<TrophyIllustration />}
+              title={t.empty}
+              description={learning.progressEmptyHint}
+              action={
+                <LinkButton href="/courses">{learning.browse}</LinkButton>
+              }
+            />
+          </Card>
         ) : (
           <div
             className={section === 'leaderboard' ? styles.ranking : styles.grid}
@@ -220,7 +219,9 @@ export function RewardsPage({ section }: { section: RewardsSection }) {
                     className={styles.position}
                     data-podium={item.rank != null && item.rank <= 3}
                   >
-                    #{item.rank ?? '—'}
+                    {item.rank != null && item.rank < UNRANKED
+                      ? '#' + item.rank
+                      : '—'}
                   </span>
                   <Avatar name={item.user?.username ?? item.user_id} />
                   <h2>{item.user?.username ?? item.user_id}</h2>

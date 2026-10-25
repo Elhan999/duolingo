@@ -52,7 +52,6 @@
   &[data-state='done'] .marker {
     background: var(--color-success);
     color: var(--color-on-primary);
-    box-shadow: 0 4px 0 color-mix(in srgb, var(--color-success), #000 25%);
   }
   &[data-state='done']:not(:last-child)::before {
     border-left-style: solid;
@@ -81,14 +80,13 @@
   width: 3.25rem;
   background: var(--color-action);
   color: var(--color-on-action);
-  border-radius: 1.1rem;
-  box-shadow: 0 4px 0 color-mix(in srgb, var(--color-action), #0a3f8a 25%);
+  border-radius: 50%;
 }
 .course {
   h2 {
-    margin: 1.1rem 0 0.75rem;
-    font-size: 1.3rem;
-    line-height: 1.4;
+    margin: 0.85rem 0 0.5rem;
+    font-size: var(--text-lg);
+    line-height: 1.35;
   }
   > p {
     color: var(--color-muted);
@@ -172,18 +170,17 @@
 .summary {
   position: sticky;
   top: 1.5rem;
-  background: var(--hero-gradient);
-  padding: 1.75rem;
+  padding: 1.5rem;
   h2 {
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--color-muted);
-    margin: 1rem 0 0.5rem;
+    margin: 0.85rem 0 0.25rem;
   }
   > p {
     font-size: var(--text-sm);
     color: var(--color-muted);
-    margin: 1rem 0 1.5rem;
+    margin: 0.5rem 0 1.25rem;
   }
   > svg {
     color: var(--color-primary);

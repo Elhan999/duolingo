@@ -186,6 +186,16 @@
 .tile:enabled:active {
   transform: scale(0.985);
 }
+// Answers answer the pointer, so it is clear they can be picked.
+.choice:has(input:enabled:not(:checked)):hover,
+.tile:enabled:not([data-paired='true']):hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-subtle);
+}
+.choice,
+.tile {
+  border-radius: 0.75rem;
+}
 .choice:has(input:checked) .number {
   color: var(--color-primary);
   border-color: currentColor;

@@ -69,11 +69,14 @@ export function Skeleton({ className }: { className?: string }) {
   return <span aria-hidden="true" className={cn(styles.skeleton, className)} />;
 }
 export function PageHeader({
-  eyebrow,
   title,
   description,
   action,
 }: {
+  /**
+   * Accepted for older call sites but not shown: the header bar already
+   * names the section, and a caps label above every title read as noise.
+   */
   eyebrow?: string;
   title: string;
   description?: string;
@@ -82,7 +85,6 @@ export function PageHeader({
   return (
     <div className={styles.pageHeader}>
       <div>
-        {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
         <h1>{title}</h1>
         {description && <p>{description}</p>}
       </div>

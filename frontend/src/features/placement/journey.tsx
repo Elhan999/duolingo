@@ -39,6 +39,9 @@ export function LearningJourney({
           course.is_unlocked && course.lessons.length > 0 && !isDone(course),
       )?.id
     : undefined;
+  // The hint and the call to action belong to the next locked stop only;
+  // repeating them on every locked course made the path shout.
+  const nextLockedId = ordered.find((course) => !course.is_unlocked)?.id;
   return (
     <ol className={styles.journey}>
       {ordered.map((course) => {
@@ -87,7 +90,7 @@ export function LearningJourney({
                   </small>
                 </div>
               )}
-              {!course.is_unlocked && (
+              {!course.is_unlocked && course.id === nextLockedId && (
                 <p>{placementCompleted ? t.completionHint : t.needed}</p>
               )}
               {course.is_unlocked ? (
@@ -95,7 +98,7 @@ export function LearningJourney({
                   {t.open}
                   <ArrowUpRight size={17} />
                 </LinkButton>
-              ) : !placementCompleted ? (
+              ) : !placementCompleted && course.id === nextLockedId ? (
                 <LinkButton href={'/level-tests/' + course.language_id}>
                   {t.start}
                   <ArrowUpRight size={17} />

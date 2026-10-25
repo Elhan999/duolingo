@@ -61,14 +61,26 @@
   strong {
     font-size: var(--text-sm);
   }
+  // Messenger layout: name and date share the first line, the last message
+  // runs below on its own line.
+  > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 0.75rem;
+    align-items: baseline;
+  }
   p {
-    margin: var(--space-1) 0;
+    grid-column: 1 / -1;
+    margin: 0.15rem 0 0;
     color: var(--color-muted);
-    font-size: var(--text-sm);
+    font-size: var(--text-caption);
   }
   > div > span {
+    grid-column: 2;
+    grid-row: 1;
     color: var(--color-muted);
-    font-size: var(--text-xs);
+    font-size: var(--text-2xs);
+    white-space: nowrap;
   }
 }
 .selected {
@@ -88,12 +100,14 @@
   justify-content: center;
   padding: var(--space-8);
   text-align: center;
-  background: var(--hero-gradient);
+  background: var(--color-bg);
   svg {
     color: var(--color-primary);
   }
   h1 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin: 1rem 0 0.5rem;
+    font-size: var(--text-lg);
+    letter-spacing: -0.01em;
   }
   p {
     color: var(--color-muted);
@@ -322,10 +336,13 @@
   }
 }
 @media (max-width: 48rem) {
+  // Phones show only the list here, so it takes the height of its chats and
+  // the page scrolls, instead of a tall frame with one row and empty space.
   .messenger {
     grid-template-columns: minmax(0, 1fr);
-    height: calc(100dvh - 13rem);
-    min-height: 24rem;
+    height: auto;
+    max-height: none;
+    min-height: 0;
   }
   .chatList {
     border-right: 0;
@@ -389,8 +406,9 @@
   padding: 1.5rem 1.25rem 1rem;
 }
 .chatItem {
-  margin-bottom: 0.25rem;
-  min-height: 84px;
+  margin-bottom: 0.125rem;
+  min-height: 64px;
+  padding-block: 0.75rem;
 }
 .chatItem > [role='img'] {
   border-radius: 50%;
@@ -399,12 +417,9 @@
   padding: 1.15rem 1.5rem;
   background: var(--color-surface);
 }
+// A calm, flat canvas for the conversation: the bubbles carry the colour.
 .messages {
-  background: linear-gradient(
-    160deg,
-    var(--color-bg),
-    var(--color-primary-soft)
-  );
+  background: var(--color-bg);
   padding: 1.5rem;
 }
 .bubble {
@@ -423,12 +438,11 @@
   border-radius: 999px;
 }
 .welcome > svg {
-  width: 72px;
-  height: 72px;
-  padding: 16px;
-  background: var(--color-surface);
-  border-radius: 24px;
-  box-shadow: var(--shadow-card);
+  width: 56px;
+  height: 56px;
+  padding: 14px;
+  background: var(--color-primary-soft);
+  border-radius: 50%;
 }
 @media (max-width: 48rem) {
   .conversationHeader {
