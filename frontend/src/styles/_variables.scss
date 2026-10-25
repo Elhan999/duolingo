@@ -113,30 +113,32 @@ html[data-theme='light'] {
 }
 
 /* =========================
-   DARK THEME — night blue
+   DARK THEME — ink
+   Near-neutral surfaces with only a breath of blue; the bright blue is
+   kept for accents, so the interface reads crisp instead of hazy.
 ========================= */
 
 html[data-theme='dark'] {
   color-scheme: dark;
 
-  --color-bg: #0d1220;
-  --color-header-bg: rgb(13 18 32 / 82%);
-  --color-hero-surface: #121a2e;
-  --color-surface: #141c31;
-  --color-surface-raised: #1b243d;
-  --color-subtle: #1e2844;
+  --color-bg: #0a0d14;
+  --color-header-bg: rgb(10 13 20 / 82%);
+  --color-hero-surface: #0e121b;
+  --color-surface: #10141d;
+  --color-surface-raised: #161b26;
+  --color-subtle: #191f2b;
 
-  --color-text: #e9eefb;
-  --color-muted: #a3adc6;
+  --color-text: #eef1f6;
+  --color-muted: #9aa3b3;
 
-  --color-primary: #7aa7ff;
-  --color-primary-hover: #a3c2ff;
-  --color-primary-soft: #1a2a52;
+  --color-primary: #6ea8ff;
+  --color-primary-hover: #9ac3ff;
+  --color-primary-soft: #15233d;
 
-  --color-on-primary: #08142f;
+  --color-on-primary: #06122b;
 
-  --color-border: #28324f;
-  --color-border-strong: #3b4769;
+  --color-border: #212835;
+  --color-border-strong: #343d4e;
 
   --color-success: #48d6a0;
   --color-success-soft: #0f2b22;
@@ -158,11 +160,11 @@ html[data-theme='dark'] {
   --color-action: #2456e8;
   --color-action-hover: #3566f2;
   --color-on-action: #fff;
-  --color-glow: rgb(122 167 255 / 14%);
+  --color-glow: rgb(110 168 255 / 14%);
   --gradient-action: linear-gradient(120deg, #2456e8, #3b82f6);
-  --gradient-brand: linear-gradient(120deg, #7aa7ff, #ff7aa5 60%, #ffc04d);
-  --app-background: #0d1220;
-  --hero-gradient: linear-gradient(180deg, #16203a, #121a2e);
+  --gradient-brand: linear-gradient(120deg, #6ea8ff, #ff7aa5 60%, #ffc04d);
+  --app-background: #0a0d14;
+  --hero-gradient: linear-gradient(180deg, #121826, #0e121b);
 
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
   --shadow-card: 0 1px 0 rgb(255 255 255 / 4%) inset;

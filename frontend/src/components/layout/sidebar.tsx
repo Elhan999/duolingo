@@ -27,7 +27,7 @@ export function Sidebar({
   const {
     messages: { nav },
   } = useI18n();
-  const { ref, pill } = useNavPill(active, collapsed);
+  const { ref, pillRef, pill, moveTo, current } = useNavPill(active, collapsed);
   return (
     <aside className={cn(styles.sidebar, collapsed && styles.collapsed)}>
       <div className={styles.brand}>
@@ -50,17 +50,22 @@ export function Sidebar({
         data-pill={pill ? 'true' : undefined}
         data-active-section={active}
       >
-        {pill && (
-          <span
-            className={styles.navPill}
-            aria-hidden="true"
-            style={{
-              transform: `translate(${pill.x}px, ${pill.y}px)`,
-              width: pill.width,
-              height: pill.height,
-            }}
-          />
-        )}
+        {/* Always mounted, so the glide can start before the first paint. */}
+        <span
+          ref={pillRef}
+          className={styles.navPill}
+          aria-hidden="true"
+          hidden={!pill}
+          style={
+            pill
+              ? {
+                  transform: `translate(${pill.x}px, ${pill.y}px)`,
+                  width: pill.width,
+                  height: pill.height,
+                }
+              : undefined
+          }
+        />
         {(['learning', 'connect', 'account'] as const).map((group, index) => (
           <div className={styles.navGroup} key={group}>
             <p className={styles.groupLabel}>{nav[group]}</p>
@@ -71,7 +76,7 @@ export function Sidebar({
                   key={key}
                   href={href}
                   data-tone={index}
-                  data-nav-active={key === active || undefined}
+                  data-nav-active={key === current || undefined}
                   data-section={key}
                   title={nav[key]}
                   aria-label={nav[key]}
@@ -80,9 +85,17 @@ export function Sidebar({
                   }
                   className={cn(
                     styles.navLink,
-                    key === active && styles.navActive,
+                    key === current && styles.navActive,
                   )}
                   onClick={(event) => {
+                    // Plain clicks only: a new tab leaves this page as it is.
+                    if (
+                      !event.metaKey &&
+                      !event.ctrlKey &&
+                      !event.shiftKey &&
+                      event.button === 0
+                    )
+                      moveTo(key);
                     if (onNavigate) {
                       event.preventDefault();
                       onNavigate(key);
