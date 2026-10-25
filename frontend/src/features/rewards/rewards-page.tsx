@@ -5,6 +5,7 @@ import { useI18n } from '@/providers/i18n-provider';
 import { Trophy, Medal, Flame, LockKeyhole } from 'lucide-react';
 import { Card, Badge, Avatar, PageHeader } from '@/components/ui/surface';
 import { EmptyState, ErrorState } from '@/components/ui/states';
+import { TrophyIllustration } from '@/components/ui/illustrations';
 import { LearningSkeleton } from '@/features/learning/data-state';
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/field';
@@ -141,7 +142,11 @@ export function RewardsPage({ section }: { section: RewardsSection }) {
             onRetry={() => void catalog.refetch()}
           />
         ) : !catalog.data.length ? (
-          <EmptyState title={t.empty} description={t[section]} />
+          <EmptyState
+            illustration={<TrophyIllustration />}
+            title={t.empty}
+            description={t[section]}
+          />
         ) : (
           <div
             className={section === 'leaderboard' ? styles.ranking : styles.grid}

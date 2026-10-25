@@ -79,15 +79,15 @@
   fill: var(--color-primary);
 }
 .chipTwo rect {
-  fill: var(--color-info-soft);
-  stroke: var(--color-info);
+  fill: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface));
+  stroke: var(--color-accent);
 }
 .chipTwo text {
-  fill: var(--color-info);
+  fill: var(--color-accent);
 }
 .chipThree rect {
-  fill: var(--color-warning-soft);
-  stroke: var(--color-warning);
+  fill: color-mix(in srgb, var(--color-sun) 22%, var(--color-surface));
+  stroke: var(--color-sun);
 }
 .chipThree text {
   fill: var(--color-warning);
@@ -115,12 +115,12 @@
 .bubbleFront {
   animation: chipFloat 6.5s ease-in-out -2.2s infinite;
   rect:first-child {
-    fill: var(--color-surface);
-    stroke: var(--color-border-strong);
+    fill: color-mix(in srgb, var(--color-accent) 16%, var(--color-surface));
+    stroke: var(--color-accent);
   }
   > path {
-    fill: var(--color-surface);
-    stroke: var(--color-border-strong);
+    fill: color-mix(in srgb, var(--color-accent) 16%, var(--color-surface));
+    stroke: var(--color-accent);
     stroke-width: 2.5;
     stroke-linejoin: round;
   }
@@ -130,7 +130,7 @@
   opacity: 0.4;
 }
 .dots circle {
-  fill: var(--color-primary);
+  fill: var(--color-accent);
   animation: dotHop 1.3s ease-in-out infinite;
 }
 .dots circle:nth-child(2) {
@@ -153,7 +153,7 @@
 }
 .node {
   fill: var(--color-surface);
-  stroke: var(--color-primary);
+  stroke: var(--color-success);
   stroke-width: 3;
   animation: nodePulse 2.6s ease-in-out infinite;
 }
@@ -164,8 +164,8 @@
   animation: planeGlide 5s ease-in-out infinite;
 }
 .planeBody {
-  fill: var(--color-primary);
-  stroke: var(--color-primary);
+  fill: var(--color-accent);
+  stroke: var(--color-accent);
   stroke-width: 2;
   stroke-linejoin: round;
 }
@@ -180,12 +180,12 @@
 /* ---------- Shared ---------- */
 
 .sparkle {
-  fill: var(--color-info);
+  fill: var(--color-sun);
   animation: twinkle 2.8s ease-in-out infinite;
 }
 .sparkleLate {
   animation-delay: 1.4s;
-  fill: var(--color-warning);
+  fill: var(--color-accent);
 }
 
 @keyframes bob {
@@ -259,6 +259,485 @@
   .node,
   .dots circle,
   .trail {
+    animation: none;
+  }
+}
+
+/* ---------- New scenes: colourful, each with its own small life ---------- */
+
+// Pivots that sit at a fixed point of the drawing use view-box coordinates.
+.friend,
+.eyes,
+.heart,
+.trophy,
+.star,
+.confetti rect,
+.rays,
+.soundWave,
+.badge,
+.lock,
+.key,
+.orbitRing,
+.sheet,
+.magnifier {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Friends */
+.friendLeft {
+  --tone: var(--color-accent);
+  animation: bob 5s ease-in-out infinite;
+}
+.friendRight {
+  --tone: var(--color-primary);
+  animation: bob 5.5s ease-in-out -1.8s infinite;
+}
+.friendBody {
+  fill: var(--tone);
+}
+.friendHead,
+.hand {
+  fill: color-mix(in srgb, var(--tone) 18%, var(--color-surface));
+  stroke: var(--tone);
+  stroke-width: 2.5;
+}
+.arm {
+  fill: none;
+  stroke: var(--tone);
+  stroke-width: 9;
+  stroke-linecap: round;
+}
+.waving {
+  transform-box: view-box;
+  transform-origin: 156px 104px;
+  animation: wave 1.6s ease-in-out infinite;
+}
+.eyes circle {
+  fill: var(--color-text);
+}
+.eyes {
+  animation: blink 4.5s ease-in-out infinite;
+}
+.eyesLate {
+  animation-delay: -2s;
+}
+.smile {
+  fill: none;
+  stroke: var(--color-text);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+.heart {
+  fill: var(--color-accent);
+  animation: heartRise 3.6s ease-out infinite;
+}
+
+/* Trophy */
+.rays {
+  fill: none;
+  stroke: var(--color-sun);
+  stroke-width: 10;
+  stroke-dasharray: 3 14;
+  opacity: 0.5;
+  animation: spin 18s linear infinite;
+}
+.trophy {
+  animation: bob 4s ease-in-out infinite;
+}
+.handle {
+  fill: none;
+  stroke: var(--color-sun);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+.cup {
+  fill: var(--color-sun);
+  stroke: color-mix(in srgb, var(--color-sun) 60%, #8a4b00);
+  stroke-width: 2;
+}
+.shine {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 4;
+  stroke-linecap: round;
+  opacity: 0.7;
+  animation: shimmer 2.4s ease-in-out infinite;
+}
+.star {
+  fill: #fff;
+  animation: starPop 2.4s ease-in-out infinite;
+}
+.stem {
+  fill: color-mix(in srgb, var(--color-sun) 70%, #8a4b00);
+}
+.base {
+  fill: var(--color-primary);
+}
+.confetti rect {
+  animation: confettiFall 3.2s linear infinite;
+  &:nth-child(4n + 1) {
+    fill: var(--color-accent);
+  }
+  &:nth-child(4n + 2) {
+    fill: var(--color-primary);
+  }
+  &:nth-child(4n + 3) {
+    fill: var(--color-success);
+  }
+  &:nth-child(4n) {
+    fill: var(--color-sun);
+  }
+  @for $i from 1 through 8 {
+    &:nth-child(#{$i}) {
+      animation-delay: ($i * -0.41s);
+      animation-duration: 2.6s + ($i % 3) * 0.5s;
+    }
+  }
+}
+
+/* Bell */
+.bell {
+  transform-box: view-box;
+  transform-origin: 100px 20px;
+  animation: ring 3.5s ease-in-out infinite;
+}
+.bellBody {
+  fill: var(--color-sun);
+  stroke: color-mix(in srgb, var(--color-sun) 60%, #8a4b00);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.bellTop {
+  fill: color-mix(in srgb, var(--color-sun) 70%, #8a4b00);
+}
+.bellShine {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 4;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+.clapper {
+  fill: var(--color-accent);
+}
+.soundWave {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: soundOut 3.5s ease-out infinite;
+}
+.soundWaveLate {
+  animation-delay: 0.25s;
+}
+.badge {
+  fill: var(--color-accent);
+  stroke: var(--color-surface);
+  stroke-width: 3;
+  animation: badgePulse 1.8s ease-in-out infinite;
+}
+
+/* Lock */
+.lock {
+  animation: wiggle 4s ease-in-out infinite;
+}
+.shackle {
+  fill: none;
+  stroke: var(--color-border-strong);
+  stroke-width: 9;
+  stroke-linecap: round;
+}
+.lockBody {
+  fill: var(--color-primary);
+}
+.keyhole {
+  fill: var(--color-on-primary);
+}
+.key {
+  animation: keyFloat 4s ease-in-out infinite;
+}
+.keyRing,
+.keyBlade {
+  fill: none;
+  stroke: var(--color-sun);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Compass */
+.orbitRing {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2.5;
+  stroke-dasharray: 4 10;
+  stroke-linecap: round;
+  animation: spin 22s linear infinite;
+}
+.compassFace {
+  fill: var(--color-surface);
+  stroke: var(--color-primary);
+  stroke-width: 5;
+}
+.compassInner {
+  fill: var(--color-primary-soft);
+}
+.ticks {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.needle {
+  transform-box: view-box;
+  transform-origin: 100px 66px;
+  animation: needleSearch 5s ease-in-out infinite;
+}
+.needleNorth {
+  fill: var(--color-accent);
+}
+.needleSouth {
+  fill: var(--color-border-strong);
+}
+.pivot {
+  fill: var(--color-sun);
+  stroke: var(--color-surface);
+  stroke-width: 2;
+}
+
+/* Search */
+.sheet {
+  animation: bob 6s ease-in-out infinite;
+}
+.sheetBody {
+  fill: var(--color-surface);
+  stroke: var(--color-border-strong);
+  stroke-width: 2.5;
+}
+.lineOne {
+  fill: color-mix(in srgb, var(--color-primary) 55%, var(--color-surface));
+}
+.lineTwo {
+  fill: color-mix(in srgb, var(--color-accent) 60%, var(--color-surface));
+}
+.lineThree {
+  fill: color-mix(in srgb, var(--color-sun) 70%, var(--color-surface));
+}
+.magnifier {
+  animation: scan 5s ease-in-out infinite;
+}
+.magnifierHandle {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+.lens {
+  fill: color-mix(in srgb, var(--color-info) 18%, transparent);
+  stroke: var(--color-primary);
+  stroke-width: 6;
+}
+.glint {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(18deg);
+  }
+}
+@keyframes blink {
+  0%,
+  44%,
+  50%,
+  100% {
+    transform: scaleY(1);
+  }
+  47% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes heartRise {
+  0% {
+    transform: translateY(14px) scale(0.5);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(0) scale(1.05);
+  }
+  100% {
+    transform: translateY(-22px) scale(0.9);
+    opacity: 0;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+@keyframes starPop {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.18) rotate(12deg);
+  }
+}
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120px) rotate(320deg);
+    opacity: 0;
+  }
+}
+@keyframes ring {
+  0%,
+  40%,
+  100% {
+    transform: rotate(0deg);
+  }
+  5% {
+    transform: rotate(14deg);
+  }
+  12% {
+    transform: rotate(-12deg);
+  }
+  19% {
+    transform: rotate(8deg);
+  }
+  26% {
+    transform: rotate(-5deg);
+  }
+  33% {
+    transform: rotate(2deg);
+  }
+}
+@keyframes soundOut {
+  0%,
+  40%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  8% {
+    opacity: 0.9;
+  }
+  30% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+@keyframes badgePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+@keyframes wiggle {
+  0%,
+  70%,
+  100% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-6deg);
+  }
+  80% {
+    transform: rotate(5deg);
+  }
+  85% {
+    transform: rotate(-3deg);
+  }
+  90% {
+    transform: rotate(2deg);
+  }
+}
+@keyframes keyFloat {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-8deg);
+  }
+  50% {
+    transform: translate(-8px, -8px) rotate(10deg);
+  }
+}
+@keyframes needleSearch {
+  0% {
+    transform: rotate(-40deg);
+  }
+  20% {
+    transform: rotate(60deg);
+  }
+  38% {
+    transform: rotate(-20deg);
+  }
+  52%,
+  100% {
+    transform: rotate(18deg);
+  }
+}
+@keyframes scan {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(-46px, -30px) rotate(-6deg);
+  }
+  66% {
+    transform: translate(-20px, -52px) rotate(4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .friend,
+  .waving,
+  .eyes,
+  .heart,
+  .rays,
+  .trophy,
+  .shine,
+  .star,
+  .confetti rect,
+  .bell,
+  .soundWave,
+  .badge,
+  .lock,
+  .key,
+  .orbitRing,
+  .needle,
+  .sheet,
+  .magnifier {
     animation: none;
   }
 }

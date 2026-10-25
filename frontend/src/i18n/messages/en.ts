@@ -592,6 +592,9 @@ export const en: Messages = {
     loadingLabel: 'Loading content',
     interactions: 'The details make a difference',
     interactionsHint: 'Explore dialogs, tabs and interactive states.',
+    illustrations: 'Living illustrations',
+    illustrationsHint:
+      'Animated pictures for empty screens: friends, rewards, notifications and search.',
     openModal: 'Open dialog',
     openConfirm: 'Confirmation',
     more: 'More',

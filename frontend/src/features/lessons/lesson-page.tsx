@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useI18n } from '@/providers/i18n-provider';
 import { LinkButton } from '@/components/ui/link-button';
 import { EmptyState } from '@/components/ui/states';
+import { LockIllustration } from '@/components/ui/illustrations';
 import {
   LearningSkeleton,
   LearningError,
@@ -37,6 +38,7 @@ export function LessonPage({ id }: { id: number }) {
     return (
       <main id="main-content" className={styles.workspace}>
         <EmptyState
+          illustration={<LockIllustration />}
           title={t.lockedTitle}
           description={t.lockedHint}
           action={

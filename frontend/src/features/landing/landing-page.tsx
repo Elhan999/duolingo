@@ -3,6 +3,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Languages,
+  MessageCircle,
   MoonStar,
   Smartphone,
   Sparkles,
@@ -10,7 +11,7 @@ import {
 } from 'lucide-react';
 import { useI18n } from '@/providers/i18n-provider';
 import { Logo } from '@/components/layout/logo';
-import { ConversationScene, HorizonScene } from '@/components/ui/scenes';
+import { LivingScene } from '@/components/ui/living-scene';
 import { CommunityBadge } from '@/components/layout/community-badge';
 import { communityCopy } from './community-copy';
 import { LinkButton } from '@/components/ui/link-button';
@@ -116,10 +117,22 @@ export function LandingPage() {
         <Reveal>
           <section id="community" className={styles.community}>
             <div className={styles.communityArt} aria-hidden="true">
-              <ConversationScene />
+              <LivingScene mood="messages" />
+              <span>Hola!</span>
+              <span>Салам!</span>
+              <span>Hello!</span>
+              <div>
+                <MessageCircle size={66} strokeWidth={1} />
+              </div>
+              <i />
+              <b />
             </div>
             <div>
               <p className={styles.eyebrow}>{t.communityLabel}</p>
+              <a href="#about" className={styles.creatorCredit}>
+                <CommunityBadge />
+                <span>{community.made}</span>
+              </a>
               <h2>{t.communityTitle}</h2>
               <p>{t.communityBody}</p>
               <LinkButton href="/register">
@@ -152,7 +165,8 @@ export function LandingPage() {
         <Faq />
         <Reveal>
           <section className={styles.cta}>
-            <HorizonScene className={styles.ctaScene} />
+            <LivingScene mood="evening" fade />
+            <Sparkles size={26} />
             <h2>{t.ctaTitle}</h2>
             <p>{t.ctaBody}</p>
             <LinkButton href="/register">

@@ -35,7 +35,7 @@
     height: 30rem;
     bottom: -13rem;
     right: -9rem;
-    background: color-mix(in srgb, var(--color-primary) 45%, transparent);
+    background: color-mix(in srgb, var(--color-info) 65%, transparent);
     opacity: 0.24;
   }
 }
@@ -70,11 +70,11 @@
     > span[data-accent='true'] {
       background: linear-gradient(
         100deg,
-        var(--color-action),
         var(--color-primary),
-        color-mix(in srgb, var(--color-primary) 65%, #4fb3ff),
+        var(--color-info),
         var(--color-primary),
-        var(--color-action)
+        var(--color-info),
+        var(--color-primary)
       );
       filter: drop-shadow(0 0 18px var(--color-glow));
       background-size: 200% auto;
@@ -172,9 +172,22 @@
     padding: 0.45rem;
     box-sizing: content-box;
     border-radius: 0.65rem;
-    color: var(--color-primary);
-    background: var(--color-primary-soft);
+    color: var(--color-on-action);
+    background: var(--color-action);
     stroke-width: 1.75;
+    transition: transform var(--transition-fast);
+  }
+  > li:nth-child(2) svg {
+    color: var(--color-on-primary);
+    background: var(--color-info);
+  }
+  > li:nth-child(3) svg {
+    color: var(--color-on-primary);
+    background: var(--color-success);
+  }
+  > li:nth-child(4) svg {
+    color: var(--color-on-primary);
+    background: var(--color-warning);
   }
 }
 .section {
@@ -257,20 +270,60 @@
 }
 .communityArt {
   position: relative;
-  display: grid;
-  place-items: center;
-  padding: 2rem 1.5rem;
+  min-height: 320px;
   border-radius: 1.75rem;
   overflow: clip; // clip, not hidden: keeps the page as the scroll timeline
-  background:
-    radial-gradient(
-      circle at 50% 45%,
-      var(--color-primary-soft),
-      transparent 70%
-    ),
-    var(--color-surface);
+  isolation: isolate;
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-card);
+  // The chat icon sits in the middle of the panel, behind the greetings.
+  > div:not([data-scene]) {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--color-primary);
+    opacity: 0.85;
+  }
+  > span {
+    position: absolute;
+    padding: 0.7rem 1.1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
+    border-radius: 1rem 1rem 1rem 0.2rem;
+    z-index: 3;
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 10px 22px -8px var(--tone);
+    background: var(--tone);
+    // translate (not transform) floats the card without losing its tilt.
+    animation: bubbleFloat 6s ease-in-out infinite;
+    // nth-of-type: the scene div comes first, so nth-child would be off by one.
+    &:nth-of-type(1) {
+      --tone: var(--color-accent);
+      left: 15%;
+      top: 40px;
+      transform: rotate(-8deg);
+    }
+    &:nth-of-type(2) {
+      --tone: var(--color-primary);
+      right: 5%;
+      top: 145px;
+      transform: rotate(10deg);
+      animation-delay: -2s;
+    }
+    &:nth-of-type(3) {
+      --tone: var(--color-success);
+      left: 15%;
+      bottom: 25px;
+      transform: rotate(-5deg);
+      animation-delay: -4s;
+    }
+  }
 }
 .about {
   width: min(calc(100% - 4rem), 43rem);
@@ -361,6 +414,10 @@
   > * {
     position: relative;
     z-index: 1;
+  }
+  > svg {
+    color: var(--color-primary);
+    margin-bottom: 1rem;
   }
   h2 {
     font-size: clamp(2rem, 4vw, 3.4rem);
@@ -561,8 +618,10 @@
     margin: 4rem auto;
   }
   .communityArt {
+    width: min(100%, 350px);
+    margin: auto;
+    min-height: 290px;
     order: 2;
-    padding: 1rem;
   }
   .about {
     width: calc(100% - 3rem);
@@ -667,15 +726,24 @@
   }
 }
 
-// A quiet horizon sits under the closing call, below the copy.
+// Living panoramas (LivingScene) sit behind the closing call and the
+// community panel; the scene layers itself under the copy.
 .cta {
-  padding-bottom: clamp(9rem, 17vw, 13rem);
-  > .ctaScene {
-    position: absolute;
-    inset: auto 0 0;
-    z-index: 0;
-    height: 52%;
+  padding-bottom: clamp(9rem, 18vw, 14rem);
+  &::before {
+    display: none;
   }
+  > [data-scene] {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+}
+.communityArt > div:not([data-scene]) {
+  z-index: 1;
+  color: var(--color-on-action);
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 8px rgb(0 0 0 / 25%));
 }
 // The panel opens from a soft frame as it scrolls into view.
 @supports (animation-timeline: view()) {
@@ -699,6 +767,20 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .communityArt {
+    animation: none;
+  }
+}
+@keyframes bubbleFloat {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .communityArt > span {
     animation: none;
   }
 }

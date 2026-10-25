@@ -1,30 +1,679 @@
 .art {
   position: relative;
-  display: grid;
-  place-items: center;
   min-width: 0;
   width: 100%;
-  padding: 1.5rem 1rem 1.5rem 2rem;
-
-  > svg {
-    width: min(100%, 560px);
+  height: 100%;
+  min-height: 530px;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--color-hero-surface);
+  --focus-x: 0.48;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, transparent 70%, var(--color-hero-surface)),
+      linear-gradient(0deg, var(--color-hero-surface), transparent 15%);
   }
+}
+// Same crop as object-fit: cover, but as a box the plane can be placed in.
+// The frame is always narrower than the 3:2 photo, so the photo fills the
+// height and overflows sideways; --focus-x picks which part stays in view.
+.stage {
+  position: absolute;
+  top: 0;
+  left: calc(var(--focus-x) * 100%);
+  height: 100%;
+  min-width: 100%;
+  aspect-ratio: 3 / 2;
+  // Focus offset plus a gentle pull toward the pointer (far layer: weakest).
+  translate: calc(var(--focus-x) * -100% + var(--mx, 0) * -14px)
+    calc(var(--my, 0) * -10px);
+  transition: translate 700ms var(--ease-spring);
+}
+.heroImage {
+  object-fit: cover;
+}
+.lightImage {
+  display: block;
+}
+.darkImage {
+  display: none;
+}
+:global(html[data-theme='dark']) {
+  .lightImage {
+    display: none;
+  }
+  .darkImage {
+    display: block;
+  }
+}
+.greetingOne,
+.greetingTwo,
+.greetingThree {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgb(120 190 255 / 45%);
+  border-radius: 1rem 1rem 1rem 0.25rem;
+  background: rgb(240 247 255 / 92%);
+  color: #0b1526;
+  font-weight: 750;
+  font-size: var(--text-md);
+  box-shadow:
+    0 8px 25px rgb(3 16 39 / 25%),
+    0 0 24px -6px rgb(40 150 255 / 55%);
+  backdrop-filter: blur(6px);
+  transform: rotate(-8deg);
+  small {
+    font-size: var(--text-3xs);
+    font-weight: 500;
+    opacity: 0.75;
+  }
+}
+.greetingOne {
+  left: 3%;
+  top: 3%;
+}
+.greetingTwo {
+  right: 8%;
+  top: 36%;
+  background: #9fd2ff;
+  transform: rotate(8deg);
+}
+.greetingThree {
+  right: 5%;
+  top: 3%;
+  background: #cfe3ff;
+  transform: rotate(6deg);
 }
 .compactArt {
-  padding: 0;
+  height: 300px;
+  min-height: 300px;
+  border-radius: 1.5rem;
   margin-top: 1.5rem;
+  --focus-x: 0.5;
+}
 
-  > svg {
-    width: min(100%, 380px);
+@media (max-width: 64rem) {
+  .greetingThree {
+    right: 5%;
+  }
+}
+@media (max-width: 48rem) {
+  .art {
+    max-width: none;
+    width: 100%;
+    height: 370px;
+    min-height: 370px;
+    transform: none;
+    margin: 0;
+  }
+  .art:not(.compactArt) {
+    --focus-x: 0.5;
+  }
+  .greetingOne {
+    top: auto;
+    bottom: 21%;
+    left: 5%;
+  }
+  .greetingTwo {
+    top: 42%;
+    right: 6%;
+  }
+  .greetingThree {
+    top: 4%;
+    right: 9%;
+  }
+  .compactArt {
+    min-height: 260px;
+    height: 260px;
   }
 }
 
-@media (max-width: 48rem) {
-  .art {
-    padding: 0.5rem 0 0;
+// ---------- Ambient hero motion ----------
+// Slow push-in on the whole scene; the plane stays glued to the photo.
+.stage {
+  animation: kenBurns 16s ease-in-out infinite alternate;
+}
+// Greeting cards drift on their own rhythm; the translate property keeps their tilt.
+.greetingOne {
+  animation: drift 6s ease-in-out infinite;
+}
+.greetingTwo {
+  animation: drift 7s ease-in-out 1.2s infinite;
+}
+.greetingThree {
+  animation: drift 6.5s ease-in-out 0.6s infinite;
+}
+// The paper plane from the photo: it hovers at the tip of its trail, takes
+// off up and out of frame, then glides back in along the trail — a short loop.
+// Positions are percentages of the photo (plane sits at 970,274 of 1536×1024).
+.plane {
+  position: absolute;
+  z-index: 1;
+  left: 63.15%;
+  top: 26.76%;
+  width: 4.04%;
+  height: auto;
+  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 25%));
+  animation: flight 9s ease-in-out infinite;
+}
+// A slow camera push-in with a slight pan, like a film establishing shot.
+@keyframes kenBurns {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.08) translate(-1%, -1%);
+  }
+}
+@keyframes drift {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -14px;
+  }
+}
+@keyframes flight {
+  0%,
+  100% {
+    left: 63.15%;
+    top: 26.76%;
+    opacity: 1;
+    transform: none;
+  }
+  10% {
+    top: 26%;
+    transform: rotate(-3deg);
+  }
+  20% {
+    left: 63.15%;
+    top: 26.9%;
+    transform: rotate(1deg);
+  }
+  48% {
+    left: 104%;
+    top: 4%;
+    opacity: 1;
+    transform: rotate(-12deg) scale(1.25);
+  }
+  50% {
+    opacity: 0;
+  }
+  62% {
+    left: 54%;
+    top: 34%;
+    opacity: 0;
+    transform: rotate(8deg) scale(0.6);
+  }
+  70% {
+    opacity: 1;
+  }
+  85% {
+    left: 63.15%;
+    top: 26.76%;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage,
+  .greetingOne,
+  .greetingTwo,
+  .greetingThree,
+  .plane {
+    animation: none;
+  }
+}
 
-    > svg {
-      width: min(100%, 420px);
+// ---------- Depth layers ----------
+.cloudLayer,
+.frontLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: transform 700ms var(--ease-spring);
+}
+.cloudLayer {
+  z-index: 1;
+  overflow: clip;
+  transform: translate(calc(var(--mx, 0) * 22px), calc(var(--my, 0) * 14px));
+}
+// Nearest layer: moves the most, so the greetings float in front.
+.frontLayer {
+  z-index: 2;
+  transform: translate(calc(var(--mx, 0) * 22px), calc(var(--my, 0) * 16px));
+}
+.cloud {
+  position: absolute;
+  left: -40%;
+  width: 46%;
+  aspect-ratio: 3 / 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgb(255 255 255 / 90%),
+    rgb(255 255 255 / 0%) 70%
+  );
+  filter: blur(8px);
+  opacity: 0.75;
+  animation: cloudPass 30s linear infinite;
+  &:nth-of-type(1) {
+    top: 6%;
+  }
+  &:nth-of-type(2) {
+    top: 20%;
+    width: 32%;
+    animation-duration: 22s;
+    animation-delay: -10s;
+  }
+  &:nth-of-type(3) {
+    top: 2%;
+    width: 56%;
+    animation-duration: 38s;
+    animation-delay: -22s;
+  }
+}
+:global(html[data-theme='dark']) .cloud {
+  opacity: 0.28;
+}
+// The globe breathes light, and sparks rise from it.
+.globeGlow {
+  position: absolute;
+  z-index: 1;
+  left: 8%;
+  top: 62%;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgb(110 200 255 / 55%),
+    rgb(110 200 255 / 0%) 62%
+  );
+  mix-blend-mode: screen;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+.spark {
+  position: absolute;
+  z-index: 1;
+  bottom: 14%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c9f6ff;
+  box-shadow: 0 0 10px 3px rgb(120 220 255 / 75%);
+  opacity: 0;
+  animation: sparkRise 5s ease-out infinite;
+  // Spread the sparks across the globe with staggered timings.
+  @for $i from 1 through 8 {
+    &:nth-of-type(#{$i}) {
+      left: 12% + $i * 5.5%;
+      animation-delay: $i * 0.6s;
+      animation-duration: 4s + ($i % 3) * 1s;
     }
+  }
+}
+@keyframes cloudPass {
+  to {
+    left: 110%;
+  }
+}
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    scale: 0.92;
+  }
+  50% {
+    opacity: 1;
+    scale: 1.06;
+  }
+}
+@keyframes sparkRise {
+  0% {
+    opacity: 0;
+    translate: 0 0;
+    scale: 0.6;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: 18px -160px;
+    scale: 1.1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .globeGlow,
+  .spark,
+  .cloud {
+    animation: none;
+  }
+  .spark,
+  .cloud {
+    display: none;
+  }
+}
+
+// ---------- More life ----------
+// Warm light falls from the top right and slowly breathes.
+.sunRays {
+  position: absolute;
+  z-index: 1;
+  top: -30%;
+  right: -10%;
+  width: 70%;
+  aspect-ratio: 1;
+  pointer-events: none;
+  background: repeating-conic-gradient(
+    from 200deg at 70% 20%,
+    rgb(255 236 179 / 34%) 0deg 6deg,
+    transparent 6deg 18deg
+  );
+  mask-image: radial-gradient(circle at 70% 20%, #000, transparent 65%);
+  mix-blend-mode: soft-light;
+  animation:
+    raysTurn 40s linear infinite,
+    raysBreathe 7s ease-in-out infinite;
+}
+// A soft band of light glides across the picture now and then.
+.lightSweep {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgb(255 255 255 / 32%) 50%,
+    transparent 60%
+  );
+  background-size: 250% 100%;
+  mix-blend-mode: overlay;
+  animation: sweep 9s ease-in-out infinite;
+}
+.bird {
+  position: absolute;
+  left: -8%;
+  width: clamp(16px, 2vw, 26px);
+  fill: none;
+  stroke: #1d2b3a;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  animation:
+    birdFly 16s linear infinite,
+    flap 0.55s ease-in-out infinite;
+  &:nth-of-type(1) {
+    top: 14%;
+  }
+  &:nth-of-type(2) {
+    top: 20%;
+    width: clamp(12px, 1.5vw, 20px);
+    animation-delay: 0.9s, 0.2s;
+  }
+  &:nth-of-type(3) {
+    top: 10%;
+    width: clamp(10px, 1.2vw, 16px);
+    animation-delay: 1.7s, 0.35s;
+  }
+}
+:global(html[data-theme='dark']) .bird {
+  stroke: #e6ecf7;
+}
+// Nearest life layer: butterflies, letters and hearts in front of the photo.
+.lifeLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: clip;
+  pointer-events: none;
+  transform: translate(calc(var(--mx, 0) * 30px), calc(var(--my, 0) * 20px));
+  transition: transform 700ms var(--ease-spring);
+}
+.butterfly {
+  position: absolute;
+  width: clamp(22px, 2.6vw, 34px);
+  filter: drop-shadow(0 4px 6px rgb(0 0 0 / 18%));
+  animation: flutterPath 18s ease-in-out infinite;
+  &:nth-of-type(1) {
+    --wing: var(--color-accent);
+    left: 18%;
+    top: 46%;
+  }
+  &:nth-of-type(2) {
+    --wing: var(--color-sun);
+    left: 62%;
+    top: 58%;
+    width: clamp(18px, 2vw, 26px);
+    animation-duration: 22s;
+    animation-delay: -8s;
+  }
+}
+.wingLeft,
+.wingRight {
+  fill: var(--wing);
+  stroke: rgb(0 0 0 / 25%);
+  stroke-width: 0.8;
+  transform-box: view-box;
+  transform-origin: 16px 12px;
+  animation: wingBeat 0.32s ease-in-out infinite alternate;
+}
+.butterflyBody {
+  stroke: #2b2238;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+.letter {
+  position: absolute;
+  bottom: -8%;
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 0.7rem;
+  background: var(--tone);
+  color: #fff;
+  font-weight: 800;
+  font-size: var(--text-md);
+  box-shadow: 0 8px 18px -6px var(--tone);
+  opacity: 0;
+  animation: letterRise 12s ease-in-out infinite;
+  $tones: (
+    var(--color-primary),
+    var(--color-accent),
+    var(--color-sun),
+    var(--color-success),
+    var(--color-info),
+    var(--color-accent)
+  );
+  @for $i from 1 through 6 {
+    &:nth-of-type(#{$i}) {
+      --tone: #{nth($tones, $i)};
+      left: 6% + ($i - 1) * 15%;
+      animation-delay: ($i - 1) * -2s;
+      animation-duration: 11s + ($i % 3) * 2s;
+    }
+  }
+}
+.heart {
+  position: absolute;
+  bottom: 30%;
+  width: 18px;
+  fill: var(--color-accent);
+  opacity: 0;
+  animation: heartFloat 6s ease-out infinite;
+  &:nth-of-type(1) {
+    left: 40%;
+  }
+  &:nth-of-type(2) {
+    left: 46%;
+    width: 13px;
+    animation-delay: 2s;
+  }
+  &:nth-of-type(3) {
+    left: 36%;
+    width: 15px;
+    animation-delay: 4s;
+  }
+}
+// The greetings answer each other with a little hop.
+.greetingOne {
+  animation:
+    drift 6s ease-in-out infinite,
+    hop 9s ease-in-out infinite;
+}
+.greetingTwo {
+  animation:
+    drift 7s ease-in-out 1.2s infinite,
+    hop 9s ease-in-out 3s infinite;
+}
+.greetingThree {
+  animation:
+    drift 6.5s ease-in-out 0.6s infinite,
+    hop 9s ease-in-out 6s infinite;
+}
+@keyframes hop {
+  0%,
+  8%,
+  100% {
+    scale: 1;
+  }
+  3% {
+    scale: 1.12;
+  }
+}
+@keyframes raysTurn {
+  to {
+    rotate: 30deg;
+  }
+}
+@keyframes raysBreathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes sweep {
+  0%,
+  35% {
+    background-position: 130% 0;
+  }
+  75%,
+  100% {
+    background-position: -30% 0;
+  }
+}
+@keyframes birdFly {
+  0% {
+    left: -8%;
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -18px;
+  }
+  100% {
+    left: 108%;
+    translate: 0 6px;
+  }
+}
+@keyframes flap {
+  50% {
+    scale: 1 0.5;
+  }
+}
+@keyframes flutterPath {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: -8deg;
+  }
+  25% {
+    translate: 60px -50px;
+    rotate: 10deg;
+  }
+  50% {
+    translate: 120px -10px;
+    rotate: -4deg;
+  }
+  75% {
+    translate: 50px 30px;
+    rotate: 12deg;
+  }
+}
+@keyframes wingBeat {
+  to {
+    transform: scaleX(0.25);
+  }
+}
+@keyframes letterRise {
+  0% {
+    opacity: 0;
+    translate: 0 0;
+    rotate: -12deg;
+    scale: 0.7;
+  }
+  12% {
+    opacity: 0.95;
+    scale: 1;
+  }
+  50% {
+    translate: 18px -160px;
+    rotate: 8deg;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    translate: -10px -320px;
+    rotate: -6deg;
+    scale: 0.85;
+  }
+}
+@keyframes heartFloat {
+  0% {
+    opacity: 0;
+    translate: 0 0;
+    scale: 0.4;
+  }
+  15% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: 24px -120px;
+    scale: 0.8;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sunRays,
+  .lightSweep,
+  .greetingOne,
+  .greetingTwo,
+  .greetingThree {
+    animation: none;
+  }
+  .bird,
+  .lifeLayer {
+    display: none;
+  }
+}
+@media (max-width: 48rem) {
+  .letter {
+    width: 1.7rem;
+    height: 1.7rem;
+    font-size: var(--text-sm);
   }
 }

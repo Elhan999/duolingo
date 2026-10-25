@@ -9,6 +9,7 @@ import { LinkButton } from '@/components/ui/link-button';
 import { Button, IconButton } from '@/components/ui/button';
 import { Modal } from '@/components/ui/modal';
 import { EmptyState } from '@/components/ui/states';
+import { ChatIllustration } from '@/components/ui/illustrations';
 import { chatOptions, membersOptions, messagesOptions } from './queries';
 import { chatDisplayName } from './contracts';
 import { MemberManager } from './member-manager';
@@ -117,7 +118,11 @@ export function Conversation({ id }: { id: string }) {
               </Button>
             )}
             {!items.length && (
-              <EmptyState title={t.noMessages} description={t.noMessagesBody} />
+              <EmptyState
+                illustration={<ChatIllustration />}
+                title={t.noMessages}
+                description={t.noMessagesBody}
+              />
             )}
             {items.slice(-limit).map((message, index, visible) => {
               const date = new Date(message.created_at);

@@ -6,7 +6,10 @@ import { Avatar } from '@/components/ui/surface';
 import { SearchInput } from '@/components/ui/field';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/ui/states';
-import { ChatIllustration } from '@/components/ui/illustrations';
+import {
+  ChatIllustration,
+  SearchIllustration,
+} from '@/components/ui/illustrations';
 import { useI18n } from '@/providers/i18n-provider';
 import { useAuth } from '@/features/auth/auth-provider';
 import { cn } from '@/lib/cn';
@@ -135,7 +138,11 @@ export function ChatList({
             description={t.noChatsBody}
           />
         ) : filtered.length === 0 ? (
-          <EmptyState title={t.noResults} description={t.searchHint} />
+          <EmptyState
+            illustration={<SearchIllustration />}
+            title={t.noResults}
+            description={t.searchHint}
+          />
         ) : (
           filtered.map((chat) => (
             <ChatListItem

@@ -3,6 +3,10 @@ import { useState } from 'react';
 import { SearchInput } from '@/components/ui/field';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/ui/states';
+import {
+  FriendsIllustration,
+  SearchIllustration,
+} from '@/components/ui/illustrations';
 import { useI18n } from '@/providers/i18n-provider';
 import { matchesUsername, type Friend } from './contracts';
 import { UserCard } from './user-card';
@@ -40,9 +44,14 @@ export function PeopleList({
         />
       )}
       {!users.length ? (
-        <EmptyState title={emptyTitle} description={emptyBody} />
+        <EmptyState
+          illustration={<FriendsIllustration />}
+          title={emptyTitle}
+          description={emptyBody}
+        />
       ) : !filtered.length ? (
         <EmptyState
+          illustration={<SearchIllustration />}
           title={t.noResults}
           description={t.noResultsBody}
           action={

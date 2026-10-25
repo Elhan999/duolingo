@@ -864,7 +864,7 @@
   }
 }
 
-// A calm living horizon greets the learner right after sign-in.
+// A calm panorama greets the learner right after sign-in.
 .welcomeBanner {
   height: clamp(88px, 13vw, 150px);
   margin-bottom: 1.5rem;
@@ -873,12 +873,6 @@
   position: relative;
   overflow: clip; // clip, not hidden: keeps the page as the scroll timeline
   animation: itemIn 520ms var(--ease-spring) both;
-  background: linear-gradient(var(--color-surface), var(--color-primary-soft));
-  > svg {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-  }
 }
 
 // Living images on the dashboard: the panorama drifts, the owl floats.

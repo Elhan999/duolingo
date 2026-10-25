@@ -9,6 +9,7 @@ import { Button, IconButton } from '@/components/ui/button';
 import { LinkButton } from '@/components/ui/link-button';
 import { Badge, Card, ProgressBar } from '@/components/ui/surface';
 import { EmptyState } from '@/components/ui/states';
+import { BookIllustration } from '@/components/ui/illustrations';
 import { ConfirmDialog } from '@/components/ui/modal';
 
 import { useProgress } from '@/features/learning/queries';
@@ -131,6 +132,7 @@ export function LessonSession({
         </Card>
       ) : !item ? (
         <EmptyState
+          illustration={<BookIllustration />}
           title={t.noExercises}
           description={t.noExercisesHint}
           action={

@@ -10,6 +10,7 @@ import { queryKeys } from '@/constants/query-keys';
 import { Card, Badge, Skeleton } from '@/components/ui/surface';
 import { Button } from '@/components/ui/button';
 import { EmptyState, ErrorState } from '@/components/ui/states';
+import { BellIllustration } from '@/components/ui/illustrations';
 import {
   getNotifications,
   readNotification,
@@ -92,6 +93,7 @@ export function NotificationsPanel() {
         />
       ) : !query.data.length ? (
         <EmptyState
+          illustration={<BellIllustration />}
           title={t.noNotifications}
           description={t.noNotificationsHint}
         />

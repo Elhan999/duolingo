@@ -6,6 +6,7 @@ import { useI18n } from '@/providers/i18n-provider';
 import { Badge, Card, PageHeader, ProgressBar } from '@/components/ui/surface';
 import { LinkButton } from '@/components/ui/link-button';
 import { EmptyState } from '@/components/ui/states';
+import { BookIllustration } from '@/components/ui/illustrations';
 import { placementMessages } from '@/i18n/placement';
 import { useLearningPath } from '@/features/placement/queries';
 import { LearningShell } from '@/features/learning/learning-shell';
@@ -96,7 +97,11 @@ export function CourseDetails({ id }: { id: number }) {
                 <LearningError onRetry={() => void lessons.refetch()} />
               ) : path.isSuccess && !access?.is_unlocked ? null : !lessons.data
                   .length ? (
-                <EmptyState title={t.noLessons} description={t.noLessonsHint} />
+                <EmptyState
+                  illustration={<BookIllustration />}
+                  title={t.noLessons}
+                  description={t.noLessonsHint}
+                />
               ) : (
                 lessons.data.map((lesson, index) => {
                   const complete = indexed.get(lesson.id)?.completed;

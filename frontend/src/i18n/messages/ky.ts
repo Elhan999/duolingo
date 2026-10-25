@@ -584,6 +584,9 @@ export const ky: Messages = {
     loadingLabel: 'Мазмун жүктөлүүдө',
     interactions: 'Маанилүү майда-чүйдөлөр',
     interactionsHint: 'Диалогдорду, өтмөктөрдү жана абалдарды текшериңиз.',
+    illustrations: 'Жандуу сүрөттөр',
+    illustrationsHint:
+      'Бош экрандар үчүн анимацияланган сүрөттөр: досторго, сыйлыктарга, билдирүүлөргө жана издөөгө.',
     openModal: 'Диалогду ачуу',
     openConfirm: 'Ырастоо',
     more: 'Дагы',

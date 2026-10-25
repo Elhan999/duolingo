@@ -154,10 +154,17 @@
     color: var(--color-muted);
   }
 }
+// Cards keep one width and the row stays centred: two courses sit in the
+// middle, more courses wrap onto new centred rows.
 .courseGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
+  > * {
+    flex: 1 1 20rem;
+    max-width: 23rem;
+  }
 }
 .course {
   display: flex;
@@ -277,7 +284,7 @@
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 0.75rem;
   }
-  .courseGrid {
-    grid-template-columns: 1fr;
+  .courseGrid > * {
+    max-width: none;
   }
 }

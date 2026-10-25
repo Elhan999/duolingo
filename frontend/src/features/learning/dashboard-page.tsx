@@ -4,7 +4,7 @@ import { useAuth } from '@/features/auth/auth-provider';
 import { useI18n } from '@/providers/i18n-provider';
 import { PageHeader } from '@/components/ui/surface';
 import { LinkButton } from '@/components/ui/link-button';
-import { HorizonScene } from '@/components/ui/scenes';
+import { LivingScene } from '@/components/ui/living-scene';
 import { EmptyState } from '@/components/ui/states';
 import { BookIllustration } from '@/components/ui/illustrations';
 import { CourseCard } from '@/features/courses/course-card';
@@ -30,7 +30,7 @@ export function DashboardPage() {
   return (
     <LearningShell active="dashboard">
       <div className={styles.welcomeBanner} aria-hidden="true">
-        <HorizonScene />
+        <LivingScene mood="sky" />
       </div>
       <PageHeader
         eyebrow={t.eyebrow}

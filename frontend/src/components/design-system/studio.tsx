@@ -10,11 +10,33 @@ import { ConfirmDialog, Modal } from '@/components/ui/modal';
 import { Tabs } from '@/components/ui/tabs';
 import { Dropdown } from '@/components/ui/dropdown';
 import { LanguageSwitcher, ThemeSwitcher } from '@/components/ui/preferences';
+import {
+  BellIllustration,
+  BookIllustration,
+  ChatIllustration,
+  CompassIllustration,
+  FriendsIllustration,
+  JourneyIllustration,
+  LockIllustration,
+  SearchIllustration,
+  TrophyIllustration,
+} from '@/components/ui/illustrations';
 import { StudioHero } from './hero';
 import { Foundations } from './foundations';
 import { Controls } from './controls';
 import { Feedback } from './feedback';
 import styles from './studio.module.scss';
+const ILLUSTRATIONS = [
+  BookIllustration,
+  ChatIllustration,
+  JourneyIllustration,
+  FriendsIllustration,
+  TrophyIllustration,
+  BellIllustration,
+  LockIllustration,
+  CompassIllustration,
+  SearchIllustration,
+];
 export function DesignSystemStudio() {
   const {
     messages: { studio: t, nav, ui },
@@ -110,6 +132,22 @@ export function DesignSystemStudio() {
               <LanguageSwitcher />
             </div>
           </Card>
+        </div>
+      </section>
+      <section className={styles.section}>
+        <div className={styles.sectionHeading}>
+          <span>05</span>
+          <div>
+            <h2>{t.illustrations}</h2>
+            <p>{t.illustrationsHint}</p>
+          </div>
+        </div>
+        <div className={styles.illustrationGrid}>
+          {ILLUSTRATIONS.map((Illustration, index) => (
+            <Card key={index}>
+              <Illustration />
+            </Card>
+          ))}
         </div>
       </section>
       <p className={styles.notice}>{t.sectionNotice}</p>

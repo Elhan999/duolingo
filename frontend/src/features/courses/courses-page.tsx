@@ -8,7 +8,10 @@ import { Button } from '@/components/ui/button';
 import { LinkButton } from '@/components/ui/link-button';
 import { placementMessages } from '@/i18n/placement';
 import { EmptyState } from '@/components/ui/states';
-import { BookIllustration } from '@/components/ui/illustrations';
+import {
+  BookIllustration,
+  SearchIllustration,
+} from '@/components/ui/illustrations';
 import { LearningShell } from '@/features/learning/learning-shell';
 import {
   LearningError,
@@ -122,6 +125,7 @@ export function CoursesPage() {
         />
       ) : !filtered.length ? (
         <EmptyState
+          illustration={<SearchIllustration />}
           title={t.noResults}
           description={t.noResultsHint}
           action={

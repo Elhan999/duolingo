@@ -13,6 +13,7 @@ import {
 import { Card, PageHeader } from '@/components/ui/surface';
 import { LinkButton } from '@/components/ui/link-button';
 import { EmptyState } from '@/components/ui/states';
+import { CompassIllustration } from '@/components/ui/illustrations';
 import { levelSchema } from './contracts';
 import styles from './path.module.scss';
 
@@ -51,7 +52,11 @@ export function TestsPage() {
       ) : tests.isError ? (
         <LearningError onRetry={() => void tests.refetch()} />
       ) : !active?.length ? (
-        <EmptyState title={t.unavailable} description={t.hint} />
+        <EmptyState
+          illustration={<CompassIllustration />}
+          title={t.unavailable}
+          description={t.hint}
+        />
       ) : (
         <div className={styles.testGrid}>
           {active.map((test) => (
