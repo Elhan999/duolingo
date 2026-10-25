@@ -587,23 +587,20 @@
   }
 }
 // The day's main action: a clean surface with the owl as a quiet brand mark.
+// The owl is a real grid column, so the copy can never run underneath it.
 .continueCard {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   padding: clamp(1.75rem, 3vw, 2.5rem);
-  padding-right: clamp(1.75rem, 16vw, 10rem);
   background: var(--color-surface);
   margin-bottom: 1.5rem;
   &::after {
     content: '';
-    position: absolute;
-    right: clamp(1rem, 3vw, 2rem);
-    top: 50%;
-    z-index: -1;
+    align-self: center;
     width: clamp(72px, 9vw, 104px);
     aspect-ratio: 1;
-    transform: translateY(-50%);
     background: url('/learm-owl-round.png') center / contain no-repeat;
     border-radius: 50%;
   }
@@ -615,11 +612,16 @@
   color: var(--color-primary);
   box-shadow: none;
 }
-@media (max-width: 30rem) {
+// One column on phones: the owl moves up beside the book icon, where the
+// row has free space, instead of taking a row of its own.
+@media (max-width: 48rem) {
   .continueCard {
-    padding-right: clamp(1.25rem, 5vw, 1.75rem);
+    grid-template-columns: minmax(0, 1fr);
     &::after {
-      display: none;
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 56px;
     }
   }
 }
