@@ -20,7 +20,7 @@ export function Mascot({
       data-mood={mood}
       aria-hidden="true"
     >
-      <Image src="/learm-owl.png" alt="" width={size} height={size} />
+      <Image src="/learm-owl-round.png" alt="" width={size} height={size} />
     </span>
   );
 }

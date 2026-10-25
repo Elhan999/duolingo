@@ -18,8 +18,7 @@
   justify-items: center;
   gap: 12px;
   img {
-    border-radius: 28px;
-    box-shadow: 0 0 60px -10px var(--color-glow);
+    filter: drop-shadow(0 10px 24px rgb(0 0 0 / 20%));
   }
 }
 .name {

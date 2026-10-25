@@ -450,8 +450,9 @@
 }
 @media (hover: hover) {
   .courseCard:hover {
+    transform: translateY(-3px);
     border-color: var(--color-border-strong);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-float);
   }
   a.lessonRow:hover {
     border-color: var(--color-primary);
@@ -585,30 +586,42 @@
     font-size: var(--text-xs);
   }
 }
+// The day's main action: a clean surface with the owl as a quiet brand mark.
 .continueCard {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border-color: color-mix(in srgb, var(--color-primary), transparent 72%);
   padding: clamp(1.75rem, 3vw, 2.5rem);
+  padding-right: clamp(1.75rem, 16vw, 10rem);
+  background: var(--color-surface);
+  margin-bottom: 1.5rem;
   &::after {
     content: '';
     position: absolute;
-    right: -4rem;
-    bottom: -6rem;
+    right: clamp(1rem, 3vw, 2rem);
+    top: 50%;
     z-index: -1;
-    width: 20rem;
-    height: 20rem;
-    border: 1px solid color-mix(in srgb, var(--color-primary), transparent 84%);
+    width: clamp(72px, 9vw, 104px);
+    aspect-ratio: 1;
+    transform: translateY(-50%);
+    background: url('/learm-owl-round.png') center / contain no-repeat;
     border-radius: 50%;
-    box-shadow:
-      0 0 0 2rem color-mix(in srgb, var(--color-primary), transparent 97%),
-      0 0 0 4rem color-mix(in srgb, var(--color-primary), transparent 97%);
   }
 }
 .continueIcon {
   transform: none;
   border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  box-shadow: none;
+}
+@media (max-width: 30rem) {
+  .continueCard {
+    padding-right: clamp(1.25rem, 5vw, 1.75rem);
+    &::after {
+      display: none;
+    }
+  }
 }
 .courseVisual {
   min-height: 125px;
@@ -640,22 +653,9 @@
 .helper {
   font-size: var(--text-xs);
 }
-.stats > div {
-  border-bottom: 3px solid var(--color-primary);
-}
-.stats > div:nth-child(2) {
-  border-bottom-color: var(--color-warning);
-  .statIcon {
-    color: var(--color-warning);
-    background: var(--color-warning-soft);
-  }
-}
-.stats > div:nth-child(3) {
-  border-bottom-color: var(--color-info);
-  .statIcon {
-    color: var(--color-info);
-    background: var(--color-info-soft);
-  }
+.stats .statIcon {
+  color: var(--color-muted);
+  background: var(--color-subtle);
 }
 .stats > div p {
   font-size: var(--text-caption);
@@ -667,7 +667,11 @@
   .extraNavigation {
     flex-wrap: nowrap;
     overflow-x: auto;
-    scrollbar-width: thin;
+    // Swipeable row: the clipped last chip already hints at more.
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     padding: 0.3rem;
     gap: 0.25rem;
     margin-bottom: 1.5rem;
@@ -790,10 +794,15 @@
   .dashboardAside {
     grid-template-columns: 1fr;
   }
+  // Three compact tiles read faster than three full-width cards on phones.
   .dashboardMain .stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
     > div {
+      flex-direction: column;
+      align-items: flex-start;
       flex-wrap: nowrap;
+      padding: 0.85rem;
     }
   }
   .lessonRow {
@@ -802,25 +811,6 @@
   }
 }
 
-@media (max-width: 48rem) {
-  .extraNavigation {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    overflow: visible;
-    gap: 0.35rem;
-    padding: 0.4rem;
-  }
-  .extraNavigation > a {
-    white-space: normal;
-    font-size: var(--text-2xs);
-    padding: 0.55rem;
-    min-width: 0;
-    justify-content: flex-start;
-  }
-  .extraNavigation > a svg {
-    flex-shrink: 0;
-  }
-}
 .headerStats {
   display: inline-flex;
   align-items: center;
@@ -845,6 +835,64 @@
   }
 }
 .xpStat {
-  color: var(--color-primary);
-  background: var(--color-primary-soft);
+  color: var(--color-info);
+  background: var(--color-info-soft);
+}
+
+// Cards and tiles cascade in one after another.
+.courseGrid > *,
+.dashboardMain .stats > div,
+.dashboardAside > * {
+  animation: itemIn 460ms var(--ease-spring) both;
+}
+.courseGrid > :nth-child(2),
+.dashboardMain .stats > div:nth-child(2),
+.dashboardAside > :nth-child(2) {
+  animation-delay: 70ms;
+}
+.courseGrid > :nth-child(3),
+.dashboardMain .stats > div:nth-child(3) {
+  animation-delay: 140ms;
+}
+.courseGrid > :nth-child(n + 4) {
+  animation-delay: 210ms;
+}
+@keyframes itemIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+// A calm living horizon greets the learner right after sign-in.
+.welcomeBanner {
+  height: clamp(88px, 13vw, 150px);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  position: relative;
+  overflow: clip; // clip, not hidden: keeps the page as the scroll timeline
+  animation: itemIn 520ms var(--ease-spring) both;
+  background: linear-gradient(var(--color-surface), var(--color-primary-soft));
+  > svg {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+  }
+}
+
+// Living images on the dashboard: the panorama drifts, the owl floats.
+.continueCard::after {
+  animation: owlFloat 5s ease-in-out infinite;
+}
+@keyframes owlFloat {
+  50% {
+    translate: 0 -6px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcomeBanner,
+  .continueCard::after {
+    animation: none;
+  }
 }

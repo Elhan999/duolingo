@@ -43,20 +43,11 @@
 }
 
 .logoMark {
-  border-radius: 0.9rem;
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--color-primary) 30%, transparent),
-    0 6px 22px -6px var(--color-glow);
-  transition:
-    transform var(--transition-normal),
-    box-shadow var(--transition-glow);
+  transition: transform var(--transition-normal);
 }
 
 .logo:hover .logoMark {
   transform: rotate(-4deg) scale(1.05);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--color-primary) 55%, transparent),
-    0 8px 30px -4px var(--color-glow);
 }
 
 .logoText {
@@ -77,8 +68,32 @@
   color: transparent;
 }
 .navigation {
+  position: relative;
   display: grid;
   gap: 1.5rem;
+}
+// Sliding highlight behind the active item (see use-nav-pill.ts).
+.navPill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--color-primary-soft),
+    color-mix(in srgb, var(--color-primary-soft) 30%, transparent)
+  );
+  box-shadow: inset 3px 0 0 var(--color-primary);
+  pointer-events: none;
+  transition:
+    transform 340ms var(--ease-spring),
+    width 340ms var(--ease-spring),
+    height 340ms var(--ease-spring);
+}
+.navigation[data-pill='true'] .navActive {
+  background: transparent;
+  box-shadow: none;
 }
 .navGroup {
   display: grid;
@@ -241,6 +256,16 @@
     + :not(dialog, script, style, template) {
     margin-block-start: var(--space-6);
   }
+  // Content eases in on every page; the stagger reads as one motion.
+  > :not(dialog) {
+    animation: pageEnter 360ms var(--ease-spring) both;
+  }
+  > :nth-child(2):not(dialog) {
+    animation-delay: 40ms;
+  }
+  > :nth-child(n + 3):not(dialog) {
+    animation-delay: 80ms;
+  }
 }
 .footer {
   width: min(100%, var(--content-width));
@@ -398,5 +423,98 @@
   }
   .mobileMenu {
     grid-template-columns: 1fr;
+  }
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.desktopAction {
+  display: contents;
+}
+.menuGuide {
+  width: 100%;
+  margin-top: var(--space-4);
+}
+@media (max-width: 48rem) {
+  .desktopAction {
+    display: none;
+  }
+}
+@media (max-width: 30rem) {
+  // Header stats need the room on phones; the owl mark carries the brand.
+  .mobileBrand .logoText {
+    display: none;
+  }
+}
+
+.navIcon,
+.bottomIcon {
+  transition:
+    background 200ms ease,
+    color 200ms ease,
+    transform 260ms var(--ease-spring);
+}
+.navLink:hover .navIcon,
+.bottomLink:hover .bottomIcon {
+  transform: scale(1.04);
+}
+.navLink:active .navIcon,
+.bottomLink:active .bottomIcon {
+  transform: scale(0.94);
+}
+
+// Minimal navigation: plain icons; the active item gets a quiet surface.
+.navIcon,
+.navActive .navIcon,
+.navActive:hover .navIcon {
+  background: transparent;
+  color: var(--color-muted);
+  box-shadow: none;
+}
+.navLink:hover .navIcon {
+  color: var(--color-text);
+}
+// The current section carries the brand colour: tinted surface, a short
+// accent mark on the left, and a blue icon and label.
+.navActive,
+.navActive .navIcon,
+.navActive:hover .navIcon {
+  color: var(--color-primary);
+}
+.navActive {
+  font-weight: 600;
+}
+.navPill {
+  background: var(--color-primary-soft);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--color-primary) 18%, transparent);
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 28%;
+    bottom: 28%;
+    width: 3px;
+    border-radius: 0 var(--radius-full) var(--radius-full) 0;
+    background: var(--color-primary);
+  }
+}
+.navLink i {
+  display: none;
+}
+.bottomLink .bottomIcon {
+  background: transparent;
+  color: var(--color-muted);
+}
+.bottomLink.bottomActive {
+  color: var(--color-primary);
+  .bottomIcon {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
   }
 }

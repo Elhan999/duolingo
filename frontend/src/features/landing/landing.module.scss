@@ -35,7 +35,7 @@
     height: 30rem;
     bottom: -13rem;
     right: -9rem;
-    background: color-mix(in srgb, var(--color-info) 65%, transparent);
+    background: color-mix(in srgb, var(--color-primary) 45%, transparent);
     opacity: 0.24;
   }
 }
@@ -72,7 +72,7 @@
         100deg,
         var(--color-action),
         var(--color-primary),
-        var(--color-info),
+        color-mix(in srgb, var(--color-primary) 65%, #4fb3ff),
         var(--color-primary),
         var(--color-action)
       );
@@ -172,41 +172,9 @@
     padding: 0.45rem;
     box-sizing: content-box;
     border-radius: 0.65rem;
-    color: var(--color-on-action);
-    background: var(--color-action);
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
     stroke-width: 1.75;
-    transition: transform var(--transition-fast);
-  }
-  > li:nth-child(2) svg {
-    color: var(--color-on-primary);
-    background: var(--color-info);
-  }
-  > li:nth-child(3) svg {
-    color: var(--color-on-primary);
-    background: var(--color-success);
-  }
-  > li:nth-child(4) svg {
-    color: var(--color-on-primary);
-    background: var(--color-warning);
-  }
-}
-.heroDivider {
-  width: min(calc(100% - 4rem), 76rem);
-  margin: auto;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  color: var(--color-muted);
-  p {
-    margin: 0;
-    font-size: 0.57rem;
-    letter-spacing: 0.16em;
-    text-align: center;
-  }
-  span {
-    height: 1px;
-    flex: 1;
-    background: var(--color-border);
   }
 }
 .section {
@@ -223,73 +191,6 @@
   }
   h2 {
     font-size: clamp(1.9rem, 3.2vw, 2.8rem);
-  }
-}
-.benefits {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  > div {
-    padding: 2rem;
-    transition:
-      transform var(--transition-normal),
-      box-shadow var(--transition-normal);
-    &:nth-child(1) {
-      --card-glow: var(--color-primary);
-      background: linear-gradient(
-        160deg,
-        color-mix(in srgb, var(--color-primary) 16%, var(--color-surface)),
-        var(--color-surface) 65%
-      );
-    }
-    &:nth-child(2) {
-      --card-glow: var(--color-info);
-      background: linear-gradient(
-        160deg,
-        color-mix(in srgb, var(--color-info) 16%, var(--color-surface)),
-        var(--color-surface) 65%
-      );
-    }
-    &:nth-child(3) {
-      --card-glow: var(--color-warning);
-      background: linear-gradient(
-        160deg,
-        color-mix(in srgb, var(--color-warning) 16%, var(--color-surface)),
-        var(--color-surface) 65%
-      );
-    }
-  }
-  h3 {
-    margin: 1.5rem 0 0.8rem;
-    font-size: var(--text-lg);
-  }
-  p {
-    color: var(--color-muted);
-    font-size: var(--text-caption);
-    line-height: 1.8;
-    margin-bottom: 0;
-  }
-}
-.benefitIcon {
-  width: 52px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  background: var(--color-primary);
-  color: var(--color-on-primary);
-  border-radius: 1rem;
-  transition: transform var(--transition-fast);
-  svg {
-    width: 24px;
-    height: 24px;
-    stroke-width: 1.75;
-    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 18%));
-  }
-  &[data-tone='1'] {
-    background: var(--color-info);
-  }
-  &[data-tone='2'] {
-    background: var(--color-warning);
   }
 }
 .steps {
@@ -356,68 +257,20 @@
 }
 .communityArt {
   position: relative;
-  min-height: 320px;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.5rem;
   border-radius: 1.75rem;
-  overflow: hidden;
-  isolation: isolate;
-  background: var(--color-surface);
+  overflow: clip; // clip, not hidden: keeps the page as the scroll timeline
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      var(--color-primary-soft),
+      transparent 70%
+    ),
+    var(--color-surface);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-card);
-  // The chat icon sits in the middle of the panel, behind the greetings.
-  > div {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    color: var(--color-primary);
-    opacity: 0.85;
-  }
-  > span {
-    position: absolute;
-    padding: 0.7rem 1.1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-card);
-    border-radius: 1rem 1rem 1rem 0.2rem;
-    z-index: 1;
-    font-size: var(--text-lg);
-    font-weight: 600;
-    &:nth-child(1) {
-      left: 15%;
-      top: 40px;
-      transform: rotate(-8deg);
-      color: var(--color-info);
-    }
-    &:nth-child(2) {
-      right: 5%;
-      top: 145px;
-      transform: rotate(10deg);
-      color: var(--color-primary);
-    }
-    &:nth-child(3) {
-      left: 15%;
-      bottom: 25px;
-      transform: rotate(-5deg);
-      color: var(--color-warning);
-    }
-  }
-}
-.communityImage {
-  object-fit: cover;
-}
-.lightImage {
-  display: block;
-}
-.darkImage {
-  display: none;
-}
-:global(html[data-theme='dark']) {
-  .lightImage {
-    display: none;
-  }
-  .darkImage {
-    display: block;
-  }
 }
 .about {
   width: min(calc(100% - 4rem), 43rem);
@@ -485,7 +338,7 @@
   border: 1px solid var(--color-border);
   border-radius: 2rem;
   text-align: center;
-  overflow: hidden;
+  overflow: clip; // clip, not hidden: keeps the page as the scroll timeline
   &::before {
     content: '';
     position: absolute;
@@ -508,10 +361,6 @@
   > * {
     position: relative;
     z-index: 1;
-  }
-  > svg {
-    color: var(--color-primary);
-    margin-bottom: 1rem;
   }
   h2 {
     font-size: clamp(2rem, 4vw, 3.4rem);
@@ -647,12 +496,6 @@
   .heroCopy h1 {
     font-size: 3rem;
   }
-  .benefits {
-    gap: 1rem;
-    > div {
-      padding: 1.5rem;
-    }
-  }
   .community {
     gap: 2rem;
   }
@@ -680,14 +523,6 @@
       font-size: var(--text-caption);
     }
   }
-  .heroDivider {
-    width: calc(100% - 2.5rem);
-    gap: 1rem;
-    p {
-      max-width: 14rem;
-      font-size: 0.5rem;
-    }
-  }
   .section {
     width: calc(100% - 2.5rem);
     margin: 4rem auto;
@@ -698,12 +533,6 @@
     .eyebrow {
       justify-content: flex-start;
     }
-  }
-  .benefits {
-    grid-template-columns: 1fr;
-  }
-  .benefits > div {
-    padding: 1.75rem;
   }
   .steps {
     grid-template-columns: 1fr;
@@ -732,10 +561,8 @@
     margin: 4rem auto;
   }
   .communityArt {
-    width: min(100%, 350px);
-    margin: auto;
-    min-height: 290px;
     order: 2;
+    padding: 1rem;
   }
   .about {
     width: calc(100% - 3rem);
@@ -772,9 +599,6 @@
 }
 
 /* Layout adapts independently of the theme; all surfaces inherit theme tokens. */
-.heroDivider {
-  margin-top: 2.5rem;
-}
 @media (max-width: 64rem) {
   .hero {
     grid-template-columns: 1fr 1fr;
@@ -840,5 +664,41 @@
     align-items: flex-start;
     font-size: var(--text-xs);
     gap: 0.5rem;
+  }
+}
+
+// A quiet horizon sits under the closing call, below the copy.
+.cta {
+  padding-bottom: clamp(9rem, 17vw, 13rem);
+  > .ctaScene {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 0;
+    height: 52%;
+  }
+}
+// The panel opens from a soft frame as it scrolls into view.
+@supports (animation-timeline: view()) {
+  .communityArt {
+    animation: imageReveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+}
+@keyframes imageReveal {
+  from {
+    clip-path: inset(9% 7% round 1.75rem);
+    scale: 1.06;
+    opacity: 0.35;
+  }
+  to {
+    clip-path: inset(0 round 1.75rem);
+    scale: 1;
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .communityArt {
+    animation: none;
   }
 }

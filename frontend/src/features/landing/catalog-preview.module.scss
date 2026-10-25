@@ -156,7 +156,7 @@
 }
 .courseGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
   gap: 1.5rem;
 }
 .course {
@@ -262,11 +262,6 @@
   }
 }
 
-@media (max-width: 64rem) {
-  .courseGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
 @media (max-width: 48rem) {
   .section {
     width: calc(100% - 2.5rem);

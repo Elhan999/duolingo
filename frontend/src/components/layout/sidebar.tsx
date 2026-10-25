@@ -8,6 +8,7 @@ import { IconButton } from '@/components/ui/button';
 import { LanguageSwitcher, ThemeSwitcher } from '@/components/ui/preferences';
 import { navigation, type NavigationKey } from './navigation';
 import { Logo } from './logo';
+import { useNavPill } from './use-nav-pill';
 import styles from './layout.module.scss';
 export type SidebarProps = {
   active: NavigationKey;
@@ -26,6 +27,7 @@ export function Sidebar({
   const {
     messages: { nav },
   } = useI18n();
+  const { ref, pill } = useNavPill(active, collapsed);
   return (
     <aside className={cn(styles.sidebar, collapsed && styles.collapsed)}>
       <div className={styles.brand}>
@@ -41,7 +43,24 @@ export function Sidebar({
           )}
         </IconButton>
       </div>
-      <nav aria-label={nav.navigation} className={styles.navigation}>
+      <nav
+        ref={ref}
+        aria-label={nav.navigation}
+        className={styles.navigation}
+        data-pill={pill ? 'true' : undefined}
+        data-active-section={active}
+      >
+        {pill && (
+          <span
+            className={styles.navPill}
+            aria-hidden="true"
+            style={{
+              transform: `translate(${pill.x}px, ${pill.y}px)`,
+              width: pill.width,
+              height: pill.height,
+            }}
+          />
+        )}
         {(['learning', 'connect', 'account'] as const).map((group, index) => (
           <div className={styles.navGroup} key={group}>
             <p className={styles.groupLabel}>{nav[group]}</p>
@@ -52,6 +71,8 @@ export function Sidebar({
                   key={key}
                   href={href}
                   data-tone={index}
+                  data-nav-active={key === active || undefined}
+                  data-section={key}
                   title={nav[key]}
                   aria-label={nav[key]}
                   aria-current={

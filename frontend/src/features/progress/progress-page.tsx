@@ -5,6 +5,7 @@ import { PageHeader, Card } from '@/components/ui/surface';
 import { Button } from '@/components/ui/button';
 import { LinkButton } from '@/components/ui/link-button';
 import { EmptyState } from '@/components/ui/states';
+import { JourneyIllustration } from '@/components/ui/illustrations';
 import { useI18n } from '@/providers/i18n-provider';
 import { LearningShell } from '@/features/learning/learning-shell';
 import {
@@ -49,6 +50,7 @@ export function ProgressPage() {
         <>
           {!progress.data.length && (
             <EmptyState
+              illustration={<JourneyIllustration />}
               title={t.progressEmpty}
               description={t.progressEmptyHint}
               action={<LinkButton href="/courses">{t.browse}</LinkButton>}

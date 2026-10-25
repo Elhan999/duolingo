@@ -27,6 +27,7 @@ export function MobileBottomNav({
             key={key}
             href={item.href}
             data-tone={tones[item.group] ?? 0}
+            data-section={key}
             aria-current={!onNavigate && active === key ? 'page' : undefined}
             className={cn(
               styles.bottomLink,

@@ -409,6 +409,24 @@ export const en: Messages = {
     factLocales: 'Interface in RU, KY and EN',
     factPwa: 'Installs like an app',
     factThemes: 'Light and dark theme',
+    worldLabel: 'Languages of the world',
+    worldTitle: 'Every language is a new world.',
+    faqLabel: 'Questions',
+    faqTitle: 'The essentials, briefly.',
+    faq1q: 'What is LearM?',
+    faq1a:
+      'A language learning platform: short lessons, varied exercises, progress tracking and conversations with other learners.',
+    faq2q: 'How do I know which level to start at?',
+    faq2a:
+      'Take the placement test — your results unlock a learning path that fits you.',
+    faq3q: 'Can I learn on my phone?',
+    faq3a:
+      'Yes. LearM works in your phone browser and installs to the home screen like an app.',
+    faq4q: 'Which interface languages are available?',
+    faq4a: 'Russian, Kyrgyz and English. You can switch at any time.',
+    faq5q: 'Can I talk to other learners?',
+    faq5a:
+      'Yes. Find people in the community, add them as friends and message them in chats.',
     howLabel: 'YOUR NEXT STEP',
     howTitle: 'A simple path to new possibilities.',
     stepOne: 'Choose a direction',

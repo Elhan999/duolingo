@@ -36,12 +36,17 @@ export function Header({
           <Badge tone="primary">{badge ?? studio.status}</Badge>
         )}
         {action}
-        <IconButton label={nav.guideOpen} onClick={onGuide}>
-          <CircleHelp size={20} />
-        </IconButton>
-        <IconButton label={ui.appearance} onClick={onPreferences}>
-          <Palette size={20} />
-        </IconButton>
+        {/* On phones both live in the menu sheet to keep the bar uncluttered. */}
+        <span className={styles.desktopAction}>
+          <IconButton label={nav.guideOpen} onClick={onGuide}>
+            <CircleHelp size={20} />
+          </IconButton>
+        </span>
+        <span className={styles.desktopAction}>
+          <IconButton label={ui.appearance} onClick={onPreferences}>
+            <Palette size={20} />
+          </IconButton>
+        </span>
         <div className={styles.menuButton}>
           <IconButton label={nav.menu} onClick={onMenu}>
             <Menu size={21} />

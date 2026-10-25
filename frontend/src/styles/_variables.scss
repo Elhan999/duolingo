@@ -1,7 +1,8 @@
 :root {
   --font-sans:
     var(--font-body, 'Inter'), 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  --font-display: var(--font-heading, 'Montserrat'), var(--font-sans);
+  // One typeface for headings and text: calmer, more professional.
+  --font-display: var(--font-sans);
 
   --text-3xs: 0.625rem;
   --text-2xs: 0.6875rem;
@@ -27,9 +28,9 @@
   --space-20: 5rem;
 
   --radius-sm: 0.5rem;
-  --radius-md: 0.875rem;
-  --radius-lg: 1.25rem;
-  --radius-xl: 2rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
   --radius-full: 999px;
 
   --container-width: 82rem;
@@ -40,6 +41,7 @@
   --transition-fast: 160ms ease;
   --transition-normal: 240ms ease;
   --transition-glow: 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
 
   --z-header: 20;
   --z-nav: 30;
@@ -50,125 +52,112 @@
 }
 
 /* =========================
-   LIGHT THEME — calm paper
+   LIGHT THEME — balanced
 ========================= */
 
 :root,
 html[data-theme='light'] {
   color-scheme: light;
 
-  --color-bg: #f5f7fb;
+  --color-bg: #f5f6f8;
   --color-hero-surface: #fff;
-  --color-header-bg: rgb(255 255 255 / 82%);
+  --color-header-bg: rgb(255 255 255 / 85%);
   --color-surface: #fff;
   --color-surface-raised: #fff;
-  --color-subtle: #eef2f8;
+  --color-subtle: #eef0f3;
 
-  --color-text: #0e1726;
-  --color-muted: #4f5d73;
+  --color-text: #111318;
+  --color-muted: #5e6470;
 
-  --color-primary: #0f66cc;
-  --color-primary-hover: #0b54aa;
-  --color-primary-soft: #e8f1fc;
+  --color-primary: #1a5fd0;
+  --color-primary-hover: #154fae;
+  --color-primary-soft: #eef3fe;
 
   --color-on-primary: #fff;
 
-  --color-border: #e1e7f0;
-  --color-border-strong: #b4c0d2;
+  --color-border: #e3e5ea;
+  --color-border-strong: #cfd3da;
 
-  --color-success: #0f7356;
-  --color-success-soft: #e5f5ee;
+  --color-success: #16794a;
+  --color-success-soft: #ecf8f1;
 
-  --color-warning: #8a5a10;
-  --color-warning-soft: #fdf3e1;
+  --color-warning: #94570a;
+  --color-warning-soft: #fdf5e7;
 
-  --color-danger: #b8304f;
-  --color-danger-soft: #fcedf1;
+  --color-danger: #c22a3a;
+  --color-danger-soft: #fdeef0;
 
-  --color-info: #2f5fb3;
-  --color-info-soft: #ebf1fc;
+  --color-info: #4f46c8;
+  --color-info-soft: #f1f0fe;
 
-  --color-overlay: rgb(10 18 32 / 45%);
+  --color-overlay: rgb(10 10 11 / 40%);
 
-  --color-action: #1570dc;
-  --color-action-hover: #0f63c4;
+  --color-action: #1a5fd0;
+  --color-action-hover: #154fae;
   --color-on-action: #fff;
-  --color-glow: rgb(21 112 220 / 10%);
-  --gradient-action: linear-gradient(180deg, #1570dc 0%, #0b62c7 100%);
-  --gradient-brand: linear-gradient(120deg, #0f66cc, #3a9bf0);
-  --app-background:
-    radial-gradient(
-      1100px 480px at 80% -10%,
-      rgb(21 112 220 / 7%),
-      transparent 60%
-    ),
-    #f5f7fb;
-  --hero-gradient: linear-gradient(160deg, #eef4fd, #f8fafd 60%, #f1f6fd);
+  --color-glow: rgb(26 95 208 / 8%);
+  --gradient-action: #1a5fd0;
+  --gradient-brand: linear-gradient(120deg, #1a5fd0, #3b82f6);
+  --app-background: #f5f6f8;
+  --hero-gradient: #fff;
 
-  --shadow-sm: 0 1px 3px rgb(14 23 38 / 6%);
-  --shadow-card: 0 1px 2px rgb(14 23 38 / 4%), 0 8px 24px rgb(14 23 38 / 6%);
-  --shadow-float: 0 20px 48px rgb(14 23 38 / 14%);
-  --shadow-glow: 0 4px 12px -4px rgb(21 112 220 / 30%);
+  --shadow-sm: 0 1px 2px rgb(10 10 11 / 5%);
+  --shadow-card: 0 1px 2px rgb(10 10 11 / 4%);
+  --shadow-float: 0 12px 32px rgb(10 10 11 / 10%);
+  --shadow-glow: 0 1px 2px rgb(10 10 11 / 6%);
 }
 
 /* =========================
-   DARK THEME — graphite ink
+   DARK THEME — soft graphite
 ========================= */
 
 html[data-theme='dark'] {
   color-scheme: dark;
 
-  --color-bg: #0a0e15;
-  --color-header-bg: rgb(10 14 21 / 80%);
-  --color-hero-surface: #0d121b;
-  --color-surface: #111722;
-  --color-surface-raised: #161e2b;
-  --color-subtle: #151c28;
+  --color-bg: #15171c;
+  --color-header-bg: rgb(21 23 28 / 82%);
+  --color-hero-surface: #1a1d23;
+  --color-surface: #1b1e24;
+  --color-surface-raised: #20242b;
+  --color-subtle: #22262d;
 
-  --color-text: #e9eef6;
-  --color-muted: #98a4b8;
+  --color-text: #e8eaee;
+  --color-muted: #a0a6b1;
 
-  --color-primary: #4da3ff;
-  --color-primary-hover: #7ab9ff;
-  --color-primary-soft: #12233a;
+  --color-primary: #6ea8ff;
+  --color-primary-hover: #9cc3ff;
+  --color-primary-soft: #1c2a42;
 
-  --color-on-primary: #04121f;
+  --color-on-primary: #061226;
 
-  --color-border: #1f2836;
-  --color-border-strong: #313d51;
+  --color-border: #2c3038;
+  --color-border-strong: #3e434d;
 
-  --color-success: #4fd3a1;
-  --color-success-soft: #0f2a22;
+  --color-success: #4ccf8e;
+  --color-success-soft: #0f2a1d;
 
-  --color-warning: #f5bf5b;
-  --color-warning-soft: #2b2312;
+  --color-warning: #f0b45a;
+  --color-warning-soft: #2c2212;
 
-  --color-danger: #ff8fa3;
-  --color-danger-soft: #2e1820;
+  --color-danger: #ff8593;
+  --color-danger-soft: #331a1f;
 
-  --color-info: #8cc4ff;
-  --color-info-soft: #13223a;
+  --color-info: #a9a3ff;
+  --color-info-soft: #1f1d3d;
 
-  --color-overlay: rgb(3 6 12 / 72%);
+  --color-overlay: rgb(0 0 0 / 65%);
 
-  --color-action: #1570dc;
-  --color-action-hover: #0f63c4;
+  --color-action: #1a5fd0;
+  --color-action-hover: #2a6fe0;
   --color-on-action: #fff;
-  --color-glow: rgb(77 163 255 / 14%);
-  --gradient-action: linear-gradient(180deg, #1570dc 0%, #0b62c7 100%);
-  --gradient-brand: linear-gradient(120deg, #4da3ff, #8cc4ff);
-  --app-background:
-    radial-gradient(
-      1000px 520px at 50% -14%,
-      rgb(77 163 255 / 8%),
-      transparent 62%
-    ),
-    #0a0e15;
-  --hero-gradient: linear-gradient(160deg, #111a29, #0c121c 60%, #0f1724);
+  --color-glow: rgb(110 168 255 / 8%);
+  --gradient-action: #1a5fd0;
+  --gradient-brand: linear-gradient(120deg, #6ea8ff, #a8cbff);
+  --app-background: #15171c;
+  --hero-gradient: #1a1d23;
 
-  --shadow-sm: 0 1px 3px rgb(0 0 0 / 30%);
-  --shadow-card:
-    0 1px 0 rgb(255 255 255 / 3%) inset, 0 8px 24px rgb(0 0 0 / 28%);
-  --shadow-float: 0 20px 50px rgb(0 0 0 / 50%);
-  --shadow-glow: 0 4px 14px -4px rgb(77 163 255 / 30%);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
+  --shadow-card: 0 1px 0 rgb(255 255 255 / 3%) inset;
+  --shadow-float: 0 16px 40px rgb(0 0 0 / 55%);
+  --shadow-glow: 0 1px 2px rgb(0 0 0 / 40%);
 }

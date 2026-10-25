@@ -2,22 +2,18 @@
 import {
   ArrowRight,
   ArrowUpRight,
-  BookOpen,
-  Compass,
   Languages,
-  MessageCircle,
   MoonStar,
   Smartphone,
   Sparkles,
   Target,
-  UsersRound,
 } from 'lucide-react';
 import { useI18n } from '@/providers/i18n-provider';
 import { Logo } from '@/components/layout/logo';
+import { ConversationScene, HorizonScene } from '@/components/ui/scenes';
 import { CommunityBadge } from '@/components/layout/community-badge';
 import { communityCopy } from './community-copy';
 import { LinkButton } from '@/components/ui/link-button';
-import { Card } from '@/components/ui/surface';
 import { PublicHeader } from './public-header';
 import { LanguageArt } from './language-art';
 import { CatalogPreview } from './catalog-preview';
@@ -25,6 +21,7 @@ import { LearningExperience, ProgressPreview } from './experience';
 import { WaveDivider } from './wave-divider';
 import { Reveal } from './reveal';
 import { ScrollToTopButton } from './scroll-to-top-button';
+import { BentoFeatures, Faq, LanguageMarquee } from './showcase';
 import styles from './landing.module.scss';
 export function LandingPage() {
   const {
@@ -32,11 +29,6 @@ export function LandingPage() {
     messages: { landing: t },
   } = useI18n();
   const community = communityCopy[locale];
-  const benefits = [
-    { Icon: Compass, title: t.benefitOne, body: t.benefitOneBody },
-    { Icon: BookOpen, title: t.benefitTwo, body: t.benefitTwoBody },
-    { Icon: UsersRound, title: t.benefitThree, body: t.benefitThreeBody },
-  ];
   const facts = [
     { Icon: Target, label: t.factPlacement },
     { Icon: Languages, label: t.factLocales },
@@ -94,27 +86,7 @@ export function LandingPage() {
           </ul>
           <WaveDivider />
         </div>
-        <section id="features" className={styles.section}>
-          <Reveal>
-            <div className={styles.centerHeading}>
-              <p className={styles.eyebrow}>{t.features}</p>
-              <h2>{t.benefitsTitle}</h2>
-            </div>
-          </Reveal>
-          <Reveal delay={100}>
-            <div className={styles.benefits}>
-              {benefits.map(({ Icon, title, body }, index) => (
-                <Card key={title}>
-                  <div className={styles.benefitIcon} data-tone={index}>
-                    <Icon size={24} />
-                  </div>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </Card>
-              ))}
-            </div>
-          </Reveal>
-        </section>
+        <BentoFeatures />
         <CatalogPreview />
         <section className={styles.section}>
           <Reveal>
@@ -144,21 +116,10 @@ export function LandingPage() {
         <Reveal>
           <section id="community" className={styles.community}>
             <div className={styles.communityArt} aria-hidden="true">
-              <span>Hola!</span>
-              <span>Салам!</span>
-              <span>Hello!</span>
-              <div>
-                <MessageCircle size={66} strokeWidth={1} />
-              </div>
-              <i />
-              <b />
+              <ConversationScene />
             </div>
             <div>
               <p className={styles.eyebrow}>{t.communityLabel}</p>
-              <a href="#about" className={styles.creatorCredit}>
-                <CommunityBadge />
-                <span>{community.made}</span>
-              </a>
               <h2>{t.communityTitle}</h2>
               <p>{t.communityBody}</p>
               <LinkButton href="/register">
@@ -188,9 +149,10 @@ export function LandingPage() {
             </div>
           </section>
         </Reveal>
+        <Faq />
         <Reveal>
           <section className={styles.cta}>
-            <Sparkles size={26} />
+            <HorizonScene className={styles.ctaScene} />
             <h2>{t.ctaTitle}</h2>
             <p>{t.ctaBody}</p>
             <LinkButton href="/register">
@@ -199,6 +161,7 @@ export function LandingPage() {
             </LinkButton>
           </section>
         </Reveal>
+        <LanguageMarquee />
       </main>
       <footer className={styles.footer}>
         <div className={styles.footerBrand}>

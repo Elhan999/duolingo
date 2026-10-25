@@ -3,7 +3,9 @@ import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { useI18n } from '@/providers/i18n-provider';
 import { cn } from '@/lib/cn';
+import { CircleHelp } from 'lucide-react';
 import { Modal } from '@/components/ui/modal';
+import { Button } from '@/components/ui/button';
 import { LanguageSwitcher, ThemeSwitcher } from '@/components/ui/preferences';
 import { Sidebar } from './sidebar';
 import { MobileBottomNav } from './mobile-bottom-nav';
@@ -100,6 +102,17 @@ export function AppShell({
             </Link>
           ))}
         </nav>
+        <Button
+          variant="secondary"
+          className={styles.menuGuide}
+          onClick={() => {
+            setMenu(false);
+            setGuide(true);
+          }}
+        >
+          <CircleHelp size={18} aria-hidden="true" />
+          {nav.guideOpen}
+        </Button>
         <div className={styles.preferenceContent}>
           <LanguageSwitcher />
           <ThemeSwitcher />

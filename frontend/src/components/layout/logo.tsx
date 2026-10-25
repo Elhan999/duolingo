@@ -3,15 +3,17 @@ import Link from 'next/link';
 import styles from './layout.module.scss';
 
 export function Logo({ compact = false }: { compact?: boolean }) {
-  const size = compact ? 42 : 52;
+  // The owl in a clean round badge — no square corners.
+  const height = compact ? 42 : 50;
+  const width = height;
   return (
     <Link href="/" aria-label="LearM" className={styles.logo}>
       <Image
         className={styles.logoMark}
-        src="/learm-owl.png"
+        src="/learm-owl-round.png"
         alt=""
-        width={size}
-        height={size}
+        width={width}
+        height={height}
         priority
       />
 

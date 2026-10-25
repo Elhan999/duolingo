@@ -1,124 +1,30 @@
 .art {
   position: relative;
+  display: grid;
+  place-items: center;
   min-width: 0;
   width: 100%;
-  height: 100%;
-  min-height: 530px;
-  isolation: isolate;
-  overflow: hidden;
-  background: var(--color-hero-surface);
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background:
-      linear-gradient(90deg, transparent 70%, var(--color-hero-surface)),
-      linear-gradient(0deg, var(--color-hero-surface), transparent 15%);
+  padding: 1.5rem 1rem 1.5rem 2rem;
+
+  > svg {
+    width: min(100%, 560px);
   }
-}
-.heroImage {
-  object-fit: cover;
-  object-position: 48% center;
-}
-.lightImage {
-  display: block;
-}
-.darkImage {
-  display: none;
-}
-:global(html[data-theme='dark']) {
-  .lightImage {
-    display: none;
-  }
-  .darkImage {
-    display: block;
-  }
-}
-.greetingOne,
-.greetingTwo,
-.greetingThree {
-  position: absolute;
-  z-index: 2;
-  display: grid;
-  gap: 0.1rem;
-  padding: 0.7rem 1rem;
-  border: 1px solid rgb(120 190 255 / 45%);
-  border-radius: 1rem 1rem 1rem 0.25rem;
-  background: rgb(240 247 255 / 92%);
-  color: #0b1526;
-  font-weight: 750;
-  font-size: var(--text-md);
-  box-shadow:
-    0 8px 25px rgb(3 16 39 / 25%),
-    0 0 24px -6px rgb(40 150 255 / 55%);
-  backdrop-filter: blur(6px);
-  transform: rotate(-8deg);
-  small {
-    font-size: var(--text-3xs);
-    font-weight: 500;
-    opacity: 0.75;
-  }
-}
-.greetingOne {
-  left: 3%;
-  top: 3%;
-}
-.greetingTwo {
-  right: 8%;
-  top: 36%;
-  background: #9fd2ff;
-  transform: rotate(8deg);
-}
-.greetingThree {
-  right: 5%;
-  top: 3%;
-  background: #cfe3ff;
-  transform: rotate(6deg);
 }
 .compactArt {
-  height: 300px;
-  min-height: 300px;
-  border-radius: 1.5rem;
+  padding: 0;
   margin-top: 1.5rem;
-  .heroImage {
-    object-position: center 35%;
+
+  > svg {
+    width: min(100%, 380px);
   }
 }
 
-@media (max-width: 64rem) {
-  .greetingThree {
-    right: 5%;
-  }
-}
 @media (max-width: 48rem) {
   .art {
-    max-width: none;
-    width: 100%;
-    height: 370px;
-    min-height: 370px;
-    transform: none;
-    margin: 0;
-  }
-  .heroImage {
-    object-fit: cover;
-    object-position: center 38%;
-  }
-  .greetingOne {
-    top: auto;
-    bottom: 21%;
-    left: 5%;
-  }
-  .greetingTwo {
-    top: 42%;
-    right: 6%;
-  }
-  .greetingThree {
-    top: 4%;
-    right: 9%;
-  }
-  .compactArt {
-    min-height: 260px;
-    height: 260px;
+    padding: 0.5rem 0 0;
+
+    > svg {
+      width: min(100%, 420px);
+    }
   }
 }

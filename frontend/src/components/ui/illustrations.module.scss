@@ -1,0 +1,264 @@
+.frame {
+  position: relative;
+  display: inline-block;
+  width: min(100%, 230px);
+  line-height: 0;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.shadow {
+  fill: var(--color-border);
+  opacity: 0.55;
+}
+
+// Every animated SVG node scales/translates around its own center.
+.book,
+.chip,
+.sparkle,
+.bubble,
+.plane,
+.node,
+.dots circle {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* ---------- Book ---------- */
+
+.book {
+  animation: bob 6s ease-in-out infinite;
+}
+.page {
+  fill: var(--color-subtle);
+  stroke: var(--color-border-strong);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.spine {
+  fill: none;
+  stroke: var(--color-border-strong);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+.rule {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0.45;
+}
+.chip {
+  animation: chipFloat 5s ease-in-out infinite;
+}
+.chipTwo {
+  animation-delay: -1.7s;
+}
+.chipThree {
+  animation-delay: -3.4s;
+}
+.chip rect {
+  stroke-width: 2;
+}
+.chip text {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.chipOne rect {
+  fill: var(--color-primary-soft);
+  stroke: var(--color-primary);
+}
+.chipOne text {
+  fill: var(--color-primary);
+}
+.chipTwo rect {
+  fill: var(--color-info-soft);
+  stroke: var(--color-info);
+}
+.chipTwo text {
+  fill: var(--color-info);
+}
+.chipThree rect {
+  fill: var(--color-warning-soft);
+  stroke: var(--color-warning);
+}
+.chipThree text {
+  fill: var(--color-warning);
+}
+
+/* ---------- Chat ---------- */
+
+.bubble rect:first-child {
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.bubbleBack {
+  animation: chipFloat 5.5s ease-in-out infinite;
+  rect:first-child {
+    fill: var(--color-primary-soft);
+    stroke: var(--color-primary);
+  }
+  > path {
+    fill: var(--color-primary-soft);
+    stroke: var(--color-primary);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+  }
+}
+.bubbleFront {
+  animation: chipFloat 6.5s ease-in-out -2.2s infinite;
+  rect:first-child {
+    fill: var(--color-surface);
+    stroke: var(--color-border-strong);
+  }
+  > path {
+    fill: var(--color-surface);
+    stroke: var(--color-border-strong);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+  }
+}
+.line {
+  fill: var(--color-primary);
+  opacity: 0.4;
+}
+.dots circle {
+  fill: var(--color-primary);
+  animation: dotHop 1.3s ease-in-out infinite;
+}
+.dots circle:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.dots circle:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+/* ---------- Journey ---------- */
+
+.trail {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 8 11;
+  opacity: 0.65;
+  animation: trailMarch 2.6s linear infinite;
+}
+.node {
+  fill: var(--color-surface);
+  stroke: var(--color-primary);
+  stroke-width: 3;
+  animation: nodePulse 2.6s ease-in-out infinite;
+}
+.nodeMid {
+  animation-delay: 1.3s;
+}
+.plane {
+  animation: planeGlide 5s ease-in-out infinite;
+}
+.planeBody {
+  fill: var(--color-primary);
+  stroke: var(--color-primary);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.planeFold {
+  fill: none;
+  stroke: var(--color-surface);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.8;
+}
+
+/* ---------- Shared ---------- */
+
+.sparkle {
+  fill: var(--color-info);
+  animation: twinkle 2.8s ease-in-out infinite;
+}
+.sparkleLate {
+  animation-delay: 1.4s;
+  fill: var(--color-warning);
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes chipFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.55);
+    opacity: 0.45;
+  }
+}
+@keyframes dotHop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes trailMarch {
+  to {
+    stroke-dashoffset: -38;
+  }
+}
+@keyframes nodePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+@keyframes planeGlide {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(3px, -7px) rotate(-4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book,
+  .chip,
+  .sparkle,
+  .bubble,
+  .plane,
+  .node,
+  .dots circle,
+  .trail {
+    animation: none;
+  }
+}

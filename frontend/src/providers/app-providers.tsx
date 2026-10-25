@@ -18,7 +18,7 @@ export function AppProviders({
   return (
     <ThemeProvider
       attribute="data-theme"
-      defaultTheme="dark"
+      defaultTheme="light"
       enableSystem
       storageKey="lingua-theme"
       disableTransitionOnChange

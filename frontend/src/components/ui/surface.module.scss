@@ -5,11 +5,6 @@
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
   box-shadow: var(--shadow-card);
   min-width: 0;
-  background-image: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-primary) 3%, transparent),
-    transparent 40%
-  );
   transition:
     border-color var(--transition-normal),
     box-shadow var(--transition-glow);
@@ -85,8 +80,9 @@
       var(--color-action),
       var(--color-primary)
     );
-    box-shadow: 0 0 12px var(--color-glow);
     border-radius: inherit;
+    transform-origin: left;
+    animation: progressGrow 900ms var(--ease-spring) 200ms both;
     transition: width 400ms ease;
   }
 }
@@ -147,5 +143,11 @@
 @media (prefers-reduced-motion: reduce) {
   .progress span {
     transition: none;
+  }
+}
+
+@keyframes progressGrow {
+  from {
+    transform: scaleX(0);
   }
 }

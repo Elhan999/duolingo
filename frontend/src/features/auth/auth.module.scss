@@ -123,52 +123,6 @@
     gap: 1rem;
   }
 }
-.account {
-  width: min(calc(100% - 2rem), 64rem);
-  margin: 0 auto;
-  padding-block: 2rem;
-  > header {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 3rem;
-  }
-  > div {
-    max-width: 40rem;
-    margin: auto;
-    padding: clamp(1.5rem, 4vw, 3rem);
-  }
-  h1 {
-    font-size: var(--text-2xl);
-    margin: 1.5rem 0 1rem;
-  }
-  p {
-    color: var(--color-muted);
-  }
-}
-.accountIcon {
-  color: var(--color-success);
-}
-.identity {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 2rem 0;
-  strong,
-  span {
-    display: block;
-    overflow-wrap: anywhere;
-  }
-  span {
-    color: var(--color-muted);
-    font-size: var(--text-caption);
-  }
-}
-.accountLinks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
 @media (max-width: 48rem) {
   .screen {
     display: block;
@@ -195,9 +149,6 @@
 @media (max-width: 23rem) {
   .formSide {
     padding-inline: 1rem;
-  }
-  .accountLinks > a {
-    width: 100%;
   }
 }
 

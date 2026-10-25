@@ -98,7 +98,7 @@ dd {
 }
 
 h1 {
-  font-weight: 800;
+  font-weight: 700;
 }
 
 :focus-visible {
@@ -109,27 +109,6 @@ h1 {
 ::selection {
   background: var(--color-primary);
   color: var(--color-on-primary);
-}
-
-/* Мягкое неоновое свечение за контентом, как на логотипе */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    linear-gradient(
-      color-mix(in srgb, var(--color-primary) 2.5%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--color-primary) 2.5%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 55%);
 }
 
 .skip-link {
@@ -187,4 +166,14 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-muted);
+}
+
+// Smooth state changes everywhere; zero specificity so components still win.
+:where(a, button, input, select, textarea, summary, [role='button']) {
+  transition:
+    color 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    opacity 200ms ease;
 }

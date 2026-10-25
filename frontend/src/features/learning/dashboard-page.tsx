@@ -2,10 +2,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@/features/auth/auth-provider';
 import { useI18n } from '@/providers/i18n-provider';
-import { placementMessages } from '@/i18n/placement';
 import { PageHeader } from '@/components/ui/surface';
 import { LinkButton } from '@/components/ui/link-button';
+import { HorizonScene } from '@/components/ui/scenes';
 import { EmptyState } from '@/components/ui/states';
+import { BookIllustration } from '@/components/ui/illustrations';
 import { CourseCard } from '@/features/courses/course-card';
 import {
   Stats,
@@ -21,7 +22,6 @@ import styles from './learning.module.scss';
 export function DashboardPage() {
   const { user } = useAuth();
   const {
-    locale,
     messages: { learning: t },
   } = useI18n();
   const courses = useQuery(coursesOptions());
@@ -29,15 +29,18 @@ export function DashboardPage() {
   const progress = useProgress();
   return (
     <LearningShell active="dashboard">
+      <div className={styles.welcomeBanner} aria-hidden="true">
+        <HorizonScene />
+      </div>
       <PageHeader
         eyebrow={t.eyebrow}
-        title={t.welcome + (user ? ', ' + user.email : '') + '!'}
-        description={t.dashboardHint}
-        action={
-          <LinkButton href="/learning-path" variant="secondary">
-            {placementMessages[locale].title}
-          </LinkButton>
+        title={
+          t.welcome +
+          // Usernames may be e-mails; greet by the readable part only.
+          (user ? ', ' + (user.username || user.email).split('@')[0] : '') +
+          '!'
         }
+        description={t.dashboardHint}
       />
       <div className={styles.dashboardLayout}>
         <div className={styles.dashboardMain}>
@@ -88,7 +91,11 @@ export function DashboardPage() {
               ))}
           </div>
         ) : (
-          <EmptyState title={t.noCourses} description={t.noCoursesHint} />
+          <EmptyState
+            illustration={<BookIllustration />}
+            title={t.noCourses}
+            description={t.noCoursesHint}
+          />
         )}
       </section>
     </LearningShell>

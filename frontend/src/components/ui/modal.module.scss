@@ -11,9 +11,10 @@
   &::backdrop {
     background: var(--color-overlay);
     backdrop-filter: blur(5px);
+    animation: backdropIn 220ms ease-out;
   }
   &[open] {
-    animation: appear 180ms ease;
+    animation: appear 260ms var(--ease-spring);
   }
   header {
     display: flex;
@@ -46,7 +47,7 @@
 @keyframes appear {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px) scale(0.97);
   }
   to {
     opacity: 1;
@@ -59,5 +60,11 @@
     footer > button {
       flex: 1;
     }
+  }
+}
+
+@keyframes backdropIn {
+  from {
+    opacity: 0;
   }
 }

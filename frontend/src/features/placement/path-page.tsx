@@ -13,6 +13,7 @@ import {
 import { PageHeader, Card } from '@/components/ui/surface';
 import { Select } from '@/components/ui/field';
 import { EmptyState } from '@/components/ui/states';
+import { JourneyIllustration } from '@/components/ui/illustrations';
 import { Button } from '@/components/ui/button';
 import { LinkButton } from '@/components/ui/link-button';
 import { startLearningPath } from './api';
@@ -72,7 +73,11 @@ export function PathPage() {
             <div className={styles.layout}>
               <div>
                 {!path.data.courses.length ? (
-                  <EmptyState title={t.empty} description={t.hint} />
+                  <EmptyState
+                    illustration={<JourneyIllustration />}
+                    title={t.empty}
+                    description={t.hint}
+                  />
                 ) : (
                   <LearningJourney
                     courses={path.data.courses}

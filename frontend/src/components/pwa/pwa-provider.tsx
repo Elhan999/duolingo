@@ -97,7 +97,7 @@ export function PwaProvider({ children }: { children: ReactNode }) {
         <div className={styles.splash} aria-hidden="true">
           <div className={styles.brand}>
             <Image
-              src="/learm-owl.png"
+              src="/learm-owl-round.png"
               alt=""
               width={112}
               height={112}

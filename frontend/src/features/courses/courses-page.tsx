@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { LinkButton } from '@/components/ui/link-button';
 import { placementMessages } from '@/i18n/placement';
 import { EmptyState } from '@/components/ui/states';
+import { BookIllustration } from '@/components/ui/illustrations';
 import { LearningShell } from '@/features/learning/learning-shell';
 import {
   LearningError,
@@ -114,7 +115,11 @@ export function CoursesPage() {
       ) : courses.isError ? (
         <LearningError onRetry={() => void courses.refetch()} />
       ) : !courses.data.length ? (
-        <EmptyState title={t.noCourses} description={t.noCoursesHint} />
+        <EmptyState
+          illustration={<BookIllustration />}
+          title={t.noCourses}
+          description={t.noCoursesHint}
+        />
       ) : !filtered.length ? (
         <EmptyState
           title={t.noResults}

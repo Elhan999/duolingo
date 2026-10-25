@@ -6,6 +6,7 @@ import { Avatar } from '@/components/ui/surface';
 import { SearchInput } from '@/components/ui/field';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/ui/states';
+import { ChatIllustration } from '@/components/ui/illustrations';
 import { useI18n } from '@/providers/i18n-provider';
 import { useAuth } from '@/features/auth/auth-provider';
 import { cn } from '@/lib/cn';
@@ -128,7 +129,11 @@ export function ChatList({
         ) : query.isError ? (
           <ChatError retry={() => void query.refetch()} />
         ) : !query.data.length ? (
-          <EmptyState title={t.noChats} description={t.noChatsBody} />
+          <EmptyState
+            illustration={<ChatIllustration />}
+            title={t.noChats}
+            description={t.noChatsBody}
+          />
         ) : filtered.length === 0 ? (
           <EmptyState title={t.noResults} description={t.searchHint} />
         ) : (
