@@ -12,7 +12,6 @@ import {
 import { useI18n } from '@/providers/i18n-provider';
 import { Logo } from '@/components/layout/logo';
 import { LivingScene } from '@/components/ui/living-scene';
-import { CommunityBadge } from '@/components/layout/community-badge';
 import { CommunityMark } from '@/components/ui/community-mark';
 import { communityCopy } from './community-copy';
 import { LinkButton } from '@/components/ui/link-button';
@@ -133,8 +132,9 @@ export function LandingPage() {
             <div>
               <p className={styles.eyebrow}>{t.communityLabel}</p>
               <a href="#about" className={styles.creatorCredit}>
-                <CommunityBadge />
-                <span>{community.made}</span>
+                {madeBefore.trim() && <span>{madeBefore.trim()}</span>}
+                <CommunityMark size={26} />
+                {madeAfter.trim() && <span>{madeAfter.trim()}</span>}
               </a>
               <h2>{t.communityTitle}</h2>
               <p>{t.communityBody}</p>
@@ -152,9 +152,8 @@ export function LandingPage() {
             <h2>{t.aboutTitle}</h2>
             <p>{t.aboutBody}</p>
             <div className={styles.creatorCard}>
-              <CommunityBadge />
+              <CommunityMark size={36} />
               <div>
-                <p className={styles.eyebrow}>{community.made}</p>
                 <h3>{community.title}</h3>
                 <p>{community.body}</p>
                 <LinkButton href="#community" variant="secondary">

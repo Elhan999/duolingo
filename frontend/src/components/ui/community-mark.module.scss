@@ -3,8 +3,7 @@
 .mark {
   position: relative;
   display: inline-block;
-  width: 11.5rem;
-  height: 30px;
+  flex-shrink: 0;
   vertical-align: middle;
 }
 

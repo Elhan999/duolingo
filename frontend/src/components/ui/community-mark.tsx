@@ -24,35 +24,41 @@ const MARK = [
   [15, 0, 38, 0, 56, 20, 56, 50, 43, 50, 43, 25, 33, 13, 15, 13],
   [58, 0, 81, 0, 99, 20, 99, 50, 86, 50, 86, 25, 76, 13, 58, 13],
 ];
-const MARK_HEIGHT = 30;
-const MARK_WIDTH = MARK_HEIGHT * 2;
-const GAP = 12;
 const WORD = 'COMMUNITY';
 // Space around the logo the grains may be pushed into.
-const PAD = 36;
-const RADIUS = 46;
+const PAD = 28;
+// Reach and strength of the cursor: together they open a hole of about
+// 10–12px around the pointer, whatever the logo size.
+const RADIUS = 24;
+const PUSH = 2.2;
 
-type Layout = { width: number; height: number; font: string };
+// Everything scales from the height of the "m".
+type Layout = {
+  size: number;
+  width: number;
+  font: string;
+  spacing: string;
+};
 
-function layout(): Layout {
+function layout(size: number): Layout {
   const probe = document.createElement('canvas').getContext('2d');
-  const font = `800 15px ${getComputedStyle(document.body).fontFamily}`;
-  if (!probe) return { width: 190, height: MARK_HEIGHT, font };
+  const font = `800 ${size / 2}px ${getComputedStyle(document.body).fontFamily}`;
+  const spacing = size / 15 + 'px';
+  const fallback = { size, width: Math.ceil(size * 6.4), font, spacing };
+  if (!probe) return fallback;
   probe.font = font;
-  probe.letterSpacing = '2px';
+  probe.letterSpacing = spacing;
   const word = probe.measureText(WORD).width;
-  return {
-    width: Math.ceil(MARK_WIDTH + GAP + word),
-    height: MARK_HEIGHT,
-    font,
-  };
+  return { ...fallback, width: Math.ceil(size * 2.4 + word) };
 }
 
 /** Paints the logo off screen and keeps every visible pixel as a grain. */
 function sample(canvas: HTMLCanvasElement, box: Layout): Particle[] {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const markHeight = box.size;
+  const markWidth = box.size * 2;
   const width = box.width + PAD * 2;
-  const height = box.height + PAD * 2;
+  const height = box.size + PAD * 2;
   canvas.width = width * dpr;
   canvas.height = height * dpr;
   canvas.style.width = width + 'px';
@@ -69,12 +75,12 @@ function sample(canvas: HTMLCanvasElement, box: Layout): Particle[] {
   ctx.scale(dpr, dpr);
 
   // The mark: light at the top left, deeper blue toward the bottom right.
-  const scale = MARK_HEIGHT / 50;
+  const scale = markHeight / 50;
   const markGradient = ctx.createLinearGradient(
     PAD,
     PAD,
-    PAD + MARK_WIDTH,
-    PAD + MARK_HEIGHT,
+    PAD + markWidth,
+    PAD + markHeight,
   );
   markGradient.addColorStop(0, '#b9dcff');
   markGradient.addColorStop(1, primary);
@@ -92,15 +98,15 @@ function sample(canvas: HTMLCanvasElement, box: Layout): Particle[] {
   }
 
   // The word, centred on the mark's height.
-  const left = PAD + MARK_WIDTH + GAP;
+  const left = PAD + markWidth + box.size * 0.4;
   ctx.font = box.font;
-  ctx.letterSpacing = '2px';
+  ctx.letterSpacing = box.spacing;
   ctx.textBaseline = 'middle';
   const wordGradient = ctx.createLinearGradient(left, 0, PAD + box.width, 0);
   wordGradient.addColorStop(0, info);
   wordGradient.addColorStop(1, primary);
   ctx.fillStyle = wordGradient;
-  ctx.fillText(WORD, left, PAD + MARK_HEIGHT / 2 + 1);
+  ctx.fillText(WORD, left, PAD + markHeight / 2 + 1);
 
   const { data } = ctx.getImageData(0, 0, source.width, source.height);
   const step = Math.max(1, Math.round(dpr));
@@ -176,9 +182,9 @@ function animate(canvas: HTMLCanvasElement, particles: Particle[]) {
         const distance = Math.hypot(dx, dy);
         if (distance < RADIUS && distance > 0.01) {
           // Grains flee the cursor; the closer, the harder they are pushed.
-          const push = (1 - distance / RADIUS) ** 2 * 3.2;
-          ax += (dx / distance) * push + (Math.random() - 0.5) * 0.4;
-          ay += (dy / distance) * push + (Math.random() - 0.5) * 0.4;
+          const push = (1 - distance / RADIUS) ** 2 * PUSH;
+          ax += (dx / distance) * push + (Math.random() - 0.5) * 0.3;
+          ay += (dy / distance) * push + (Math.random() - 0.5) * 0.3;
         }
       }
       p.vx = (p.vx + ax) * 0.86;
@@ -220,7 +226,14 @@ function animate(canvas: HTMLCanvasElement, particles: Particle[]) {
  * cursor, then gather back into place. The word stays readable for
  * assistive technology through a visually hidden label.
  */
-export function CommunityMark({ className }: { className?: string }) {
+export function CommunityMark({
+  size = 30,
+  className,
+}: {
+  /** Height of the "m" in px; the word and spacing scale with it. */
+  size?: number;
+  className?: string;
+}) {
   const rootRef = useRef<HTMLSpanElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -232,7 +245,7 @@ export function CommunityMark({ className }: { className?: string }) {
     let disposed = false;
     const start = () => {
       stop();
-      const box = layout();
+      const box = layout(size);
       root.style.width = box.width + 'px';
       stop = animate(canvas, sample(canvas, box));
     };
@@ -251,10 +264,14 @@ export function CommunityMark({ className }: { className?: string }) {
       themes.disconnect();
       stop();
     };
-  }, []);
+  }, [size]);
 
   return (
-    <span ref={rootRef} className={cn(styles.mark, className)}>
+    <span
+      ref={rootRef}
+      className={cn(styles.mark, className)}
+      style={{ height: size, width: size * 6.4 }}
+    >
       <span className="sr-only">{WORD}</span>
       <canvas
         ref={canvasRef}

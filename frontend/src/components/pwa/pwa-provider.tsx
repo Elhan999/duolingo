@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react';
 import { useTheme } from 'next-themes';
+import { CommunityMark } from '@/components/ui/community-mark';
 import styles from './pwa.module.scss';
 
 type InstallEvent = Event & {
@@ -107,14 +108,9 @@ export function PwaProvider({ children }: { children: ReactNode }) {
               Lear<span>M</span>
             </div>
           </div>
-          <Image
-            className={styles.community}
-            src="/community-logo.jpg"
-            alt=""
-            width={100}
-            height={100}
-            priority
-          />
+          <div className={styles.community}>
+            <CommunityMark size={28} />
+          </div>
         </div>
       )}
     </InstallContext.Provider>

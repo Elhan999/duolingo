@@ -341,10 +341,12 @@
     line-height: 1.9;
   }
 }
+// The living COMMUNITY mark heads the card; the story follows below it.
 .creatorCard {
   display: flex;
-  align-items: center;
-  gap: 1.75rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
   margin-top: 2.5rem;
   padding: 2rem;
   text-align: left;
@@ -368,16 +370,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
-  img {
-    width: 64px;
-    height: 64px;
-    border-radius: 14px;
-  }
+  margin-bottom: 0.5rem;
+  color: var(--color-muted);
+  font-size: var(--text-xs);
 }
 @media (max-width: 40rem) {
   .creatorCard {
-    flex-direction: column;
-    align-items: flex-start;
     padding: 1.5rem;
   }
 }

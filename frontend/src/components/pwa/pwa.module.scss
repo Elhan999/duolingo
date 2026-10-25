@@ -35,9 +35,7 @@
 }
 .community {
   position: absolute;
-  bottom: max(28px, env(safe-area-inset-bottom));
-  border-radius: 16px;
-  object-fit: cover;
+  bottom: max(36px, env(safe-area-inset-bottom));
 }
 .install {
   display: grid;
