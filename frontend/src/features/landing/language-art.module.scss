@@ -91,12 +91,17 @@
   background: #cfe3ff;
   transform: rotate(6deg);
 }
+// The sign-in picture is a framed card, not a hero blending into the page:
+// no edge fades, so it reads as a whole image with clean corners.
 .compactArt {
   height: 300px;
   min-height: 300px;
-  border-radius: 1.5rem;
+  border-radius: var(--radius-lg);
   margin-top: 1.5rem;
   --focus-x: 0.5;
+  &::after {
+    display: none;
+  }
 }
 
 @media (max-width: 64rem) {

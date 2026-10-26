@@ -366,7 +366,7 @@ export const en: Messages = {
       'You are signed out on this device. The server did not confirm session revocation.',
     welcome: 'Good to see you',
     publicHome: 'Back to home',
-    brandLabel: 'NEW WORDS. NEW POSSIBILITIES.',
+    brandLabel: 'New words. New possibilities.',
     brandTitle: 'The world feels closer when you have something to say.',
     brandDescription:
       'Languages for your travels, new connections and stories of your own.',
