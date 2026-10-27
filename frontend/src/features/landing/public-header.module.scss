@@ -111,3 +111,36 @@
     display: none;
   }
 }
+
+// A hairline under the header that fills as you read the page. Driven by a
+// scroll timeline, so it costs no JavaScript; hidden where unsupported.
+.scrollProgress {
+  display: none;
+}
+@supports (animation-timeline: scroll()) {
+  .scrollProgress {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-brand);
+    transform-origin: left;
+    animation: readProgress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+@keyframes readProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrollProgress {
+    display: none;
+  }
+}

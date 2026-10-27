@@ -7,6 +7,7 @@ import type { Locale } from '@/i18n/config';
 import { AuthProvider } from '@/features/auth/auth-provider';
 import { I18nProvider } from './i18n-provider';
 import { PwaProvider } from '@/components/pwa/pwa-provider';
+import { SpotlightTracker } from '@/components/ui/spotlight';
 export function AppProviders({
   children,
   locale,
@@ -27,6 +28,7 @@ export function AppProviders({
         <QueryClientProvider client={queryClient}>
           <PwaProvider>
             <AuthProvider>{children}</AuthProvider>
+            <SpotlightTracker />
           </PwaProvider>
         </QueryClientProvider>
       </I18nProvider>

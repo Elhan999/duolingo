@@ -184,3 +184,29 @@ html {
   animation-duration: 420ms;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+// A soft light that follows the pointer across a card (see spotlight.tsx).
+[data-spotlight] {
+  position: relative;
+  isolation: isolate;
+}
+[data-spotlight]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    280px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    color-mix(in srgb, var(--color-primary) 11%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 320ms var(--ease-soft);
+}
+@media (hover: hover) {
+  [data-spotlight]:hover::before {
+    opacity: 1;
+  }
+}

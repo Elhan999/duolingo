@@ -32,7 +32,7 @@ export function CourseCard({
   const stats =
     lessons.data && progress ? courseProgress(lessons.data, progress) : null;
   return (
-    <Card className={styles.courseCard}>
+    <Card className={styles.courseCard} data-spotlight>
       <div className={styles.courseVisual}>
         <BookOpen size={32} />
         <Badge tone="primary">{course.level}</Badge>

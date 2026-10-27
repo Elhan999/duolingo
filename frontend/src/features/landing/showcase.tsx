@@ -57,7 +57,7 @@ export function BentoFeatures() {
       </Reveal>
       <Reveal delay={80}>
         <div className={styles.bento}>
-          <article className={styles.tileWide}>
+          <article className={styles.tileWide} data-spotlight>
             <div className={styles.copy}>
               <span className={styles.icon}>
                 <BookOpen size={18} aria-hidden="true" />
@@ -74,7 +74,7 @@ export function BentoFeatures() {
               <span>Salut</span>
             </div>
           </article>
-          <article className={styles.tile}>
+          <article className={styles.tile} data-spotlight>
             <span className={styles.icon}>
               <Compass size={18} aria-hidden="true" />
             </span>
@@ -86,7 +86,7 @@ export function BentoFeatures() {
               ))}
             </div>
           </article>
-          <article className={styles.tile}>
+          <article className={styles.tile} data-spotlight>
             <span className={styles.icon}>
               <UsersRound size={18} aria-hidden="true" />
             </span>
@@ -102,7 +102,7 @@ export function BentoFeatures() {
               <MessageCircle size={20} />
             </div>
           </article>
-          <article className={styles.tile}>
+          <article className={styles.tile} data-spotlight>
             <h3>{t.factPlacement}</h3>
             <div className={styles.levels} aria-hidden="true">
               {LEVELS.map((level) => (
@@ -112,7 +112,7 @@ export function BentoFeatures() {
               ))}
             </div>
           </article>
-          <article className={styles.tile}>
+          <article className={styles.tile} data-spotlight>
             <h3>{t.factLocales}</h3>
             <div className={styles.flags} aria-hidden="true">
               {['ru', 'ky', 'en'].map((code) => (
@@ -120,7 +120,7 @@ export function BentoFeatures() {
               ))}
             </div>
           </article>
-          <article className={styles.tileBanner}>
+          <article className={styles.tileBanner} data-spotlight>
             <div className={styles.copy}>
               <span className={styles.icon}>
                 <Smartphone size={18} aria-hidden="true" />

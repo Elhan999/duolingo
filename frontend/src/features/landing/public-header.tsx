@@ -62,6 +62,8 @@ export function PublicHeader() {
     <>
       {/* Применили динамический класс */}
       <div className={headerBarClassName}>
+        {/* Reading progress: fills as the page scrolls (pure CSS). */}
+        <span className={styles.scrollProgress} aria-hidden="true" />
         <header className={styles.header}>
           <Logo />
           <nav className={styles.desktopNav} aria-label={nav.navigation}>
