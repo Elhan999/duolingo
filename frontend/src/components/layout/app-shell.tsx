@@ -83,12 +83,13 @@ export function AppShell({
       </div>
       <MobileBottomNav active={active} onNavigate={onNavigate} />
       <SiteGuide open={guide} onClose={() => setGuide(false)} active={active} />
-      <Modal open={menu} onClose={() => setMenu(false)} title={nav.navigation}>
+      <Modal open={menu} onClose={() => setMenu(false)} title={nav.menuTitle}>
         <nav className={styles.mobileMenu}>
           {navigation.map(({ key, href, icon: Icon }) => (
             <Link
               key={key}
               href={href}
+              aria-current={key === active ? 'page' : undefined}
               onClick={(event) => {
                 setMenu(false);
                 if (onNavigate) {

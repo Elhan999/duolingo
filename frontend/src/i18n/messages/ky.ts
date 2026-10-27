@@ -489,6 +489,7 @@ export const ky: Messages = {
     connect: 'БААРЛАШУУ',
     account: 'АККАУНТ',
     menu: 'Менюну ачуу',
+    menuTitle: 'Меню',
     navigation: 'Негизги навигация',
     collapse: 'Менюну жыйноо',
     expand: 'Менюну кеңейтүү',

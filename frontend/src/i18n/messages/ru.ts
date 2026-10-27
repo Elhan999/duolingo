@@ -490,6 +490,7 @@ export const ru = {
     connect: 'ОБЩЕНИЕ',
     account: 'АККАУНТ',
     menu: 'Открыть меню',
+    menuTitle: 'Меню',
     navigation: 'Основная навигация',
     collapse: 'Свернуть меню',
     expand: 'Развернуть меню',

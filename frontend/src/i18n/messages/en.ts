@@ -496,6 +496,7 @@ export const en: Messages = {
     connect: 'CONNECT',
     account: 'ACCOUNT',
     menu: 'Open menu',
+    menuTitle: 'Menu',
     navigation: 'Main navigation',
     collapse: 'Collapse sidebar',
     expand: 'Expand sidebar',

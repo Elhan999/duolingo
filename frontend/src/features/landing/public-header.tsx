@@ -102,7 +102,7 @@ export function PublicHeader() {
         </header>
       </div>
 
-      <Modal open={menu} onClose={() => setMenu(false)} title={nav.navigation}>
+      <Modal open={menu} onClose={() => setMenu(false)} title={nav.menuTitle}>
         <nav className={styles.mobileMenu}>
           <HeaderPreferences />
           {links.map((link) => (

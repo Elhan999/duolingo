@@ -5,7 +5,6 @@ import { useI18n } from '@/providers/i18n-provider';
 import { cn } from '@/lib/cn';
 import { Avatar } from '@/components/ui/surface';
 import { IconButton } from '@/components/ui/button';
-import { LanguageSwitcher, ThemeSwitcher } from '@/components/ui/preferences';
 import { navigation, type NavigationKey } from './navigation';
 import { Logo } from './logo';
 import { useNavPill } from './use-nav-pill';
@@ -112,12 +111,10 @@ export function Sidebar({
           </div>
         ))}
       </nav>
+      {/* Theme and language live in the header's "Appearance" button and in
+          Settings; repeating them here only crowded the panel. */}
       <div className={styles.sidebarBottom}>
-        <div className={styles.preferences}>
-          <LanguageSwitcher />
-          <ThemeSwitcher />
-        </div>
-        <div className={styles.user}>
+        <Link href="/profile" className={styles.user} title={nav.profile}>
           <Avatar name={identity?.name ?? 'LearM'} />
           <div>
             <strong>{identity?.name ?? nav.guest}</strong>
@@ -126,7 +123,7 @@ export function Sidebar({
               <span>{identity?.description ?? nav.guestHint}</span>
             )}
           </div>
-        </div>
+        </Link>
       </div>
     </aside>
   );

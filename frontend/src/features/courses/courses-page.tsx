@@ -107,7 +107,6 @@ export function CoursesPage() {
           ))}
         </Select>
       </div>
-      <p className={styles.helper}>{t.filterHint}</p>
       {(progress.isError || languages.isError) && (
         <p role="status" className={styles.notice}>
           {t.partialError}
