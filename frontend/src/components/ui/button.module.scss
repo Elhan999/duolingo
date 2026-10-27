@@ -30,12 +30,15 @@
     opacity: 0.45;
   }
 }
+// The main action carries a quiet gradient and lifts into a soft blue glow
+// on hover, so it reads as the one thing to press on a screen.
 .primary {
-  background: var(--color-action);
+  background: var(--color-action) var(--gradient-action);
   color: var(--color-on-action);
   box-shadow: var(--shadow-sm);
   &:hover:not(:disabled) {
     background: var(--color-action-hover);
+    box-shadow: var(--shadow-glow);
   }
 }
 .secondary {

@@ -8,13 +8,37 @@
   color: var(--color-text);
   box-shadow: var(--shadow-float);
   overflow-y: auto;
+  // Opens and closes with the same soft motion: transitions run both ways,
+  // and allow-discrete keeps the dialog visible while it fades out.
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  transition:
+    opacity 240ms var(--ease-soft),
+    transform 300ms var(--ease-spring),
+    overlay 300ms allow-discrete,
+    display 300ms allow-discrete;
+  &[open] {
+    opacity: 1;
+    transform: none;
+    @starting-style {
+      opacity: 0;
+      transform: translateY(10px) scale(0.97);
+    }
+  }
   &::backdrop {
     background: var(--color-overlay);
     backdrop-filter: blur(5px);
-    animation: backdropIn 220ms ease-out;
+    opacity: 0;
+    transition:
+      opacity 260ms var(--ease-soft),
+      overlay 300ms allow-discrete,
+      display 300ms allow-discrete;
   }
-  &[open] {
-    animation: appear 260ms var(--ease-spring);
+  &[open]::backdrop {
+    opacity: 1;
+    @starting-style {
+      opacity: 0;
+    }
   }
   header {
     display: flex;
@@ -44,27 +68,11 @@
     margin-top: 1.5rem;
   }
 }
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 @media (max-width: 30rem) {
   .modal {
     padding: 1.25rem;
     footer > button {
       flex: 1;
     }
-  }
-}
-
-@keyframes backdropIn {
-  from {
-    opacity: 0;
   }
 }

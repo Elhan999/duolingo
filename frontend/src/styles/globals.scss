@@ -171,9 +171,16 @@ html {
 // Smooth state changes everywhere; zero specificity so components still win.
 :where(a, button, input, select, textarea, summary, [role='button']) {
   transition:
-    color 200ms ease,
-    background-color 200ms ease,
-    border-color 200ms ease,
-    box-shadow 200ms ease,
-    opacity 200ms ease;
+    color 220ms var(--ease-soft),
+    background-color 220ms var(--ease-soft),
+    border-color 220ms var(--ease-soft),
+    box-shadow 220ms var(--ease-soft),
+    opacity 220ms var(--ease-soft);
+}
+
+// Theme changes cross-fade the whole page (see lib/smooth-change.ts).
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }

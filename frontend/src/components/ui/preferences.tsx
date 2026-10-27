@@ -1,6 +1,7 @@
 'use client';
 import { useSyncExternalStore } from 'react';
 import { useTheme } from 'next-themes';
+import { changeTheme } from '@/lib/smooth-change';
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { useI18n } from '@/providers/i18n-provider';
 import { isLocale, localeNames, locales } from '@/i18n/config';
@@ -22,7 +23,7 @@ export function ThemeSwitcher() {
     { value: 'light', label: ui.light, Icon: Sun },
     { value: 'dark', label: ui.dark, Icon: Moon },
     { value: 'system', label: ui.system, Icon: Monitor },
-  ];
+  ] as const;
   return (
     <div className={styles.theme} role="group" aria-label={ui.appearance}>
       {options.map(({ value, label, Icon }) => (
@@ -37,7 +38,7 @@ export function ThemeSwitcher() {
             styles.option,
             mounted && theme === value && styles.active,
           )}
-          onClick={() => setTheme(value)}
+          onClick={() => changeTheme(value, setTheme)}
         >
           <Icon size={17} aria-hidden="true" />
           <span>{label}</span>

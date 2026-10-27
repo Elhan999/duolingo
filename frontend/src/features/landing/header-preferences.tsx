@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useTheme } from 'next-themes';
+import { changeTheme } from '@/lib/smooth-change';
 import { ChevronDown, Moon, Sun } from 'lucide-react';
 import { useI18n } from '@/providers/i18n-provider';
 import { isLocale, localeNames, locales } from '@/i18n/config';
@@ -95,7 +96,7 @@ export function HeaderPreferences() {
         className={styles.themeButton}
         disabled={!mounted}
         aria-label={isDark ? ui.light : ui.dark}
-        onClick={() => setTheme(isDark ? 'light' : 'dark')}
+        onClick={() => changeTheme(isDark ? 'light' : 'dark', setTheme)}
       >
         {isDark ? <Moon size={16} /> : <Sun size={16} />}
       </button>
