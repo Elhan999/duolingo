@@ -40,6 +40,7 @@ export function LearningShell({
         <>
           {user && <HeaderStats />}
           <IconButton
+            tip
             label={auth.logout}
             disabled={exit.isPending}
             onClick={() => exit.mutate()}

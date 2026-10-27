@@ -38,12 +38,12 @@ export function Header({
         {action}
         {/* On phones both live in the menu sheet to keep the bar uncluttered. */}
         <span className={styles.desktopAction}>
-          <IconButton label={nav.guideOpen} onClick={onGuide}>
+          <IconButton tip label={nav.guideOpen} onClick={onGuide}>
             <CircleHelp size={20} />
           </IconButton>
         </span>
         <span className={styles.desktopAction}>
-          <IconButton label={ui.appearance} onClick={onPreferences}>
+          <IconButton tip label={ui.appearance} onClick={onPreferences}>
             <Palette size={20} />
           </IconButton>
         </span>

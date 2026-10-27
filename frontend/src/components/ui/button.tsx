@@ -1,6 +1,7 @@
 import { LoaderCircle } from 'lucide-react';
 import type { ComponentPropsWithRef } from 'react';
 import { cn } from '@/lib/cn';
+import { Tooltip } from './tooltip';
 import styles from './button.module.scss';
 export type ButtonProps = ComponentPropsWithRef<'button'> & {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
@@ -36,17 +37,29 @@ export function IconButton({
   label,
   children,
   className,
+  tip,
   ...props
-}: ButtonProps & { label: string }) {
-  return (
+}: ButtonProps & {
+  label: string;
+  /** Shows the label in a visible tooltip below the icon on hover/focus. */
+  tip?: boolean;
+}) {
+  const button = (
     <Button
       variant="ghost"
       {...props}
       aria-label={label}
-      title={label}
+      title={tip ? undefined : label}
       className={cn(styles.icon, className)}
     >
       {children}
     </Button>
+  );
+  return tip ? (
+    <Tooltip text={label} placement="bottom">
+      {button}
+    </Tooltip>
+  ) : (
+    button
   );
 }

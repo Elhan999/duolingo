@@ -13,9 +13,12 @@ const VIEWPORT_GAP = 8;
 export function Tooltip({
   text,
   children,
+  placement = 'top',
 }: {
   text: string;
   children: ReactElement<{ 'aria-describedby'?: string }>;
+  /** "bottom" for controls at the top edge, such as the header. */
+  placement?: 'top' | 'bottom';
 }) {
   const id = useId();
   const tip = useRef<HTMLSpanElement>(null);
@@ -62,6 +65,7 @@ export function Tooltip({
         id={id}
         role="tooltip"
         className={styles.tip}
+        data-placement={placement}
         data-dismissed={dismissed}
       >
         {text}

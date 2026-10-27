@@ -18,6 +18,7 @@ import { ContinueLearning } from './continue-learning';
 import { coursesOptions, languagesOptions, useProgress } from './queries';
 import { LearningShell } from './learning-shell';
 import { LearningSkeleton, LearningError } from './data-state';
+import { FirstSteps } from './first-steps';
 import styles from './learning.module.scss';
 export function DashboardPage() {
   const { user } = useAuth();
@@ -49,6 +50,7 @@ export function DashboardPage() {
           <Stats />
         </div>
         <aside className={styles.dashboardAside}>
+          <FirstSteps />
           {progress.data ? (
             <>
               <WeeklyActivity records={progress.data} />
