@@ -61,14 +61,20 @@
   left: 50%;
   transform: translateX(-50%) rotate(-18deg);
   border-radius: 50%;
-  background: radial-gradient(circle at 32% 25%, #bcb8fa, #8d87d6 55%, #655dba);
+  // Brand blues from the palette, so the globe follows the theme.
+  background: radial-gradient(
+    circle at 32% 25%,
+    color-mix(in srgb, var(--color-primary) 35%, #fff),
+    var(--color-primary) 55%,
+    var(--color-action)
+  );
   box-shadow:
-    inset -16px -12px 30px rgb(48 39 122 / 20%),
-    0 20px 35px rgb(76 64 151 / 15%);
+    inset -16px -12px 30px rgb(10 30 90 / 22%),
+    0 20px 35px color-mix(in srgb, var(--color-primary) 18%, transparent);
   svg {
     width: 100%;
     height: 100%;
-    stroke: #ecebff;
+    stroke: #eaf1ff;
     stroke-width: 0.8;
     opacity: 0.6;
   }
@@ -116,11 +122,11 @@
 .bubbleTwo {
   right: -2%;
   bottom: 33px;
-  background: #4d477d;
-  color: #f7f5ff;
+  background: var(--color-action);
+  color: var(--color-on-action);
   transform: rotate(7deg);
   span {
-    color: #c5befa;
+    color: color-mix(in srgb, var(--color-on-action) 70%, transparent);
   }
 }
 .artSpark {
@@ -133,7 +139,7 @@
 .artDot {
   width: 10px;
   height: 10px;
-  background: #d6ac7f;
+  background: var(--color-sun);
   border-radius: 50%;
   position: absolute;
   bottom: 28px;
