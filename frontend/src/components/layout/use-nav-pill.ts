@@ -4,10 +4,9 @@ import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 export type NavPill = { x: number; y: number; width: number; height: number };
 
 const ACTIVE = '[data-nav-active="true"]';
-const DURATION = 620;
-// Slow start and soft landing: the highlight eases out of one item and
-// settles into the next like a drop of liquid.
-const EASING = 'cubic-bezier(0.65, 0, 0.25, 1)';
+const DURATION = 260;
+// A quick glide gives route changes feedback without making navigation wait.
+const EASING = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
 // Each page mounts its own shell, so state that must survive a navigation
 // lives outside React: the last resting place and the glide in flight.
@@ -36,9 +35,8 @@ function same(a: NavPill, b: NavPill) {
 }
 
 /**
- * Keyframes for a liquid move: the leading edge stretches toward the target
- * first, the pill thins a little while it is long, then the trailing edge
- * catches up and the pill settles.
+ * Keyframes for a compact glide: the highlight moves decisively to the target
+ * and settles without a long stretch or overshoot.
  */
 function glideFrames(from: NavPill, to: NavPill): Keyframe[] {
   const frame = (y: number, height: number, width: number, squeeze = 1) => ({
@@ -66,8 +64,6 @@ function glideFrames(from: NavPill, to: NavPill): Keyframe[] {
   return [
     { ...frame(from.y, from.height, from.width), offset: 0 },
     { ...lead, offset: 0.45 },
-    // A touch of overshoot past the target, then rest.
-    { ...frame(to.y + (down ? 2 : -2), to.height, to.width), offset: 0.82 },
     { ...frame(to.y, to.height, to.width), offset: 1 },
   ];
 }
