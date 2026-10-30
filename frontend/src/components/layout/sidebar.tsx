@@ -12,11 +12,7 @@ export type SidebarProps = {
   onNavigate?: (key: NavigationKey) => void;
   identity?: { name: string; description: string };
 };
-export function Sidebar({
-  active,
-  onNavigate,
-  identity,
-}: SidebarProps) {
+export function Sidebar({ active, onNavigate, identity }: SidebarProps) {
   const {
     messages: { nav },
   } = useI18n();
