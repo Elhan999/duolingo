@@ -411,7 +411,10 @@ export const en: Messages = {
     languagesEmptyTitle: 'Languages are on their way',
     languagesEmptyAction: 'Browse courses',
     factPlacement: 'Placement test before you start',
+    factPlacementBody:
+      'A short test shows where to begin, so you never repeat what you know.',
     factLocales: 'Interface in RU, KY and EN',
+    factLocalesBody: 'Russian, Kyrgyz and English — switch whenever you like.',
     factPwa: 'Installs like an app',
     factThemes: 'Light and dark theme',
     worldLabel: 'Languages of the world',

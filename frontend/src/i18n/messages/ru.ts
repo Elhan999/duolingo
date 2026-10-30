@@ -407,7 +407,11 @@ export const ru = {
     languagesEmptyTitle: 'Языки скоро появятся',
     languagesEmptyAction: 'Посмотреть курсы',
     factPlacement: 'Тест на уровень перед стартом',
+    factPlacementBody:
+      'Короткий тест покажет, с какого уровня начать, — без лишних повторов.',
     factLocales: 'Интерфейс на RU, KY и EN',
+    factLocalesBody:
+      'Русский, кыргызский и английский — переключайте язык в любой момент.',
     factPwa: 'Устанавливается как приложение',
     factThemes: 'Светлая и тёмная тема',
     worldLabel: 'Языки мира',

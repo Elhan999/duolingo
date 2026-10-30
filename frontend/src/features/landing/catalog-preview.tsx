@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { ArrowUpRight, BookOpen, Globe2 } from 'lucide-react';
+import { ArrowUpRight, BookOpen } from 'lucide-react';
 import { LanguageFlag } from '@/components/ui/language-flag';
 import { useI18n } from '@/providers/i18n-provider';
 import { getCourses, getLanguages } from '@/features/courses/catalog-api';
@@ -33,56 +33,35 @@ export function CatalogPreview() {
 
   return (
     <>
-      <section className={styles.languages} aria-labelledby="languages-heading">
-        <div>
-          <p className={styles.eyebrow}>{t.languagesLabel}</p>
+      {/* Signed-out visitors cannot read the language list, so an empty
+          "coming soon" panel would sit right above real courses. Show the
+          strip only when there is something true to put in it. */}
+      {activeLanguages.length > 0 && (
+        <section
+          className={styles.languages}
+          aria-labelledby="languages-heading"
+        >
+          <div>
+            <p className={styles.eyebrow}>{t.languagesLabel}</p>
 
-          <h2 id="languages-heading">{t.languagesTitle}</h2>
+            <h2 id="languages-heading">{t.languagesTitle}</h2>
 
-          <p>{t.languagesDescription}</p>
-        </div>
+            <p>{t.languagesDescription}</p>
+          </div>
 
-        <div className={styles.languageList}>
-          {languages.isPending ? (
-            <div role="status" aria-label={t.loadingCourses}>
-              <Skeleton />
-              <Skeleton />
-            </div>
-          ) : languages.isError ? (
-            <ErrorState
-              title={t.catalogError}
-              description={t.catalogErrorBody}
-              retryLabel={ui.retry}
-              onRetry={() => void languages.refetch()}
-            />
-          ) : activeLanguages.length ? (
-            activeLanguages.map((language) => (
+          <div className={styles.languageList}>
+            {activeLanguages.map((language) => (
               <a href="#courses" key={language.id}>
                 <span className={styles.languageFlag}>
                   <LanguageFlag code={language.code} width={84} height={64} />
                 </span>
 
                 <span className={styles.languageName}>{language.name}</span>
-
-                <span className={styles.languageCode}>
-                  {language.code.toUpperCase()}
-                </span>
               </a>
-            ))
-          ) : (
-            <EmptyState
-              icon={<Globe2 size={24} />}
-              title={t.languagesEmptyTitle}
-              description={t.languagesEmpty}
-              action={
-                <LinkButton href="#courses" variant="secondary">
-                  {t.languagesEmptyAction}
-                </LinkButton>
-              }
-            />
-          )}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section id="courses" className={styles.section}>
         <div className={styles.sectionHeading}>

@@ -1,46 +1,30 @@
 'use client';
 import Link from 'next/link';
-import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { useI18n } from '@/providers/i18n-provider';
 import { cn } from '@/lib/cn';
 import { Avatar } from '@/components/ui/surface';
-import { IconButton } from '@/components/ui/button';
 import { navigation, type NavigationKey } from './navigation';
 import { Logo } from './logo';
 import { useNavPill } from './use-nav-pill';
 import styles from './layout.module.scss';
 export type SidebarProps = {
   active: NavigationKey;
-  collapsed: boolean;
-  onCollapse: () => void;
   onNavigate?: (key: NavigationKey) => void;
   identity?: { name: string; description: string };
 };
 export function Sidebar({
   active,
-  collapsed,
-  onCollapse,
   onNavigate,
   identity,
 }: SidebarProps) {
   const {
     messages: { nav },
   } = useI18n();
-  const { ref, pillRef, pill, moveTo, current } = useNavPill(active, collapsed);
+  const { ref, pillRef, pill, moveTo, current } = useNavPill(active, true);
   return (
-    <aside className={cn(styles.sidebar, collapsed && styles.collapsed)}>
+    <aside className={cn(styles.sidebar, styles.collapsed)}>
       <div className={styles.brand}>
-        <Logo compact={collapsed} />
-        <IconButton
-          label={collapsed ? nav.expand : nav.collapse}
-          onClick={onCollapse}
-        >
-          {collapsed ? (
-            <PanelLeftOpen size={17} />
-          ) : (
-            <PanelLeftClose size={17} />
-          )}
-        </IconButton>
+        <Logo compact={false} />
       </div>
       <nav
         ref={ref}

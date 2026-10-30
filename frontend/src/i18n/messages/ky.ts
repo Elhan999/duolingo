@@ -405,7 +405,11 @@ export const ky: Messages = {
     languagesEmptyTitle: 'Тилдер жакында кошулат',
     languagesEmptyAction: 'Курстарды көрүү',
     factPlacement: 'Баштоо алдында деңгээл тести',
+    factPlacementBody:
+      'Кыска тест кайсы деңгээлден баштоо керектигин көрсөтөт — ашыкча кайталоосуз.',
     factLocales: 'Интерфейс RU, KY жана EN тилдеринде',
+    factLocalesBody:
+      'Орус, кыргыз жана англис тилдери — тилди каалаган убакта алмаштырыңыз.',
     factPwa: 'Колдонмо катары орнотулат',
     factThemes: 'Жарык жана караңгы тема',
     worldLabel: 'Дүйнө тилдери',

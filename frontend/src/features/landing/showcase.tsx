@@ -4,9 +4,11 @@ import {
   BookOpen,
   Check,
   Compass,
+  Languages,
   MessageCircle,
   Plus,
   Smartphone,
+  Target,
   UsersRound,
 } from 'lucide-react';
 import { useI18n } from '@/providers/i18n-provider';
@@ -103,7 +105,11 @@ export function BentoFeatures() {
             </div>
           </article>
           <article className={styles.tile} data-spotlight>
+            <span className={styles.icon}>
+              <Target size={18} aria-hidden="true" />
+            </span>
             <h3>{t.factPlacement}</h3>
+            <p>{t.factPlacementBody}</p>
             <div className={styles.levels} aria-hidden="true">
               {LEVELS.map((level) => (
                 <span key={level} data-active={level === 'A2'}>
@@ -113,10 +119,17 @@ export function BentoFeatures() {
             </div>
           </article>
           <article className={styles.tile} data-spotlight>
+            <span className={styles.icon}>
+              <Languages size={18} aria-hidden="true" />
+            </span>
             <h3>{t.factLocales}</h3>
+            <p>{t.factLocalesBody}</p>
             <div className={styles.flags} aria-hidden="true">
               {['ru', 'ky', 'en'].map((code) => (
-                <LanguageFlag key={code} code={code} width={44} height={32} />
+                <span key={code}>
+                  <LanguageFlag code={code} width={44} height={32} />
+                  <small>{code.toUpperCase()}</small>
+                </span>
               ))}
             </div>
           </article>
