@@ -120,51 +120,86 @@
   }
 }
 .progressArt {
-  padding: 2rem;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.5rem;
+  border-radius: 1.75rem;
   background:
     radial-gradient(
-      ellipse at 25% 30%,
-      color-mix(in srgb, var(--color-primary) 32%, transparent),
-      transparent 60%
+      ellipse at 20% 25%,
+      color-mix(in srgb, var(--color-primary) 26%, transparent),
+      transparent 62%
     ),
     radial-gradient(
-      ellipse at 80% 75%,
-      color-mix(in srgb, var(--color-info) 28%, transparent),
-      transparent 65%
+      ellipse at 85% 80%,
+      color-mix(in srgb, var(--color-info) 22%, transparent),
+      transparent 66%
     );
+}
+.chartCard {
+  padding: 1.05rem 1.15rem 0.4rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-float);
+}
+.chartHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-muted);
+  font-size: var(--text-2xs);
+  font-weight: 700;
+  b {
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-full);
+    background: var(--color-success-soft);
+    color: var(--color-success);
+    font-size: var(--text-3xs);
+    font-weight: 800;
+  }
+}
+.chart {
+  display: block;
+  width: 100%;
+  height: 112px;
+  margin-top: 0.6rem;
+  overflow: visible;
+}
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
   > div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    display: grid;
+    justify-items: start;
+    align-content: start;
+    gap: 0.1rem;
+    padding: 0.85rem 0.9rem;
     border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     background: var(--color-surface);
     box-shadow: var(--shadow-card);
-    padding: 1.1rem 1.2rem;
-    border-radius: var(--radius-lg);
-    color: var(--color-primary);
-    &:nth-of-type(2) {
-      transform: translateX(2rem);
-    }
-    > span {
-      flex: 1;
-      height: 6px;
-      background: var(--color-primary-soft);
-      border-radius: var(--radius-full);
-    }
-    > i {
-      width: 12px;
-      height: 12px;
-      border: 2px solid var(--color-border);
-      border-radius: 50%;
-    }
   }
-  > b {
-    display: block;
-    height: 26px;
-    width: 1px;
-    margin-left: 2rem;
-    border-left: 1px dashed var(--color-primary);
-    opacity: 0.4;
+  svg {
+    margin-bottom: 0.35rem;
+    color: var(--color-primary);
+  }
+  > div:nth-child(2) svg {
+    color: var(--color-warning);
+  }
+  > div:nth-child(3) svg {
+    color: var(--color-success);
+  }
+  b {
+    font-size: 1.3rem;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+  span {
+    color: var(--color-muted);
+    font-size: var(--text-3xs);
+    line-height: 1.3;
   }
 }
 .progressLabels {
@@ -234,8 +269,12 @@
     margin: 4rem auto;
   }
   .progressArt {
-    width: min(100%, 350px);
-    padding: 1.5rem 2rem 1.5rem 1rem;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1.35rem;
+  }
+  .chart {
+    height: 96px;
   }
 }
 @media (max-width: 23rem) {

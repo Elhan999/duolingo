@@ -96,19 +96,24 @@
     min-height: 80px;
     gap: 0.5rem;
   }
-  .headerStart {
-    display: none !important;
-  }
+  // Keep the primary action on phones: signing in is still one tap away
+  // from the menu, while starting a course is the point of the page.
   .headerActions {
-    gap: 0;
+    gap: 0.25rem;
   }
   .headerLogin {
+    display: none !important;
+  }
+  .headerStart {
+    flex: none;
     padding-inline: 0.7rem !important;
+    font-size: var(--text-2xs) !important;
+    white-space: nowrap;
   }
 }
 @media (max-width: 23rem) {
-  .headerLogin {
-    display: none;
+  .headerStart {
+    display: none !important;
   }
 }
 

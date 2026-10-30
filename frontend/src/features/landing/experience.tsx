@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { BookOpen, Check, CheckCircle2, Sparkles, Trophy } from 'lucide-react';
+import { BookOpen, Check, Sparkles, Trophy } from 'lucide-react';
 import { useI18n } from '@/providers/i18n-provider';
 import { Card } from '@/components/ui/surface';
 import { Button } from '@/components/ui/button';
@@ -69,27 +69,70 @@ export function LearningExperience() {
 }
 export function ProgressPreview() {
   const {
-    messages: { landing: t },
+    messages: { landing: t, learning: l },
   } = useI18n();
+  const stats = [
+    { value: '24', Icon: BookOpen, label: t.progressOne },
+    { value: '1 240', Icon: Sparkles, label: t.progressTwo },
+    { value: '5', Icon: Trophy, label: t.progressThree },
+  ];
   return (
     <section className={styles.progressSection}>
       <div className={styles.progressArt} aria-hidden="true">
-        <div>
-          <BookOpen />
-          <span />
-          <i />
+        <div className={styles.chartCard}>
+          <div className={styles.chartHead}>
+            <span>{l.weekly}</span>
+            <b>+18%</b>
+          </div>
+          <svg
+            className={styles.chart}
+            viewBox="0 0 320 118"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="learn-chart-fill" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="0%"
+                  stopColor="var(--color-primary)"
+                  stopOpacity="0.26"
+                />
+                <stop
+                  offset="100%"
+                  stopColor="var(--color-primary)"
+                  stopOpacity="0"
+                />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0 92 L46 80 L92 86 L138 58 L184 66 L230 40 L276 48 L320 20 L320 118 L0 118 Z"
+              fill="url(#learn-chart-fill)"
+            />
+            <path
+              d="M0 92 L46 80 L92 86 L138 58 L184 66 L230 40 L276 48 L320 20"
+              fill="none"
+              stroke="var(--color-primary)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <circle
+              cx="230"
+              cy="40"
+              r="4.5"
+              fill="var(--color-surface)"
+              stroke="var(--color-primary)"
+              strokeWidth="2.5"
+            />
+          </svg>
         </div>
-        <b />
-        <div>
-          <Sparkles />
-          <span />
-          <i />
-        </div>
-        <b />
-        <div>
-          <Trophy />
-          <span />
-          <CheckCircle2 />
+        <div className={styles.statRow}>
+          {stats.map(({ value, Icon, label }) => (
+            <div key={label}>
+              <Icon size={17} />
+              <b>{value}</b>
+              <span>{label}</span>
+            </div>
+          ))}
         </div>
       </div>
       <div>

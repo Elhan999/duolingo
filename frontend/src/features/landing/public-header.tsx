@@ -17,35 +17,27 @@ export function PublicHeader() {
   const { user } = useAuth();
   const [menu, setMenu] = useState(false);
 
-  // Состояние видимости хедера
+  // The bar retreats while you read downwards and returns the moment you
+  // scroll up. It never disappears just because the page stopped moving.
   const [isVisible, setIsVisible] = useState(true);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastScrollRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      // 1. При любом движении скролла сразу показываем хедер
-      setIsVisible(true);
-
-      // 2. Сбрасываем предыдущий таймер ожидания
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+      const y = window.scrollY;
+      if (y < 80) {
+        setIsVisible(true);
+        lastScrollRef.current = y;
+        return;
       }
-
-      // 3. Если мы находимся в самом верху страницы (допустим, первые 50px),
-      // то скрывать шапку вообще не нужно, пусть висит всегда.
-      if (window.scrollY < 50) return;
-
-      // 4. Устанавливаем таймер: если 1500мс (1.5 сек) нет движений — скрываем
-      timeoutRef.current = setTimeout(() => {
-        setIsVisible(false);
-      }, 1700);
+      const delta = y - lastScrollRef.current;
+      if (Math.abs(delta) < 6) return;
+      setIsVisible(delta < 0);
+      lastScrollRef.current = y;
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const links = [

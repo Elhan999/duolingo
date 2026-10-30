@@ -15,7 +15,9 @@ const subscribe = (callback: () => void) => {
 
 const getSnapshot = () => {
   try {
-    return localStorage.getItem(KEY) === '1';
+    const saved = localStorage.getItem(KEY);
+    // New sessions start with the compact rail; an explicit prior choice is kept.
+    return saved === null ? true : saved === '1';
   } catch {
     return false;
   }

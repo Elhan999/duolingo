@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Montserrat } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { AppProviders } from '@/providers/app-providers';
 import { getLocale } from '@/i18n/server';
 import { messages } from '@/i18n/messages';
@@ -10,13 +10,6 @@ const body = Inter({
   variable: '--font-body',
   display: 'swap',
 });
-const heading = Montserrat({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['600', '700', '800'],
-  variable: '--font-heading',
-  display: 'swap',
-});
-
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -125,7 +118,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${body.variable} ${heading.variable}`}
+      className={body.variable}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

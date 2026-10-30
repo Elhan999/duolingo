@@ -30,7 +30,7 @@ export function Sidebar({
   return (
     <aside className={cn(styles.sidebar, collapsed && styles.collapsed)}>
       <div className={styles.brand}>
-        <Logo compact={collapsed} />
+        <Logo compact={false} />
         <IconButton
           label={collapsed ? nav.expand : nav.collapse}
           onClick={onCollapse}
