@@ -23,7 +23,6 @@ import { WaveDivider } from './wave-divider';
 import { Reveal } from './reveal';
 import { ScrollToTopButton } from './scroll-to-top-button';
 import { BentoFeatures, Faq, LanguageMarquee } from './showcase';
-import { ProductPreview } from './product-preview';
 import styles from './landing.module.scss';
 export function LandingPage() {
   const {
@@ -90,7 +89,6 @@ export function LandingPage() {
           </ul>
           <WaveDivider />
         </div>
-        <ProductPreview />
         <BentoFeatures />
         <CatalogPreview />
         <section className={styles.section}>

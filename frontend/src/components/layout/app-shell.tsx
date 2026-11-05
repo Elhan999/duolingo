@@ -53,11 +53,7 @@ export function AppShell({
   } = useI18n();
   return (
     <div className={cn(styles.shell, styles.shellCollapsed)}>
-      <Sidebar
-        active={active}
-        onNavigate={onNavigate}
-        identity={identity}
-      />
+      <Sidebar active={active} onNavigate={onNavigate} identity={identity} />
       <div className={styles.workspace}>
         <Header
           onMenu={() => setMenu(true)}
