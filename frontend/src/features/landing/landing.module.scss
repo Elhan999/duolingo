@@ -123,8 +123,9 @@
 .heroDescription {
   max-width: 30rem;
   font-size: var(--text-md);
-  color: var(--color-muted);
-  line-height: 1.8;
+  color: var(--color-text);
+  font-weight: 500;
+  line-height: 1.7;
 }
 .heroActions {
   display: flex;
@@ -133,8 +134,17 @@
   margin-top: 1.8rem;
   > a {
     min-height: 50px;
-    padding-inline: 1.4rem;
+    padding-inline: 1.6rem;
     border-radius: 999px;
+    transition:
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      transform: scale(1.02);
+      box-shadow: 0 0 0 4px var(--color-primary-soft);
+    }
   }
 }
 .heroNote {
