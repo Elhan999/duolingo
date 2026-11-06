@@ -23,6 +23,10 @@
   &:hover:not(:disabled) > svg:last-child:not(:first-child) {
     transform: translateX(2px);
   }
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
   &:active:not(:disabled) {
     transform: scale(0.98);
   }

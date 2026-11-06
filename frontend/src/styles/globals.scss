@@ -84,17 +84,16 @@ h2,
 h3 {
   font-family: var(--font-display);
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-  // Even line lengths, no lone last word on headings.
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 p,
 li,
 dd {
-  // Avoid orphans in running text.
   text-wrap: pretty;
+  line-height: 1.7;
 }
 
 h1 {
